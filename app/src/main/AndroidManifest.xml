@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.BaseActivity"></activity>
+        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.Introduce.IntroduceActivity"></activity>
     </application>
 
 </manifest>
