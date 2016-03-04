@@ -27,6 +27,7 @@ public class BaseActivity extends Activity {
         }
 
         //setTranslucentStatus(true);
+        init(savedInstanceState);
         setNavBar();
     }
 
@@ -49,32 +50,32 @@ public class BaseActivity extends Activity {
 
     private void setNavBar()
     {
-        final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
-
-        if (titleBar == null)
-            return;
-
-        if (getNavTitle() == null || getNavTitle().length() == 0)
-            titleBar.setVisibility(View.GONE);
-
-        titleBar.setImmersive(true);
-
-        titleBar.setBackgroundColor(Color.parseColor("#64b4ff"));
-
-        titleBar.setLeftImageResource(R.mipmap.back_green);
-        titleBar.setLeftText("返回");
-        titleBar.setLeftTextColor(Color.WHITE);
-        titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                leftNavBtnHandle();
-            }
-        });
-
-        titleBar.setTitle(getNavTitle());
-        titleBar.setTitleColor(Color.WHITE);
-        //titleBar.setSubTitleColor(Color.WHITE);
-        titleBar.setDividerColor(Color.GRAY);
+//        final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
+//
+//        if (titleBar == null)
+//            return;
+//
+//        if (getNavTitle() == null || getNavTitle().length() == 0)
+//            titleBar.setVisibility(View.GONE);
+//
+//        titleBar.setImmersive(true);
+//
+//        titleBar.setBackgroundColor(Color.parseColor("#64b4ff"));
+//
+//        titleBar.setLeftImageResource(R.mipmap.back_green);
+//        titleBar.setLeftText("返回");
+//        titleBar.setLeftTextColor(Color.WHITE);
+//        titleBar.setLeftClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                leftNavBtnHandle();
+//            }
+//        });
+//
+//        titleBar.setTitle(getNavTitle());
+//        titleBar.setTitleColor(Color.WHITE);
+//        //titleBar.setSubTitleColor(Color.WHITE);
+//        titleBar.setDividerColor(Color.GRAY);
 
 //        titleBar.setActionTextColor(Color.WHITE);
 //        mCollectView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.mipmap.collect) {

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:voyager="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhitian.mybole.activity.login.LoginActivity"
+    android:orientation="vertical"
+    android:background="@color/page_background"
+    android:paddingLeft="@dimen/page_h_margin"
+    android:paddingRight="@dimen/page_h_margin">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/widget_height"
+            android:id="@+id/et_telphone"
+            android:textSize="@dimen/font_normal_size"
+            android:textColor="@color/graydarkslate"
+            android:hint="@string/login_hint_telphone"
+            android:textColorHint="@color/graylightslate"
+            android:background="@drawable/input_shape"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" />
+
+        <com.voyager.countdownbutton.CountDownButtonView
+            android:layout_width="100dp"
+            android:layout_height="@dimen/widget_height"
+            android:background="@drawable/btn_selector"
+            android:text="@string/login_btn_txt_captcha"
+            android:textSize="@dimen/font_normal_size"
+            android:textColor="@color/white"
+            voyager:format="%d秒后重新获取"
+            voyager:text="@string/login_btn_txt_captcha"
+            voyager:time="10"
+            android:id="@+id/bv_txt_captcha"
+        />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/et_captcha"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/widget_height"
+            android:background="@drawable/input_shape"
+            android:textSize="@dimen/font_normal_size"
+            android:textColor="@color/graydarkslate"
+            android:hint="@string/login_hint_captcha"
+            android:textColorHint="@color/graylightslate"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_btn_voice_captcha"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/graylightslate"
+            android:id="@+id/tv_voice_captcha"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_height"
+        android:background="@drawable/btn_selector"
+        android:text="@string/login_btn_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20"
+        android:id="@+id/btn_login"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_btn_policy"
+        android:textSize="@dimen/text_size_12"
+        android:textColor="@color/grayslate"
+        android:id="@+id/tv_policy"
+        android:layout_marginTop="9dp"
+        android:layout_gravity="right" />
+
+</LinearLayout>

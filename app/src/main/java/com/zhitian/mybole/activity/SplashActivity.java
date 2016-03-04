@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.Introduce.IntroduceActivity;
+import com.zhitian.mybole.activity.login.LoginActivity;
 
 import android.os.Handler;
 
@@ -118,7 +119,8 @@ public class SplashActivity extends Activity {
     }
 
     private void redirectTo() {
-        Intent intent = new Intent(this, IntroduceActivity.class);
+        //Intent intent = new Intent(this, IntroduceActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

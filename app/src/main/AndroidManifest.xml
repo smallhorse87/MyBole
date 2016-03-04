@@ -20,7 +20,10 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.Introduce.IntroduceActivity"></activity>
+        <activity
+            android:name=".activity.Introduce.IntroduceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.login.LoginActivity" />
     </application>
 
 </manifest>

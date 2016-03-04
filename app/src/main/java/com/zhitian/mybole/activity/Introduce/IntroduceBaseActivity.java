@@ -8,10 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.Introduce.adapter.PagerAdapter;
@@ -21,25 +19,19 @@ import java.util.List;
 import java.util.Vector;
 
 public abstract class IntroduceBaseActivity extends AppCompatActivity {
-    public final static int DEFAULT_COLOR = 1;
-
     protected PagerAdapter mPagerAdapter;
     protected ViewPager pager;
     protected List<Fragment> fragments = new Vector<>();
     protected int slidesNumber;
     protected IndicatorController mController;
-    protected int selectedIndicatorColor = DEFAULT_COLOR;
-    protected int unselectedIndicatorColor = DEFAULT_COLOR;
     protected View skipButton;
     protected int savedCurrentItem;
 
     @Override
     final protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.intro_layout);
+        setContentView(R.layout.activity_introduce);
 
         skipButton = findViewById(R.id.skip);
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), fragments);
@@ -82,11 +74,11 @@ public abstract class IntroduceBaseActivity extends AppCompatActivity {
         slidesNumber = fragments.size();
 
         if (slidesNumber > 0) {
-            initController();
+            initIndicatorContainer();
         }
     }
 
-    private void initController() {
+    private void initIndicatorContainer() {
         if (mController == null)
             mController = new IndicatorController();
 
@@ -94,10 +86,7 @@ public abstract class IntroduceBaseActivity extends AppCompatActivity {
         indicatorContainer.addView(mController.newInstance(this));
 
         mController.initialize(slidesNumber);
-        if (selectedIndicatorColor != DEFAULT_COLOR)
-            mController.setSelectedIndicatorColor(selectedIndicatorColor);
-        if (unselectedIndicatorColor != DEFAULT_COLOR)
-            mController.setUnselectedIndicatorColor(unselectedIndicatorColor);
+
     }
 
     public void addSlide(@NonNull Fragment fragment) {
@@ -153,26 +142,6 @@ public abstract class IntroduceBaseActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-    }
-
-    /**
-     * Overrides color of selected and unselected indicator colors
-     * <p/>
-     * Set DEFAULT_COLOR for color value if you don't want to change it
-     *
-     * @param selectedIndicatorColor   your selected color
-     * @param unselectedIndicatorColor your unselected color
-     */
-    public void setIndicatorColor(int selectedIndicatorColor, int unselectedIndicatorColor) {
-        this.selectedIndicatorColor = selectedIndicatorColor;
-        this.unselectedIndicatorColor = unselectedIndicatorColor;
-
-        if (mController != null) {
-            if (selectedIndicatorColor != DEFAULT_COLOR)
-                mController.setSelectedIndicatorColor(selectedIndicatorColor);
-            if (unselectedIndicatorColor != DEFAULT_COLOR)
-                mController.setUnselectedIndicatorColor(unselectedIndicatorColor);
         }
     }
 

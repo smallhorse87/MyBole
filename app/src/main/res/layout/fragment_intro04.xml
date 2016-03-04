@@ -2,22 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4CAF50"
+    android:background="@color/white"
     android:layout_weight="10"
     android:id="@+id/main">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:paddingLeft="32dp"
-        android:layout_weight="3"
-        android:fontFamily="sans-serif-thin"
-        android:textColor="#ffffff"
-        android:paddingRight="32dp"
-        android:textSize="28sp"
-        android:text="Slide 4 title"/>
+        style="@style/introduce_page_title"
+        android:text="@string/intr04_title"/>
+
+    <TextView
+        style="@style/introduce_page_subtitle"
+        android:text="@string/intr04_subtitle"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -27,27 +22,8 @@
         android:layout_weight="5">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            style="@style/introduce_page_image"
             android:src="@mipmap/ic_slide04"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="#ffffff"
-        android:paddingLeft="64dp"
-        android:paddingRight="64dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:onClick="getStarted"
-        android:text="GET STARTED"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="64dp" />
+
 </LinearLayout>

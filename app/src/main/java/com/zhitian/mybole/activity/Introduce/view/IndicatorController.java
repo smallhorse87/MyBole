@@ -15,14 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IndicatorController {
-    public final static int DEFAULT_COLOR = 1;
-
     private Context mContext;
     private LinearLayout mDotLayout;
     private List<ImageView> mDots;
     private int mSlideCount;
-    int selectedDotColor = DEFAULT_COLOR;
-    int unselectedDotColor = DEFAULT_COLOR;
     int mCurrentposition;
 
     private static final int FIRST_PAGE_NUM = 0;
@@ -38,8 +34,6 @@ public class IndicatorController {
     public void initialize(int slideCount) {
         mDots = new ArrayList<>();
         mSlideCount = slideCount;
-        selectedDotColor = -1;
-        unselectedDotColor = -1;
 
         for (int i = 0; i < slideCount; i++) {
             ImageView dot = new ImageView(mContext);
@@ -51,7 +45,16 @@ public class IndicatorController {
             );
 
             mDotLayout.addView(dot, params);
+
+            float scale = mContext.getResources().getDisplayMetrics().density;
+
+            if(mDots.size() >= 1) {
+                View lastDot = mDots.get(mDots.size()-1);
+                lastDot.setPadding(0, 0, (int) (15 * scale + 0.5f), 0);
+            }
+
             mDots.add(dot);
+
         }
 
         selectPosition(FIRST_PAGE_NUM);
@@ -63,23 +66,8 @@ public class IndicatorController {
         for (int i = 0; i < mSlideCount; i++) {
             int drawableId = (i == index) ? (R.drawable.indicator_dot_white) : (R.drawable.indicator_dot_grey);
             Drawable drawable = ContextCompat.getDrawable(mContext, drawableId);
-            if (selectedDotColor != DEFAULT_COLOR && i == index)
-                drawable.mutate().setColorFilter(selectedDotColor, PorterDuff.Mode.SRC_IN);
-            if (unselectedDotColor != DEFAULT_COLOR && i != index)
-                drawable.mutate().setColorFilter(unselectedDotColor, PorterDuff.Mode.SRC_IN);
             mDots.get(i).setImageDrawable(drawable);
         }
     }
 
-
-    public void setSelectedIndicatorColor(int color) {
-        selectedDotColor = color;
-        selectPosition(mCurrentposition);
-    }
-
-
-    public void setUnselectedIndicatorColor(int color) {
-        unselectedDotColor = color;
-        selectPosition(mCurrentposition);
-    }
 }

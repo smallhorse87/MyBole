@@ -4,5 +4,42 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="white40">#40FFFFFF</color>
+    <color name="white60">#95ffffff</color>
+    <color name="white80">#cfffffff</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="red">#FF0000</color>
+    <color name="gold">#FFD700</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="purple">#800080</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FFA500</color>
+    <color name="lemonyellow">#FFFACD</color>
+    <color name="graywhite">#F5F5F5</color>
+    <color name="graylightslate">#cccccc</color>
+    <color name="grayslate">#989898</color>
+    <color name="graydarkslate">#4d4d4d</color>
+    <color name="lightblue">#0083FF</color>
+
+    <color name="major_yellow">#feb416</color>
+    <color name="major_yellow40">#40feb416</color>
+
+    <color name="grid_create_activity_normal_color">#f6687c</color>
+    <color name="grid_create_activity_pressed_color">#e44d62</color>
+    <color name="grid_my_activity_normal_color">#96dd3e</color>
+    <color name="grid_my_activity_pressed_color">#7fc626</color>
+    <color name="grid_total_staticis_normal_color">#7d79fb</color>
+    <color name="grid_total_staticis_pressed_color">#6460ee</color>
+    <color name="grid_verify_code_normal_color">#4fc8f2</color>
+    <color name="grid_verify_code_pressed_color">#30b1dd</color>
+
+    <color name="page_background">#f2f2f2</color>
+
+    <color name="input_background_color">@color/white</color>
+    <color name="input_outline_color">#d8d8d8</color>
+
 </resources>

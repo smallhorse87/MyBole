@@ -8,6 +8,7 @@ import com.zhitian.mybole.R;
 
 public class MainActivity extends BaseActivity {
 
+    @Override
     protected void init(Bundle savedInstanceState) {
 
     }
