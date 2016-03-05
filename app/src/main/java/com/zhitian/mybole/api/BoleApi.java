@@ -33,6 +33,13 @@ public class BoleApi {
         ApiHttpClient.post("system/logincaptcha", params, jsonhandler);
     }
 
+    public static void loginWithCaptcha(String telnum, String captcha, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+        params.put("mob", telnum);
+        params.put("captcha", captcha);
+        ApiHttpClient.post("merchant/login", params, jsonhandler);
+    }
+
     /**
      * 获取新闻列表
      *

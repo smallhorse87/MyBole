@@ -17,7 +17,7 @@ public class StringUtils {
 
     public static boolean isValidPasscode(String passcode)
     {
-        Pattern p=Pattern.compile("^d{4}$");
+        Pattern p=Pattern.compile("^\\d{4}$");
         Matcher m=p.matcher(passcode);
         return m.matches();
     }

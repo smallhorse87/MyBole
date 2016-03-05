@@ -11,6 +11,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 import com.zhitian.mybole.api.ApiHttpClient;
 import com.zhitian.mybole.base.BaseApplication;
+import com.zhitian.mybole.utils.PersistenceUtils;
 
 /**
  * 全局应用程序类：用于保存和调用全局应用配置及访问网络数据
@@ -106,9 +107,6 @@ public class AppContext extends BaseApplication {
                 }
                 Toast toast = new Toast(context());
                 toast.setView(view);
-                //toast.setGravity(gravity, 0 , TDevice.getActionBarHeight(context()));
-                // getToastMarignBottom()
-                // toast.setGravity(Gravity.TOP|Gravity.LEFT,0 ,0);
                 toast.setDuration(duration);
                 toast.show();
 
@@ -116,5 +114,40 @@ public class AppContext extends BaseApplication {
                 lastToastTime = System.currentTimeMillis();
             }
         }
+    }
+
+    /**
+     * 保存登录信息
+     *
+     * @param uid
+     */
+    public static void saveLoginInfo(final String uid, final String gsid, final String telnum) {
+        PersistenceUtils.setProperty("user.uid", uid);
+        PersistenceUtils.setProperty("user.gsid", gsid);
+        PersistenceUtils.setProperty("user.telnum", telnum);
+    }
+
+    /**
+     * 清除登录信息
+     */
+    public static void cleanLoginInfo() {
+        PersistenceUtils.removeProperty("user.uid", "user.gsid", "user.telnum");
+    }
+
+    /**
+     * 获取登录信息
+     *
+     * @return
+     */
+    public static String getUid() {
+        return PersistenceUtils.getProperty("user.name");
+    }
+
+    public static String getGsid() {
+        return PersistenceUtils.getProperty("user.gsid");
+    }
+
+    public static String getTelnum() {
+        return PersistenceUtils.getProperty("user.telnum");
     }
 }

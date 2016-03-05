@@ -17,7 +17,9 @@ import com.zhitian.mybole.R;
 import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.ApiResult;
 import com.zhitian.mybole.base.BaseActivity;
+import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.utils.StringUtils;
+import com.zhitian.mybole.utils.TDevice;
 
 import org.json.JSONObject;
 
@@ -62,6 +64,8 @@ public class LoginActivity extends BaseActivity {
 
         btnLogin.setEnabled(false);
         tvVoiceCaptcha.setVisibility(View.GONE);
+
+        etTelphone.setText(AppContext.getTelnum());
 
         bvTxtCaptcha.setCountDownListener(new CountDownButtonView.CountDownListener() {
             @Override
@@ -125,6 +129,7 @@ public class LoginActivity extends BaseActivity {
                 voiceCaptchaPressed();
                 break;
             case R.id.btn_login:
+                loginBtnPressed();
                 break;
             case R.id.tv_policy:
                 break;
@@ -138,9 +143,12 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        showWaitDialog("发送请求");
+        if(!TDevice.hasInternet()){
+            AppContext.showToast("没有网络");
+            return;
+        }
 
-        //bvTxtCaptcha.startCountDown(); stony debug
+        bvTxtCaptcha.startCountDown();
     }
 
     void voiceCaptchaPressed() {
@@ -151,7 +159,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        showWaitDialog("发送请求");
+        AppContext.showToast("发送请求");
 
         BoleApi.getVoicePasscodeForLogin(etTelphone.getText().toString(), new JsonHttpResponseHandler() {
             @Override
@@ -161,11 +169,11 @@ public class LoginActivity extends BaseActivity {
                 ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
                 Log.d("stony", result.getMsg());
 
-                if (result.getRet()==0){
+                if (result.getRet() == 0) {
                     try {
                         JSONObject retData = response.getJSONObject("data");
                         AppContext.showToast(retData.getString("captcha"));
-                    } catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                 } else {
@@ -181,6 +189,62 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    void loginBtnPressed() {
+
+        if (!StringUtils.isValidTel(etTelphone.getText().toString()))
+        {
+            AppContext.showToast("手机格式不对");
+            return;
+        }
+
+        if (!StringUtils.isValidPasscode(etCaptcha.getText().toString()))
+        {
+            AppContext.showToast("验证码格式不对");
+            return;
+        }
+
+        showWaitDialog("发送请求");
+
+        BoleApi.loginWithCaptcha(etTelphone.getText().toString(),
+                etCaptcha.getText().toString(),
+                new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Gson gson = new Gson();
+                ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
+                Log.d("stony", result.getMsg());
+
+                if (result.getRet()==0){
+                    try {
+                        JSONObject merchantInfoJson = response.getJSONObject("data").getJSONObject("merchantInfo");
+                        String     gsid             = response.getJSONObject("data").getString("gsid");
+
+                        MerchantInfo merchantInfo   = gson.fromJson(merchantInfoJson.toString(), MerchantInfo.class);
+
+                        AppContext.saveLoginInfo(merchantInfo.getUserId(), gsid, etTelphone.getText().toString());
+
+                        Log.d("stony", merchantInfo.getAddress());
+
+                        hideWaitDialog();
+                        AppContext.showToast("登录成功");
+
+                    } catch (Exception e){
+
+                    }
+                } else {
+                    AppContext.showToast(result.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                hideWaitDialog();
+                AppContext.showToast("请求失败");
+            }
+        });
+
+    }
     //网络请求
 
 
