@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.bacy.view.titlebar.TitleBar;
 
 import com.zhitian.mybole.ui.dialog.CommonToast;
@@ -24,6 +23,8 @@ import com.zhitian.mybole.ui.dialog.DialogHelper;
 import com.zhitian.mybole.ui.dialog.WaitDialog;
 
 import com.zhitian.mybole.R;
+
+import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity implements
         DialogControl, VisibilityControl, View.OnClickListener {
@@ -41,8 +42,12 @@ public class BaseActivity extends AppCompatActivity implements
             setContentView(getLayoutId());
         }
 
+        ButterKnife.bind(this);
+
         //setTranslucentStatus(true);
-        init(savedInstanceState);
+        initViews(savedInstanceState);
+        initListeners(savedInstanceState);
+
         setNavBar();
     }
 
@@ -136,9 +141,9 @@ public class BaseActivity extends AppCompatActivity implements
         finish();
     }
 
-    protected void init(Bundle savedInstanceState) {
+    protected void initViews(Bundle savedInstanceState) {}
 
-    }
+    protected void initListeners(Bundle savedInstanceState) {}
 
     public static boolean hasKitKat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;

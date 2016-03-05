@@ -7,6 +7,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.zhitian.mybole.AppContext;
+import com.zhitian.mybole.utils.TDevice;
+import com.zhitian.mybole.utils.TLog;
 
 
 import java.util.Locale;
@@ -29,29 +32,40 @@ public class ApiHttpClient {
 	public ApiHttpClient() {
 	}
 
-	public static AsyncHttpClient getHttpClient() {
-		return client;
-	}
+	public static void put(String partUrl, AsyncHttpResponseHandler handler) {
 
-	public static void cancelAll(Context context) {
-		client.cancelRequests(context, true);
+		client.put(getAbsoluteApiUrl(partUrl), attachParams(null), handler);
+		log(new StringBuilder("PUT ").append(partUrl).toString());
 	}
 
 	public static void delete(String partUrl, AsyncHttpResponseHandler handler) {
-		client.delete(getAbsoluteApiUrl(partUrl), handler);
+		client.delete(getAbsoluteApiUrl(partUrl), attachParams(null), handler);
 		log(new StringBuilder("DELETE ").append(partUrl).toString());
-	}
-
-	public static void get(String partUrl, AsyncHttpResponseHandler handler) {
-		client.get(getAbsoluteApiUrl(partUrl), handler);
-		log(new StringBuilder("GET ").append(partUrl).toString());
 	}
 
 	public static void get(String partUrl, RequestParams params,
 			AsyncHttpResponseHandler handler) {
-		client.get(getAbsoluteApiUrl(partUrl), params, handler);
+		client.get(getAbsoluteApiUrl(partUrl), attachParams(params), handler);
 		log(new StringBuilder("GET ").append(partUrl).append("&")
 				.append(params).toString());
+	}
+
+	public static void post(String partUrl, RequestParams params,
+							AsyncHttpResponseHandler handler) {
+		client.post(getAbsoluteApiUrl(partUrl), attachParams(params), handler);
+		log(new StringBuilder("POST ").append(partUrl).append("&")
+				.append(params).toString());
+	}
+
+	public static void post(String partUrl, RequestParams params,
+							JsonHttpResponseHandler jsonhandler) {
+		client.post(getAbsoluteApiUrl(partUrl), attachParams(params), jsonhandler);
+		log(new StringBuilder("POST ").append(partUrl).append("&")
+				.append(params).toString());
+	}
+
+	public static void cancelAll(Context context) {
+		client.cancelRequests(context, true);
 	}
 
 	public static String getAbsoluteApiUrl(String partUrl) {
@@ -60,50 +74,8 @@ public class ApiHttpClient {
 		return url;
 	}
 
-	public static String getApiUrl() {
-		return API_URL;
-	}
-
 	public static void log(String log) {
-		//TLog.log("BaseApi", log); stony debug
-	}
-
-	public static void post(String partUrl, AsyncHttpResponseHandler handler) {
-		client.post(getAbsoluteApiUrl(partUrl), handler);
-		log(new StringBuilder("POST ").append(partUrl).toString());
-	}
-
-	public static void post(String partUrl, RequestParams params,
-			AsyncHttpResponseHandler handler) {
-		client.post(getAbsoluteApiUrl(partUrl), params, handler);
-		log(new StringBuilder("POST ").append(partUrl).append("&")
-				.append(params).toString());
-	}
-
-	public static void post(String partUrl, RequestParams params,
-							JsonHttpResponseHandler jsonhandler) {
-		client.post(getAbsoluteApiUrl(partUrl), params, jsonhandler);
-		log(new StringBuilder("POST ").append(partUrl).append("&")
-				.append(params).toString());
-	}
-
-	//newJsonHttpResponseHandler
-
-	public static void put(String partUrl, AsyncHttpResponseHandler handler) {
-		client.put(getAbsoluteApiUrl(partUrl), handler);
-		log(new StringBuilder("PUT ").append(partUrl).toString());
-	}
-
-	public static void put(String partUrl, RequestParams params,
-			AsyncHttpResponseHandler handler) {
-		client.put(getAbsoluteApiUrl(partUrl), params, handler);
-		log(new StringBuilder("PUT ").append(partUrl).append("&")
-				.append(params).toString());
-	}
-
-
-	public static void setApiUrl(String apiUrl) {
-		API_URL = apiUrl;
+		TLog.log("BaseApi", log);
 	}
 
 	public static void setHttpClient(AsyncHttpClient c) {
@@ -111,6 +83,31 @@ public class ApiHttpClient {
 		client.addHeader("Accept-Language", Locale.getDefault().toString());
 		client.addHeader("Host", HOST);
 		client.addHeader("Connection", "Keep-Alive");
+	}
+
+	public static RequestParams attachParams(RequestParams params)
+	{
+		if(params == null){
+			params = new RequestParams();
+		}
+
+		params.put("uuid", TDevice.getUdid());
+
+		if (AppContext.getUid() != null)
+			params.put("uid",  AppContext.getUid());
+
+		if (AppContext.getGsid() != null)
+			params.put("gsid", AppContext.getGsid());
+
+//		params.put("c", "android");
+//		params.put("os", "android");
+//		params.put("ua", "android");
+//		params.put("cv", "android");
+//		params.put("sv", "android");
+//		params.put("cfg", "android");
+
+		return params;
+
 	}
 
 }

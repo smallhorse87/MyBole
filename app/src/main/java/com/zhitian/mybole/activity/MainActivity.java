@@ -9,7 +9,7 @@ import com.zhitian.mybole.base.BaseActivity;
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void init(Bundle savedInstanceState) {
+    protected void initViews(Bundle savedInstanceState) {
 
     }
 

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
-        <EditText
+        <com.zhitian.mybole.ui.ClearEditText
             android:layout_width="wrap_content"
             android:layout_height="@dimen/widget_height"
             android:id="@+id/et_telphone"

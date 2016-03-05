@@ -671,7 +671,7 @@ public class TDevice {
 	/**
 	 * 用来判断服务是否运行.
 	 * 
-	 * @param context
+	 * @param mContext
 	 * @param className
 	 *            判断的服务名字
 	 * @return true 在运行 false 不在运行
@@ -692,4 +692,6 @@ public class TDevice {
 		}
 		return isRunning;
 	}
+
+
 }

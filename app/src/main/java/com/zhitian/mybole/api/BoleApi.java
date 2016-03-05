@@ -7,6 +7,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import com.zhitian.mybole.api.ApiHttpClient;
+import com.zhitian.mybole.utils.TDevice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BoleApi {
-    public static final int DEF_PAGE_SIZE = 20;//TDevice.getPageSize(); stony debug
+    public static final int DEF_PAGE_SIZE = TDevice.getPageSize();
 
     public static void getTxtPasscodeForLogin(String telnum, JsonHttpResponseHandler jsonhandler) {
         RequestParams params = new RequestParams();
