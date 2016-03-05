@@ -27,7 +27,10 @@
             android:textColorHint="@color/graylightslate"
             android:background="@drawable/input_shape"
             android:layout_marginRight="10dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:inputType="phone"
+            android:focusable="true" />
 
         <com.voyager.countdownbutton.CountDownButtonView
             android:layout_width="100dp"
@@ -35,10 +38,10 @@
             android:background="@drawable/btn_selector"
             android:text="@string/login_btn_txt_captcha"
             android:textSize="@dimen/font_normal_size"
-            android:textColor="@color/white"
+            android:textColor="@drawable/title_color_selector"
             voyager:format="%d秒后重新获取"
             voyager:text="@string/login_btn_txt_captcha"
-            voyager:time="10"
+            voyager:time="15"
             android:id="@+id/bv_txt_captcha"
         />
 
@@ -57,7 +60,8 @@
             android:textSize="@dimen/font_normal_size"
             android:textColor="@color/graydarkslate"
             android:hint="@string/login_hint_captcha"
-            android:textColorHint="@color/graylightslate"/>
+            android:textColorHint="@color/graylightslate"
+            android:inputType="number" />
 
         <TextView
             android:layout_width="wrap_content"

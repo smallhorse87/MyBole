@@ -1,22 +1,32 @@
-package com.zhitian.mybole.activity;
+package com.zhitian.mybole.base;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bacy.view.titlebar.TitleBar;
+
+import com.zhitian.mybole.ui.dialog.CommonToast;
+import com.zhitian.mybole.ui.dialog.DialogControl;
+import com.zhitian.mybole.ui.dialog.DialogHelper;
+import com.zhitian.mybole.ui.dialog.WaitDialog;
+
 import com.zhitian.mybole.R;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity implements
+        DialogControl, VisibilityControl, View.OnClickListener {
     ImageView mCollectView;
     Boolean mIsSelected;
+
+    private boolean _isVisible;
+    private WaitDialog _waitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,19 @@ public class BaseActivity extends Activity {
         //setTranslucentStatus(true);
         init(savedInstanceState);
         setNavBar();
+    }
+
+    @Override
+    protected void onPause() {
+        _isVisible = false;
+        hideWaitDialog();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        _isVisible = true;
+        super.onResume();
     }
 
     @TargetApi(19)
@@ -119,4 +142,51 @@ public class BaseActivity extends Activity {
     public static boolean hasLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
+
+    @Override
+    public WaitDialog showWaitDialog() {
+        return showWaitDialog(R.string.loading);
+    }
+
+    @Override
+    public WaitDialog showWaitDialog(int resid) {
+        return showWaitDialog(getString(resid));
+    }
+
+    @Override
+    public WaitDialog showWaitDialog(String message) {
+        if (_isVisible) {
+            if (_waitDialog == null) {
+                _waitDialog = DialogHelper.getWaitDialog(this, message);
+            }
+            if (_waitDialog != null) {
+                _waitDialog.setMessage(message);
+                _waitDialog.show();
+            }
+            return _waitDialog;
+        }
+        return null;
+    }
+
+    @Override
+    public void hideWaitDialog() {
+        if (_isVisible && _waitDialog != null) {
+            try {
+                _waitDialog.dismiss();
+                _waitDialog = null;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+    }
+
+    @Override
+    public boolean isVisible() {
+        return _isVisible;
+    }
+
 }

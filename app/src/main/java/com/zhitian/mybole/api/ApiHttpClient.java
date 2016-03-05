@@ -5,22 +5,18 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-import com.zhitian.mybole.AppContext;
 
 
 import java.util.Locale;
 
 public class ApiHttpClient {
-	// http://www.oschina.net/action/oauth2/authorize?response_type=code&client_id=F6QtiYRetdUEwsYKYvNR&state=xyz&redirect_uri=http://my.oschina.net/u/142883
-	public final static String HOST = "www.oschina.net";
+	public final static String HOST = "m.bodimall.com";
 	private static String API_URL;
-	public static String ASSET_URL = "http://media-cache.pinterest.com/%s";
-	public static String ATTRIB_ASSET_URL = "http://passets-ec.pinterest.com/%s";
 	public static String DEFAULT_API_URL;
 	public static final String DELETE = "DELETE";
-	public static String DEV_API_URL = "http://www.oschina.net/%s";
+	public static String DEV_API_URL = "http://m.bodimall.com/api/%s";
 	public static final String GET = "GET";
 	public static final String POST = "POST";
 	public static final String PUT = "PUT";
@@ -39,10 +35,6 @@ public class ApiHttpClient {
 
 	public static void cancelAll(Context context) {
 		client.cancelRequests(context, true);
-	}
-
-	public static void clearUserCookies(Context context) {
-		// (new HttpClientCookieStore(context)).a();
 	}
 
 	public static void delete(String partUrl, AsyncHttpResponseHandler handler) {
@@ -72,31 +64,6 @@ public class ApiHttpClient {
 		return API_URL;
 	}
 
-	public static String getAssetUrl(String url) {
-		if (url.indexOf("/") == 0)
-			url = url.substring(1);
-		if (!url.contains("http")) {
-			url = String.format(ASSET_URL, url);
-		}
-		return url;
-	}
-
-	public static String getAttributionAssetUrl(String url) {
-		if (url.indexOf("/") == 0)
-			url = url.substring(1);
-		return String.format(ATTRIB_ASSET_URL, url);
-	}
-
-	public static void getDirect(String url, AsyncHttpResponseHandler handler) {
-		client.get(url, handler);
-		log(new StringBuilder("GET ").append(url).toString());
-	}
-
-	public static void getDirect2(String url, AsyncHttpResponseHandler handler) {
-		new AsyncHttpClient().get(url, handler);
-		log(new StringBuilder("GET ").append(url).toString());
-	}
-
 	public static void log(String log) {
 		//TLog.log("BaseApi", log); stony debug
 	}
@@ -113,6 +80,15 @@ public class ApiHttpClient {
 				.append(params).toString());
 	}
 
+	public static void post(String partUrl, RequestParams params,
+							JsonHttpResponseHandler jsonhandler) {
+		client.post(getAbsoluteApiUrl(partUrl), params, jsonhandler);
+		log(new StringBuilder("POST ").append(partUrl).append("&")
+				.append(params).toString());
+	}
+
+	//newJsonHttpResponseHandler
+
 	public static void put(String partUrl, AsyncHttpResponseHandler handler) {
 		client.put(getAbsoluteApiUrl(partUrl), handler);
 		log(new StringBuilder("PUT ").append(partUrl).toString());
@@ -125,9 +101,6 @@ public class ApiHttpClient {
 				.append(params).toString());
 	}
 
-	public static void resetApiUrl() {
-		setApiUrl(DEFAULT_API_URL);
-	}
 
 	public static void setApiUrl(String apiUrl) {
 		API_URL = apiUrl;
@@ -138,30 +111,6 @@ public class ApiHttpClient {
 		client.addHeader("Accept-Language", Locale.getDefault().toString());
 		client.addHeader("Host", HOST);
 		client.addHeader("Connection", "Keep-Alive");
-//		client.getHttpClient().getParams()
-//				.setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
-//		setUserAgent(ApiClientHelper.getUserAgent(AppContext.instance()));
-
 	}
 
-	public static void setUserAgent(String userAgent) {
-		client.setUserAgent(userAgent);
-	}
-
-	public static void setCookie(String cookie) {
-		client.addHeader("Cookie", cookie);
-	}
-
-	private static String appCookie;
-
-	public static void cleanCookie() {
-		appCookie = "";
-	}
-
-	public static String getCookie(AppContext appContext) {
-		if (appCookie == null || appCookie == "") {
-			//appCookie = AppContext.getCookie(); stony debug
-		}
-		return appCookie;
-	}
 }

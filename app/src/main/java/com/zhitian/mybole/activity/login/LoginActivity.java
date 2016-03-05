@@ -7,16 +7,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.voyager.countdownbutton.CountDownButtonView;
+import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
-import com.zhitian.mybole.activity.BaseActivity;
+import com.zhitian.mybole.api.BoleApi;
+import com.zhitian.mybole.api.ApiResult;
+import com.zhitian.mybole.base.BaseActivity;
+import com.zhitian.mybole.utils.StringUtils;
+
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @Bind(R.id.et_telphone)
     EditText etTelphone;
@@ -32,35 +42,87 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvPolicy;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected int getLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected String getNavTitle(){
+        return "主菜单";
+    }
+
+    @Override
+    protected void leftNavBtnHandle(){
+        AppContext.showToast("点击了发布");
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
 
-        bvTxtCaptcha.setCountDownListener(new CountDownButtonView.CountDownListener(){
+        btnLogin.setEnabled(false);
+        tvVoiceCaptcha.setVisibility(View.GONE);
+
+        bvTxtCaptcha.setCountDownListener(new CountDownButtonView.CountDownListener() {
             @Override
-            public void onStart() {
-                Log.d("stony", "开始计时");
+            public void onFinished() {
+
             }
 
             @Override
-            public void onFinished() {
-                Log.d("stony", "结束计时");
+            public void onTick(int lefttime) {
+                if (bvTxtCaptcha.time - bvTxtCaptcha.leftTime > 10)
+                    tvVoiceCaptcha.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onStart() {
+                btnLogin.setEnabled(true);
+
+                BoleApi.getTxtPasscodeForLogin(etTelphone.getText().toString(), new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        Gson gson = new Gson();
+                        ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
+                        Log.d("stony", result.getMsg());
+
+                        if (result.getRet() == 0) {
+                            try {
+                                JSONObject retData = response.getJSONObject("data");
+                                AppContext.showToast(retData.getString("captcha"));
+                            } catch (Exception e) {
+
+                            }
+                        } else {
+                            AppContext.showToast(result.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        AppContext.showToast("请求失败");
+                    }
+                });
             }
         });
     }
 
+
+    //事件处理
     @OnClick({R.id.et_telphone, R.id.bv_txt_captcha, R.id.et_captcha, R.id.tv_voice_captcha, R.id.btn_login, R.id.tv_policy})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.et_telphone:
                 break;
             case R.id.bv_txt_captcha:
-                bvTxtCaptcha.startCountDown();
+                captchaBtnPressed();
                 break;
             case R.id.et_captcha:
                 break;
             case R.id.tv_voice_captcha:
+                voiceCaptchaPressed();
                 break;
             case R.id.btn_login:
                 break;
@@ -68,4 +130,58 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    void captchaBtnPressed(){
+
+        if (!StringUtils.isValidTel(etTelphone.getText().toString())) {
+            AppContext.showToast("手机格式不对");
+            return;
+        }
+
+        showWaitDialog("发送请求");
+
+        //bvTxtCaptcha.startCountDown(); stony debug
+    }
+
+    void voiceCaptchaPressed() {
+
+        if (!StringUtils.isValidTel(etTelphone.getText().toString()))
+        {
+            AppContext.showToast("手机格式不对");
+            return;
+        }
+
+        showWaitDialog("发送请求");
+
+        BoleApi.getVoicePasscodeForLogin(etTelphone.getText().toString(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Gson gson = new Gson();
+                ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
+                Log.d("stony", result.getMsg());
+
+                if (result.getRet()==0){
+                    try {
+                        JSONObject retData = response.getJSONObject("data");
+                        AppContext.showToast(retData.getString("captcha"));
+                    } catch (Exception e){
+
+                    }
+                } else {
+                    AppContext.showToast(result.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                AppContext.showToast("请求失败");
+            }
+        });
+
+    }
+
+    //网络请求
+
+
 }

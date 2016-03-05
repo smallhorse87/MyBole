@@ -1,8 +1,9 @@
-package com.zhitian.mybole.api.remote;
+package com.zhitian.mybole.api;
 
 import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import com.zhitian.mybole.api.ApiHttpClient;
@@ -13,7 +14,24 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewsApi extends BaseApi {
+public class BoleApi {
+    public static final int DEF_PAGE_SIZE = 20;//TDevice.getPageSize(); stony debug
+
+    public static void getTxtPasscodeForLogin(String telnum, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+        params.put("mob", telnum);
+        params.put("type", "merchantLogin");
+        params.put("captchaType", "sms");
+        ApiHttpClient.post("system/logincaptcha", params, jsonhandler);
+    }
+
+    public static void getVoicePasscodeForLogin(String telnum, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+        params.put("mob", telnum);
+        params.put("type", "merchantLogin");
+        params.put("captchaType", "voice");
+        ApiHttpClient.post("system/logincaptcha", params, jsonhandler);
+    }
 
     /**
      * 获取新闻列表

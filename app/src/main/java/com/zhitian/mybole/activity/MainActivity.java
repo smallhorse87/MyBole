@@ -1,10 +1,10 @@
 package com.zhitian.mybole.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
