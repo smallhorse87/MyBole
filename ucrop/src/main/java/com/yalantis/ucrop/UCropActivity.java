@@ -256,7 +256,7 @@ public class UCropActivity extends AppCompatActivity {
         stateButtonDrawable.setColorFilter(mToolbarTextColor, PorterDuff.Mode.SRC_ATOP);
         toolbar.setNavigationIcon(stateButtonDrawable);
 
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar); stony
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);

@@ -14,25 +14,19 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.UCropActivity;
 import com.zhitian.mybole.R;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.yalantis.ucrop.UCrop;
-import com.yalantis.ucrop.UCropActivity;
-
-import java.io.File;
 
 public class MerchantFormActivity extends AppCompatActivity {
     private static final String TAG = "SampleActivity";
@@ -43,12 +37,15 @@ public class MerchantFormActivity extends AppCompatActivity {
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
 
+    @Bind(R.id.ll_logo)
+    LinearLayout mllLogo;
+    @Bind(R.id.iv_logo)
+    ImageView mIvLogo;
+
     private Uri mDestinationUri;
 
     private AlertDialog mAlertDialog;
 
-    @Bind(R.id.button)
-    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +55,6 @@ public class MerchantFormActivity extends AppCompatActivity {
 
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
 
-        setupUI();
-    }
-
-    @OnClick(R.id.button)
-    public void onClick() {
-        pickFromGallery();
     }
 
     @Override
@@ -101,16 +92,6 @@ public class MerchantFormActivity extends AppCompatActivity {
         }
     }
 
-    private void setupUI() {
-//        findViewById(R.id.button_crop).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pickFromGallery();
-//            }
-//        });
-
-    }
-
     private void pickFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -130,91 +111,28 @@ public class MerchantFormActivity extends AppCompatActivity {
     private void startCropActivity(@NonNull Uri uri) {
         UCrop uCrop = UCrop.of(uri, mDestinationUri);
 
-        uCrop = basisConfig(uCrop);
-        uCrop = advancedConfig(uCrop);
+        uCrop.withAspectRatio(2, 1);
+        uCrop.withMaxResultSize(800, 800);
 
-        uCrop.start(MerchantFormActivity.this);
-    }
-
-    /**
-     * In most cases you need only to set crop aspect ration and max size for resulting image.
-     *
-     * @param uCrop - ucrop builder instance
-     * @return - ucrop builder instance
-     */
-    private UCrop basisConfig(@NonNull UCrop uCrop) {
-        uCrop = uCrop.withAspectRatio(2, 1);
-
-        int maxWidth = 800;
-        int maxHeight = 800;
-        if (maxWidth > 0 && maxHeight > 0) {
-            uCrop = uCrop.withMaxResultSize(maxWidth, maxHeight);
-        }
-
-        return uCrop;
-    }
-
-    /**
-     * Sometimes you want to adjust more options, it's done via {@link com.yalantis.ucrop.UCrop.Options} class.
-     *
-     * @param uCrop - ucrop builder instance
-     * @return - ucrop builder instance
-     */
-    private UCrop advancedConfig(@NonNull UCrop uCrop) {
         UCrop.Options options = new UCrop.Options();
-
         options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
         options.setCompressionQuality(90);
-
-        /*
-        If you want to configure how gestures work for all UCropActivity tabs
-
         options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
-        * */
+        uCrop.withOptions(options);
 
-        /*
-        This sets max size for bitmap that will be decoded from source Uri.
-        More size - more memory allocation, default implementation uses screen diagonal.
-
-        options.setMaxBitmapSize(640);
-        * */
-
-
-       /*
-
-        Tune everything (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
-
-        options.setMaxScaleMultiplier(5);
-        options.setImageToCropBoundsAnimDuration(666);
-        options.setDimmedLayerColor(Color.CYAN);
-        options.setOvalDimmedLayer(true);
-        options.setShowCropFrame(false);
-        options.setCropGridStrokeWidth(20);
-        options.setCropGridColor(Color.GREEN);
-        options.setCropGridColumnCount(2);
-        options.setCropGridRowCount(1);
-
-        // Color palette
-        options.setToolbarColor(ContextCompat.getColor(this, R.color.your_color_res));
-        options.setStatusBarColor(ContextCompat.getColor(this, R.color.your_color_res));
-        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.your_color_res));
-		options.setToolbarTitleTextColor(ContextCompat.getColor(this, R.color.your_color_res));
-
-       */
-
-        return uCrop.withOptions(options);
+        uCrop.start(MerchantFormActivity.this);
     }
 
     private void handleCropResult(@NonNull Intent result) {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
             //ResultActivity.startWithUri(SampleActivity.this, resultUri); stony
+            mIvLogo.setImageURI(resultUri);
         } else {
             //Toast.makeText(SampleActivity.this, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show(); stony
         }
     }
 
-    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     private void handleCropError(@NonNull Intent result) {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
@@ -267,5 +185,10 @@ public class MerchantFormActivity extends AppCompatActivity {
         builder.setPositiveButton(positiveText, onPositiveButtonClickListener);
         builder.setNegativeButton(negativeText, onNegativeButtonClickListener);
         mAlertDialog = builder.show();
+    }
+
+    @OnClick(R.id.ll_logo)
+    public void onClick() {
+        pickFromGallery();
     }
 }

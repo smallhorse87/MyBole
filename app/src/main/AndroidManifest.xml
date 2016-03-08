@@ -18,6 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/app_name"
@@ -29,15 +30,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.MainActivity" />
+
         <activity android:name=".base.BaseActivity" />
+
         <activity
             android:name=".activity.Introduce.IntroduceActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.login.LoginActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".activity.merchant.MerchantFormActivity"></activity>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
