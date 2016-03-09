@@ -94,50 +94,37 @@ public class BaseActivity extends AppCompatActivity implements
 
     private void setNavBar()
     {
-//        final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
-//
-//        if (titleBar == null)
-//            return;
-//
-//        if (getNavTitle() == null || getNavTitle().length() == 0)
-//            titleBar.setVisibility(View.GONE);
-//
-//        titleBar.setImmersive(true);
-//
-//        titleBar.setBackgroundColor(Color.parseColor("#64b4ff"));
-//
-//        titleBar.setLeftImageResource(R.mipmap.back_green);
-//        titleBar.setLeftText("返回");
-//        titleBar.setLeftTextColor(Color.WHITE);
-//        titleBar.setLeftClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                leftNavBtnHandle();
-//            }
-//        });
-//
-//        titleBar.setTitle(getNavTitle());
-//        titleBar.setTitleColor(Color.WHITE);
-//        //titleBar.setSubTitleColor(Color.WHITE);
-//        titleBar.setDividerColor(Color.GRAY);
+        final TitleBar titleBar = (TitleBar) findViewById(R.id.title_bar);
 
-//        titleBar.setActionTextColor(Color.WHITE);
-//        mCollectView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.mipmap.collect) {
-//            @Override
-//            public void performAction(View view) {
-//                Toast.makeText(BaseActivity.this, "点击了收藏", Toast.LENGTH_SHORT).show();
-//                mCollectView.setImageResource(R.mipmap.fabu);
-//                titleBar.setTitle(mIsSelected ? "文章详情\n朋友圈" : "帖子详情");
-//                mIsSelected = !mIsSelected;
-//            }
-//        });
-//
-//        titleBar.addAction(new TitleBar.TextAction("发布") {
-//            @Override
-//            public void performAction(View view) {
-//                Toast.makeText(BaseActivity.this, "点击了发布", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        if (titleBar == null)
+            return;
+
+        if (getNavTitle() == null || getNavTitle().length() == 0)
+            titleBar.setVisibility(View.GONE);
+
+        titleBar.setImmersive(true);
+
+        titleBar.setBackgroundColor(Color.parseColor("#F9F9F9"));
+
+        titleBar.setLeftImageResource(R.mipmap.ic_topexit_normal);
+        titleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leftNavBtnHandle();
+            }
+        });
+
+        titleBar.setTitle(getNavTitle());
+        titleBar.setTitleColor(Color.parseColor("#333333"));
+        titleBar.setDividerColor(Color.GRAY);
+
+        titleBar.setActionTextColor(Color.parseColor("#f4603d"));
+        titleBar.addAction(new TitleBar.TextAction("完成") {
+            @Override
+            public void performAction(View view) {
+                actionBtnHandle();
+            }
+        });
     }
 
     protected int getLayoutId() {
@@ -150,6 +137,10 @@ public class BaseActivity extends AppCompatActivity implements
 
     protected void leftNavBtnHandle(){
         finish();
+    }
+
+    protected void actionBtnHandle(){
+
     }
 
     protected void initViews(Bundle savedInstanceState) {}

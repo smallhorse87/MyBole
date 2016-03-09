@@ -2,6 +2,7 @@ package com.bacy.view.titlebar;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -80,7 +81,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         mLeftText.setTextSize(DEFAULT_ACTION_TEXT_SIZE);
         mLeftText.setSingleLine();
         mLeftText.setGravity(Gravity.CENTER_VERTICAL);
-        mLeftText.setPadding(mOutPadding, 0, mOutPadding, 0);
+        mLeftText.setPadding(mOutPadding+mActionPadding, 0, mOutPadding+mActionPadding, 0);
 
         mCenterText = new TextView(context);
         mSubTitleText = new TextView(context);
@@ -322,6 +323,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
             if (mActionTextColor != 0) {
                 text.setTextColor(mActionTextColor);
             }
+
             view = text;
         }
 

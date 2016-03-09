@@ -1,7 +1,6 @@
 package com.zhitian.mybole.activity.merchant;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,14 +8,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
@@ -28,6 +26,7 @@ import com.zhitian.mybole.base.BaseActivity;
 import java.io.File;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MerchantFormActivity extends BaseActivity {
@@ -40,6 +39,28 @@ public class MerchantFormActivity extends BaseActivity {
     LinearLayout mllLogo;
     @Bind(R.id.iv_logo)
     ImageView mIvLogo;
+    @Bind(R.id.et_merchantname)
+    EditText etMerchantname;
+    @Bind(R.id.tv_category)
+    TextView tvCategory;
+    @Bind(R.id.ll_category)
+    LinearLayout llCategory;
+    @Bind(R.id.tv_address)
+    TextView tvAddress;
+    @Bind(R.id.ll_address)
+    LinearLayout llAddress;
+    @Bind(R.id.et_detailed_address)
+    EditText etDetailedAddress;
+    @Bind(R.id.et_telphone)
+    EditText etTelphone;
+    @Bind(R.id.et_offical_account)
+    EditText etOfficalAccount;
+    @Bind(R.id.iv_qrcode)
+    ImageView ivQrcode;
+    @Bind(R.id.tv_qrcode_placeholder)
+    TextView tvQrcodePlaceholder;
+    @Bind(R.id.ll_qrcode)
+    LinearLayout llQrcode;
 
     private Uri mDestinationUri;
 
@@ -49,13 +70,17 @@ public class MerchantFormActivity extends BaseActivity {
     }
 
     @Override
-    protected String getNavTitle(){
+    protected String getNavTitle() {
         return "品牌信息";
     }
 
     @Override
-    protected void leftNavBtnHandle(){
-        AppContext.showToast("点击了发布");
+    protected void leftNavBtnHandle() {
+        AppContext.showToast("点击了返回键");
+    }
+
+    protected void actionBtnHandle() {
+        AppContext.showToast("点击了右侧键");
     }
 
     @Override
@@ -64,13 +89,8 @@ public class MerchantFormActivity extends BaseActivity {
     }
 
     @Override
-    protected void initListeners(Bundle savedInstanceState){
+    protected void initListeners(Bundle savedInstanceState) {
 
-    }
-
-    @OnClick(R.id.ll_logo)
-    public void onClick() {
-        pickFromGallery();
     }
 
     private void pickFromGallery() {
@@ -143,5 +163,26 @@ public class MerchantFormActivity extends BaseActivity {
         }
     }
 
-
+    @OnClick({R.id.ll_logo, R.id.et_merchantname, R.id.ll_category, R.id.ll_address, R.id.et_detailed_address, R.id.et_telphone, R.id.et_offical_account, R.id.ll_qrcode})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_logo:
+                pickFromGallery();
+                break;
+            case R.id.et_merchantname:
+                break;
+            case R.id.ll_category:
+                break;
+            case R.id.ll_address:
+                break;
+            case R.id.et_detailed_address:
+                break;
+            case R.id.et_telphone:
+                break;
+            case R.id.et_offical_account:
+                break;
+            case R.id.ll_qrcode:
+                break;
+        }
+    }
 }

@@ -19,14 +19,18 @@
     <color name="pink">#FFC0CB</color>
     <color name="orange">#FFA500</color>
     <color name="lemonyellow">#FFFACD</color>
-    <color name="graywhite">#F5F5F5</color>
+    <color name="graywhite">#F9F9F9</color>
     <color name="graylightslate">#cccccc</color>
     <color name="grayslate">#989898</color>
     <color name="graydarkslate">#4d4d4d</color>
+    <color name="deepgray">#333333</color>
     <color name="lightblue">#0083FF</color>
 
     <color name="major_yellow">#feb416</color>
     <color name="major_yellow40">#40feb416</color>
+
+    <color name="major_orange">#f4603d</color>
+    <color name="major_orange40">#40f4603d</color>
 
     <color name="grid_create_activity_normal_color">#f6687c</color>
     <color name="grid_create_activity_pressed_color">#e44d62</color>
