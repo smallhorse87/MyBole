@@ -1,5 +1,6 @@
 package com.zhitian.mybole.api;
 
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -7,6 +8,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import com.zhitian.mybole.api.ApiHttpClient;
+import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.utils.TDevice;
 
 import java.io.File;
@@ -41,6 +43,34 @@ public class BoleApi {
         ApiHttpClient.post("merchant/login", params, jsonhandler);
     }
 
+    public static void submitMerchantInfo(MerchantInfo info, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+
+        params.put("avatar",       info.getAvatar().getImgId());
+        params.put("name",         info.getName());
+        params.put("category",     info.getCategory());
+
+        String districtRegionId =  info.getRegionIds().get(info.getRegionIds().size() - 1);
+        params.put("region",       districtRegionId);
+        params.put("address",      info.getAddress());
+        params.put("tel",          info.getTel());
+        params.put("wechat",       info.getWechat());
+        params.put("wechatQrcode", info.getWechatQrcode().getImgId());
+        params.put("longtitude",   info.getLongtitude());
+        params.put("latitude",     info.getLatitude());
+
+        ApiHttpClient.post("merchant/edit", params, jsonhandler);
+    }
+
+    public static void updateImage(Uri uri, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+
+        params.put("FileData", uri.toString());
+
+        ApiHttpClient.post("system/upimg", params, jsonhandler);
+    }
+
+    //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
     /**
      * 获取新闻列表
      *

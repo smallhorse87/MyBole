@@ -1,5 +1,6 @@
 package com.zhitian.mybole.activity.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.voyager.countdownbutton.CountDownButtonView;
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.activity.merchant.MerchantFormActivity;
 import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.ApiResult;
 import com.zhitian.mybole.base.BaseActivity;
@@ -161,11 +163,14 @@ public class LoginActivity extends BaseActivity {
                         MerchantInfo merchantInfo   = gson.fromJson(merchantInfoJson.toString(), MerchantInfo.class);
 
                         AppContext.saveLoginInfo(merchantInfo.getUserId(), gsid, etTelphone.getText().toString());
+                        AppContext.myInfo = merchantInfo;
 
                         Log.d("stony", merchantInfo.getAddress());
 
                         hideWaitDialog();
                         AppContext.showToast("登录成功");
+
+                        gotoMerchantForm();
 
                     } catch (Exception e){
 
@@ -251,8 +256,12 @@ public class LoginActivity extends BaseActivity {
 
         showWaitDialog("发送请求");
 
-        BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
+        BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(), LoginHandler);
 
     }
 
+    void gotoMerchantForm(){
+        Intent intent = new Intent(this, MerchantFormActivity.class);
+        this.startActivity(intent);
+    }
 }

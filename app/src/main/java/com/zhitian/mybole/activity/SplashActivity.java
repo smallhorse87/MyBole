@@ -121,8 +121,8 @@ public class SplashActivity extends Activity {
 
     private void redirectTo() {
         //Intent intent = new Intent(this, IntroduceActivity.class);
-        //Intent intent = new Intent(this, LoginActivity.class);
-        Intent intent = new Intent(this, MerchantFormActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
+        //Intent intent = new Intent(this, MerchantFormActivity.class);
         startActivity(intent);
         finish();
     }

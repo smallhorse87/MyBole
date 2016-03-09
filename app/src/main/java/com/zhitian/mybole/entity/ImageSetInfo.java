@@ -1,10 +1,14 @@
 package com.zhitian.mybole.entity;
 
+import android.net.Uri;
+
 /**
  * Created by chenxiaosong on 16/3/5.
  */
 public class ImageSetInfo {
     private String imgId;
+
+    private Uri uri;
     /**
      * width : 180
      * height : 180
@@ -54,6 +58,10 @@ public class ImageSetInfo {
         this.originalImg = originalImg;
     }
 
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
+
     public String getImgId() {
         return imgId;
     }
@@ -72,5 +80,9 @@ public class ImageSetInfo {
 
     public ImageInfo getOriginalImg() {
         return originalImg;
+    }
+
+    public Uri getUri() {
+        return this.uri;
     }
 }

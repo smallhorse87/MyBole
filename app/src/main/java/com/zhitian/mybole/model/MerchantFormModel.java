@@ -1,7 +1,248 @@
 package com.zhitian.mybole.model;
 
+
+import android.net.Uri;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.zhitian.mybole.AppContext;
+import com.zhitian.mybole.api.ApiResult;
+import com.zhitian.mybole.api.BoleApi;
+import com.zhitian.mybole.entity.ImageInfo;
+import com.zhitian.mybole.entity.ImageSetInfo;
+import com.zhitian.mybole.entity.MerchantInfo;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+
 /**
  * Created by chenxiaosong on 16/3/9.
  */
 public class MerchantFormModel {
+
+    protected MerchantInfo mMerchant;
+    private   Boolean      isModified = false;
+
+    private ImageSetInfo uploadingImage;
+
+    private JsonHttpResponseHandler  uploadImageHandler;
+    private  JsonHttpResponseHandler submitMerchantFormHandler;
+
+    public MerchantFormModel(MerchantInfo info){
+        mMerchant = info;
+
+        uploadImageHandler = new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Gson gson = new Gson();
+                ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
+
+                if (result.getRet() == 0) {
+                    try {
+                        JSONObject imgSetAttribData = response.getJSONObject("data").getJSONObject("imgSetAttrib");
+                        ImageSetInfo info = gson.fromJson(imgSetAttribData.toString(), ImageSetInfo.class);
+
+                        uploadingImage.setUri(null);
+                        uploadingImage.setImgId(info.getImgId());
+                        uploadingImage = null;
+
+                        submitForm();
+
+                    } catch (Exception e) {
+
+                    }
+                } else {
+                    AppContext.showToast(result.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                AppContext.showToast("请求失败");
+            }
+        };
+
+        submitMerchantFormHandler = new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Gson gson = new Gson();
+                ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
+
+                if (result.getRet() == 0) {
+                    try {
+                        JSONObject merchantInfoData = response.getJSONObject("data");
+                        MerchantInfo info = gson.fromJson(merchantInfoData.toString(), MerchantInfo.class);
+                        Log.i("stony", info.getAddress());
+                    } catch (Exception e) {
+                        Log.e("err", e.toString());
+                    }
+                } else {
+                    AppContext.showToast(result.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                AppContext.showToast("请求失败");
+            }
+        };
+    }
+
+    public void submitForm() {
+
+        mMerchant.setWechat("ichuangyebang"); //stony chen
+
+        String errMsg = checkBeforeSubmit();
+
+        if (errMsg != null)
+            return;
+
+        uploadingImage = getImageForUpload();
+
+        if (uploadingImage != null)
+            BoleApi.updateImage(uploadingImage.getUri(), uploadImageHandler);
+        else
+            BoleApi.submitMerchantInfo(mMerchant, submitMerchantFormHandler);
+    }
+
+    protected String checkBeforeSubmit() {
+
+        if(!hasAvatar())
+        {
+            return "请完善产品信息";
+        }
+
+        if (mMerchant.getName() == null || mMerchant.getName().length() == 0 || mMerchant.getName().length() > 40)
+        {
+            return "请完善产品信息";
+        }
+
+        if (mMerchant.getCategory() == null || mMerchant.getName().length() == 0)
+        {
+            return "请完善产品信息";
+        }
+
+        if (mMerchant.getRegionName() == null || mMerchant.getRegionName().size() == 0)
+        {
+            return "请完善产品信息";
+        }
+
+        if (mMerchant.getAddress() == null || mMerchant.getAddress().length() == 0 || mMerchant.getAddress().length() > 40)
+        {
+            return "请完善产品信息";
+        }
+
+        if (mMerchant.getTel() == null || mMerchant.getTel().length() == 0 || mMerchant.getTel().length() > 20)
+        {
+            return "请完善产品信息";
+        }
+
+        if (mMerchant.getWechat() == null || mMerchant.getWechat().length() == 0 || mMerchant.getWechat().length() > 40)
+        {
+            return "请完善产品信息";
+        }
+
+        if (!hasWechatQrcode())
+        {
+            return "请完善产品信息";
+        }
+
+        return null;
+    }
+
+    protected void setAvatar(Uri uri){
+        if(mMerchant.getAvatar()==null)
+        {
+            mMerchant.setAvatar(new ImageSetInfo());
+        }
+
+        mMerchant.getAvatar().setUri(uri);
+
+        isModified = true;
+    }
+
+    protected void setName(String name){
+        mMerchant.setName(name);
+        isModified = true;
+    }
+
+    protected void setCategory(String category){
+        mMerchant.setCategory(category);
+        isModified = true;
+    }
+
+    protected void setRegionIds(String proviceId, String cityId, String districtId){
+
+        List<String> regionIds = new ArrayList<String>();
+
+        regionIds.add(proviceId);
+        regionIds.add(cityId);
+        regionIds.add(districtId);
+
+        mMerchant.setRegionIds(regionIds);
+        isModified = true;
+    }
+
+    protected void setAddress (String address){
+        mMerchant.setAddress(address);
+        isModified = true;
+    }
+
+    protected void setTel (String tel){
+        mMerchant.setTel(tel);
+        isModified = true;
+    }
+
+    protected void setWechat (String wechat){
+        mMerchant.setWechat(wechat);
+        isModified = true;
+    }
+
+    protected void setWechatQr (Uri uri){
+        if(mMerchant.getWechatQrcode()==null)
+        {
+            mMerchant.setWechatQrcode(new ImageSetInfo());
+        }
+
+        mMerchant.getWechatQrcode().setUri(uri);
+
+        isModified = true;
+    }
+
+    private boolean hasWechatQrcode(){
+        return hasImageInfo(mMerchant.getWechatQrcode());
+    }
+
+    private boolean hasAvatar(){
+        return hasImageInfo(mMerchant.getAvatar());
+    }
+
+    private boolean hasImageInfo(ImageSetInfo info){
+        if (info ==null)  return false;
+
+        if (info.getImgId() == null && info.getUri() == null) return false;
+
+        return true;
+    }
+
+    private ImageSetInfo getImageForUpload(){
+        ImageSetInfo info = mMerchant.getAvatar();
+
+        if (info !=  null && info.getUri() != null)
+            return info;
+
+        info = mMerchant.getWechatQrcode();
+
+        if (info !=  null && info.getUri() != null)
+            return info;
+
+        return null;
+    }
 }

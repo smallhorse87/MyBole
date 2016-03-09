@@ -14,8 +14,8 @@ public class MerchantInfo {
 
     private ImageSetInfo wechatQrcode;
     private String userId;
-    private String longtitude;
-    private String latitude;
+    private float longtitude;
+    private float latitude;
     private List<String> regionIds;
     private List<String> regionName;
 
@@ -51,11 +51,11 @@ public class MerchantInfo {
         this.userId = userId;
     }
 
-    public void setLongtitude(String longtitude) {
+    public void setLongtitude(float longtitude) {
         this.longtitude = longtitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
@@ -99,11 +99,11 @@ public class MerchantInfo {
         return userId;
     }
 
-    public String getLongtitude() {
+    public float getLongtitude() {
         return longtitude;
     }
 
-    public String getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 

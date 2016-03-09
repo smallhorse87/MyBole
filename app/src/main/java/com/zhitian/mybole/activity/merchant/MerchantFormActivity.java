@@ -22,6 +22,7 @@ import com.yalantis.ucrop.UCropActivity;
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.base.BaseActivity;
+import com.zhitian.mybole.model.MerchantFormModel;
 
 import java.io.File;
 
@@ -34,6 +35,8 @@ public class MerchantFormActivity extends BaseActivity {
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private static final String SAMPLE_CROPPED_IMAGE_NAME = "SampleCropImage.jpeg";
+
+    private MerchantFormModel model;
 
     @Bind(R.id.ll_logo)
     LinearLayout mllLogo;
@@ -81,16 +84,19 @@ public class MerchantFormActivity extends BaseActivity {
 
     protected void actionBtnHandle() {
         AppContext.showToast("点击了右侧键");
+        model.submitForm();
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
+
     }
 
     @Override
     protected void initListeners(Bundle savedInstanceState) {
+        mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
 
+        model = new MerchantFormModel(AppContext.myInfo);
     }
 
     private void pickFromGallery() {
