@@ -29,7 +29,9 @@
                     android:text="品牌LOGO"
                     android:id="@+id/textView5"
                     android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
 
                 <Space
                     android:layout_width="20dp"
@@ -41,9 +43,286 @@
                     android:layout_height="70dp"
                     android:id="@+id/iv_logo"
                     android:layout_gravity="center_vertical"
-                    android:background="#f2f2f2"
+                    android:background="#cccccc"
                     android:layout_marginRight="10dp"
                     android:scaleType="centerCrop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="品牌名称"
+                    android:id="@+id/textView6"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editText"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:textColor="#4d4d4d"
+                    android:layout_gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:textSize="15dp"
+                    android:text="老头儿油爆虾星光大道店"
+                    android:gravity="center_vertical|right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_category"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所属行业"
+                    android:id="@+id/textView7"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="餐饮"
+                    android:id="@+id/textView8"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_address"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="品牌地址"
+                    android:id="@+id/textView9"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="杭州市滨江区"
+                    android:id="@+id/textView10"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细地址"
+                    android:id="@+id/textView11"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editText2"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:textColor="#4d4d4d"
+                    android:layout_gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:textSize="15dp"
+                    android:text="长河街道汉氏大厦滨盛路1786号"
+                    android:gravity="center_vertical|right" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务电话"
+                    android:id="@+id/textView12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editText3"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:textColor="#4d4d4d"
+                    android:layout_gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:textSize="15dp"
+                    android:text="400-777-8888"
+                    android:gravity="center_vertical|right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信号"
+                    android:id="@+id/textView13"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="0" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/editText4"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:textColor="#4d4d4d"
+                    android:layout_gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:textSize="15dp"
+                    android:text="youbaoxia"
+                    android:gravity="center_vertical|right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_qrcode"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="90dp" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="品牌LOGO"
+                        android:id="@+id/textView14"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:textColor="#4d4d4d" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(个人号和公众号选择一个)"
+                        android:id="@+id/textView15"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="14dp"
+                        android:textColor="#989898"
+                        android:textIsSelectable="false" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/imageView7"
+                        android:layout_gravity="center_vertical"
+                        android:background="#cccccc"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="点击上传"
+                        android:id="@+id/textView16"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15dp"
+                        android:textColor="#989898"
+                        android:textIsSelectable="false"
+                        android:gravity="center_vertical|center_horizontal" />
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

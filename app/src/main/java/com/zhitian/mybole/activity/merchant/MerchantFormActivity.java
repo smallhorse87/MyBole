@@ -14,19 +14,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
+import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.base.BaseActivity;
 
 import java.io.File;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MerchantFormActivity extends BaseActivity {
@@ -42,16 +43,28 @@ public class MerchantFormActivity extends BaseActivity {
 
     private Uri mDestinationUri;
 
-
-
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_merchant_form;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_merchant_form);
-        ButterKnife.bind(this);
+    protected String getNavTitle(){
+        return "品牌信息";
+    }
 
+    @Override
+    protected void leftNavBtnHandle(){
+        AppContext.showToast("点击了发布");
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
+    }
+
+    @Override
+    protected void initListeners(Bundle savedInstanceState){
 
     }
 
