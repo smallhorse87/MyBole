@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.zhitian.mybole.activity.merchant.MerchantFormActivity"
-    android:background="#f2f2f2">
+    android:background="#f2f2f2"
+    android:orientation="vertical">
 
     <com.bacy.view.titlebar.TitleBar
         android:id="@+id/title_bar"
@@ -16,7 +18,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
-        android:layout_below="@id/title_bar"
         android:background="#ffffff">
 
         <LinearLayout
@@ -46,14 +47,16 @@
                     android:layout_height="20dp"
                     android:layout_weight="1" />
 
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/iv_logo"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center_vertical"
                     android:background="#cccccc"
                     android:layout_marginRight="10dp"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    fresco:placeholderImage="@drawable/default_logobackgroud"
+                    fresco:placeholderImageScaleType="centerCrop"/>
             </LinearLayout>
 
             <include layout="@layout/divider_h_margin"/>
@@ -90,7 +93,10 @@
                     android:background="#ffffff"
                     android:textSize="15dp"
                     android:text="老头儿油爆虾星光大道店"
-                    android:gravity="center_vertical|right" />
+                    android:gravity="center_vertical|right"
+                    android:singleLine="true"
+                    android:maxLength="40"
+                    android:hint="请输入品牌名称" />
 
             </LinearLayout>
 
@@ -128,7 +134,8 @@
                     android:textColor="#4d4d4d"
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:hint="请选择所属行业" />
 
             </LinearLayout>
 
@@ -166,7 +173,8 @@
                     android:textColor="#4d4d4d"
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:hint="请选择品牌地址" />
             </LinearLayout>
 
             <include layout="@layout/divider_h_margin"/>
@@ -203,7 +211,10 @@
                     android:background="#ffffff"
                     android:textSize="15dp"
                     android:text="长河街道汉氏大厦滨盛路1786号"
-                    android:gravity="center_vertical|right" />
+                    android:gravity="center_vertical|right"
+                    android:maxLength="40"
+                    android:singleLine="true"
+                    android:hint="请输入详细地址" />
 
             </LinearLayout>
 
@@ -241,7 +252,10 @@
                     android:background="#ffffff"
                     android:textSize="15dp"
                     android:text="400-777-8888"
-                    android:gravity="center_vertical|right" />
+                    android:gravity="center_vertical|right"
+                    android:singleLine="true"
+                    android:maxLength="20"
+                    android:hint="请输入服务电话" />
             </LinearLayout>
 
             <include layout="@layout/divider_h_margin"/>
@@ -278,7 +292,10 @@
                     android:background="#ffffff"
                     android:textSize="15dp"
                     android:text="youbaoxia"
-                    android:gravity="center_vertical|right" />
+                    android:gravity="center_vertical|right"
+                    android:maxLength="40"
+                    android:singleLine="true"
+                    android:hint="请输入公众号" />
             </LinearLayout>
 
             <include layout="@layout/divider_h_margin"/>
@@ -328,7 +345,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center_vertical">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/iv_qrcode"
@@ -354,4 +371,4 @@
 
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

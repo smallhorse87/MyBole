@@ -157,7 +157,7 @@ public class MerchantFormModel {
         return null;
     }
 
-    protected void setAvatar(Uri uri){
+    public void setAvatar(Uri uri){
         if(mMerchant.getAvatar()==null)
         {
             mMerchant.setAvatar(new ImageSetInfo());
@@ -168,17 +168,17 @@ public class MerchantFormModel {
         isModified = true;
     }
 
-    protected void setName(String name){
+    public void setName(String name){
         mMerchant.setName(name);
         isModified = true;
     }
 
-    protected void setCategory(String category){
+    public void setCategory(String category){
         mMerchant.setCategory(category);
         isModified = true;
     }
 
-    protected void setRegionIds(String proviceId, String cityId, String districtId){
+    public void setRegionIds(String proviceId, String cityId, String districtId){
 
         List<String> regionIds = new ArrayList<String>();
 
@@ -190,22 +190,22 @@ public class MerchantFormModel {
         isModified = true;
     }
 
-    protected void setAddress (String address){
+    public void setAddress (String address){
         mMerchant.setAddress(address);
         isModified = true;
     }
 
-    protected void setTel (String tel){
+    public void setTel (String tel){
         mMerchant.setTel(tel);
         isModified = true;
     }
 
-    protected void setWechat (String wechat){
+    public void setWechat (String wechat){
         mMerchant.setWechat(wechat);
         isModified = true;
     }
 
-    protected void setWechatQr (Uri uri){
+    public void setWechatQr (Uri uri){
         if(mMerchant.getWechatQrcode()==null)
         {
             mMerchant.setWechatQrcode(new ImageSetInfo());
@@ -245,4 +245,5 @@ public class MerchantFormModel {
 
         return null;
     }
+
 }

@@ -1,18 +1,15 @@
 package com.zhitian.mybole.api;
 
 import android.net.Uri;
-import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import com.zhitian.mybole.api.ApiHttpClient;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.utils.TDevice;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;

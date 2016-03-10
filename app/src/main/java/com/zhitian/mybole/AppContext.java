@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 import com.zhitian.mybole.api.ApiHttpClient;
@@ -39,6 +40,8 @@ public class AppContext extends BaseApplication {
         PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         ApiHttpClient.setHttpClient(client);
+
+        Fresco.initialize(getApplicationContext());
     }
 
     public static AppContext instance() {

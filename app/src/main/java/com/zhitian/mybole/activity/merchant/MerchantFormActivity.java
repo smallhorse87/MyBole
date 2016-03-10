@@ -8,29 +8,33 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import com.rey.material.app.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.base.BaseActivity;
+import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.model.MerchantFormModel;
 
 import java.io.File;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MerchantFormActivity extends BaseActivity {
+public class MerchantFormActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SampleActivity";
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
@@ -41,7 +45,7 @@ public class MerchantFormActivity extends BaseActivity {
     @Bind(R.id.ll_logo)
     LinearLayout mllLogo;
     @Bind(R.id.iv_logo)
-    ImageView mIvLogo;
+    SimpleDraweeView mIvLogo;
     @Bind(R.id.et_merchantname)
     EditText etMerchantname;
     @Bind(R.id.tv_category)
@@ -59,13 +63,17 @@ public class MerchantFormActivity extends BaseActivity {
     @Bind(R.id.et_offical_account)
     EditText etOfficalAccount;
     @Bind(R.id.iv_qrcode)
-    ImageView ivQrcode;
+    SimpleDraweeView ivQrcode;
     @Bind(R.id.tv_qrcode_placeholder)
     TextView tvQrcodePlaceholder;
     @Bind(R.id.ll_qrcode)
     LinearLayout llQrcode;
 
+    BottomSheetDialog pickupImageSheet;
+
     private Uri mDestinationUri;
+
+    MerchantInfo info;
 
     @Override
     protected int getLayoutId() {
@@ -84,19 +92,52 @@ public class MerchantFormActivity extends BaseActivity {
 
     protected void actionBtnHandle() {
         AppContext.showToast("点击了右侧键");
+
+        //其他的：品牌logo，二维码图片，类别，地址（省市区），gps地址
+        model.setName(etMerchantname.getText().toString());
+        model.setAddress(etDetailedAddress.getText().toString());
+        model.setTel(etTelphone.getText().toString());
+        model.setWechat(etOfficalAccount.getText().toString());
+
         model.submitForm();
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        info = AppContext.myInfo;
 
+        etMerchantname.setText(info.getName());
+        tvCategory.setText(info.getCategory());
+        tvAddress.setText(info.getFullRegionName());
+        etDetailedAddress.setText(info.getAddress());
+        etTelphone.setText(info.getTel());
+        etOfficalAccount.setText(info.getWechat());
+
+        if (info.getReaLogoUri() != null){
+            mIvLogo.setImageURI(info.getReaLogoUri());
+        }
+
+        if (info.getRealWechatQrcodeUri() != null){
+            tvQrcodePlaceholder.setVisibility(View.GONE);
+            ivQrcode.setImageURI(info.getRealWechatQrcodeUri());
+        }
+
+        //其他的：品牌logo，二维码图片，GPS地址
     }
 
     @Override
     protected void initListeners(Bundle savedInstanceState) {
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
 
-        model = new MerchantFormModel(AppContext.myInfo);
+        model = new MerchantFormModel(info);
+    }
+
+    @Override
+    public  void onPause(){
+
+        pickupImageSheet.dismissImmediately();
+
+        super.onPause();
     }
 
     private void pickFromGallery() {
@@ -173,7 +214,22 @@ public class MerchantFormActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_logo:
-                pickFromGallery();
+            {
+                pickupImageSheet = new BottomSheetDialog(this);
+                View sheetView = LayoutInflater.from(this).inflate(R.layout.sheet_pickup_image, null);
+                Button photoBtn = (Button)sheetView.findViewById(R.id.btn_picphone);
+                photoBtn.setOnClickListener(this);
+
+                Button galleryBtn = (Button)sheetView.findViewById(R.id.btn_piccard);
+                galleryBtn.setOnClickListener(this);
+
+                Button exitBtn = (Button)sheetView.findViewById(R.id.btn_picexit);
+                exitBtn.setOnClickListener(this);
+
+                pickupImageSheet.heightParam(ViewGroup.LayoutParams.WRAP_CONTENT);
+                pickupImageSheet.setContentView(sheetView);
+                pickupImageSheet.show();
+            }
                 break;
             case R.id.et_merchantname:
                 break;
@@ -188,6 +244,19 @@ public class MerchantFormActivity extends BaseActivity {
             case R.id.et_offical_account:
                 break;
             case R.id.ll_qrcode:
+                break;
+
+            case R.id.btn_picphone:
+                pickFromGallery();
+                pickupImageSheet.dismiss();
+                break;
+
+            case R.id.btn_piccard:
+                pickupImageSheet.dismiss();
+                break;
+
+            case R.id.btn_picexit:
+                pickupImageSheet.dismiss();
                 break;
         }
     }

@@ -22,6 +22,8 @@ import com.zhitian.mybole.ui.ClearEditText;
 import com.zhitian.mybole.utils.StringUtils;
 import com.zhitian.mybole.utils.TDevice;
 
+import com.zhitian.mybole.api.OperationResponseHandler;
+
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -46,7 +48,7 @@ public class LoginActivity extends BaseActivity {
     private  CountDownButtonView.CountDownListener countDownListener;
     private  JsonHttpResponseHandler txtCaptchaHandler;
     private  JsonHttpResponseHandler voiceCaptchaHandler;
-    private  JsonHttpResponseHandler LoginHandler;
+    private  JsonHttpResponseHandler loginHandler;
 
     @Override
     protected int getLayoutId() {
@@ -147,45 +149,26 @@ public class LoginActivity extends BaseActivity {
             }
         };
 
-        LoginHandler = new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        loginHandler = new OperationResponseHandler(){
 
-                Gson gson = new Gson();
-                ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
-                Log.d("stony", result.getMsg());
+            public void onJsonSuccess(JSONObject retData){
+                MerchantInfo info = retLoginSucc(retData);
 
-                if (result.getRet()==0){
-                    try {
-                        JSONObject merchantInfoJson = response.getJSONObject("data").getJSONObject("merchantInfo");
-                        String     gsid             = response.getJSONObject("data").getString("gsid");
+                AppContext.saveLoginInfo(info.getUserId(), info.getGsid(), etTelphone.getText().toString());
+                AppContext.myInfo = info;
 
-                        MerchantInfo merchantInfo   = gson.fromJson(merchantInfoJson.toString(), MerchantInfo.class);
+                hideWaitDialog();
+                AppContext.showToast("登录成功");
 
-                        AppContext.saveLoginInfo(merchantInfo.getUserId(), gsid, etTelphone.getText().toString());
-                        AppContext.myInfo = merchantInfo;
+                gotoMerchantForm();
+            };
 
-                        Log.d("stony", merchantInfo.getAddress());
-
-                        hideWaitDialog();
-                        AppContext.showToast("登录成功");
-
-                        gotoMerchantForm();
-
-                    } catch (Exception e){
-
-                    }
-                } else {
-                    AppContext.showToast(result.getMsg());
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            public void onJsonFailure(int statusCode, String errMsg){
                 hideWaitDialog();
                 AppContext.showToast("请求失败");
             }
         };
+
     }
 
     //事件处理
@@ -256,7 +239,7 @@ public class LoginActivity extends BaseActivity {
 
         showWaitDialog("发送请求");
 
-        BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(), LoginHandler);
+        BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(), loginHandler);
 
     }
 

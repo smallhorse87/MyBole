@@ -47,6 +47,7 @@
     <color name="input_outline_color">#d8d8d8</color>
 
     <color name="divider_color">#DbDbDb</color>
+    <color name="cl_txt_normal">#4d4d4d</color> <!-- 一般字体的颜色 -->
 
     <!--来着oschian-->
     <color name="ui_dialog_list_text">#5E5E5E</color>

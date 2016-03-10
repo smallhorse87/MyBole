@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_address_bg"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_picphone"
+        style="@style/layout_fwc"
+        android:layout_height="100px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="20px"
+        android:background="@drawable/buttoncircle_pic"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="拍照"
+        android:textColor="@color/cl_txt_normal"
+        android:textSize="32px" />
+
+    <Button
+        android:id="@+id/btn_piccard"
+        style="@style/layout_fwc"
+        android:layout_height="100px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:background="@drawable/buttoncircle_pic"
+        android:onClick="onClick"
+        android:text="从相册选择"
+        android:textColor="@color/cl_txt_normal"
+        android:textSize="32px" />
+
+    <Button
+        android:id="@+id/btn_picexit"
+        style="@style/layout_fwc"
+        android:layout_height="100px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:background="@drawable/buttoncircle_pic"
+        android:onClick="onClick"
+        android:text="取消"
+        android:textColor="@color/cl_txt_normal"
+        android:textSize="32px" />
+
+</LinearLayout>

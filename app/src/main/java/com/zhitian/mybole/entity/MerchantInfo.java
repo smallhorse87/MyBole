@@ -1,5 +1,7 @@
 package com.zhitian.mybole.entity;
 
+import android.net.Uri;
+
 import java.util.List;
 
 public class MerchantInfo {
@@ -19,12 +21,18 @@ public class MerchantInfo {
     private List<String> regionIds;
     private List<String> regionName;
 
+    private String gsid;
+
     public void setAvatar(ImageSetInfo avatar) {
         this.avatar = avatar;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setGsid(String gsid) {
+        this.gsid = gsid;
     }
 
     public void setCategory(String category) {
@@ -75,6 +83,10 @@ public class MerchantInfo {
         return name;
     }
 
+    public String getGsid() {
+        return gsid;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -115,4 +127,21 @@ public class MerchantInfo {
         return regionName;
     }
 
+    public String getFullRegionName(){
+        String fullName = "";
+
+        for (String subRegion:regionName) {
+          fullName = fullName + subRegion;
+        }
+
+        return fullName;
+    }
+
+    public Uri getReaLogoUri(){
+        return getAvatar().getRealUri();
+    }
+
+    public Uri getRealWechatQrcodeUri(){
+        return getWechatQrcode().getRealUri();
+    }
 }

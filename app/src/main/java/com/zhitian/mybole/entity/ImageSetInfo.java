@@ -85,4 +85,14 @@ public class ImageSetInfo {
     public Uri getUri() {
         return this.uri;
     }
+
+    public Uri getRealUri(){
+        if ( getUri() != null)
+            return getUri();
+        else if (getThumbnailImg().getUrl() != null)
+            return Uri.parse(getThumbnailImg().getUrl());
+        else
+            return null;
+    }
+
 }
