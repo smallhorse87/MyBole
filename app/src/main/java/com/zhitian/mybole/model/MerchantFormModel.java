@@ -186,18 +186,6 @@ public class MerchantFormModel {
         isModified = true;
     }
 
-    public void setRegionIds(String proviceId, String cityId, String districtId){
-
-        List<String> regionIds = new ArrayList<String>();
-
-        regionIds.add(proviceId);
-        regionIds.add(cityId);
-        regionIds.add(districtId);
-
-        mMerchant.setRegionIds(regionIds);
-        isModified = true;
-    }
-
     public void setAddress (String address){
         mMerchant.setAddress(address);
         isModified = true;
@@ -216,6 +204,40 @@ public class MerchantFormModel {
     public void setWechatQr (Uri uri){
         mMerchant.setWechatQrcode(new ImageSetInfo());
         mMerchant.getWechatQrcode().setUri(uri);
+
+        isModified = true;
+    }
+
+    public void setRegionNames (String province, String city, String district){
+
+        List<String> regionNames = mMerchant.getRegionName();
+
+        if(regionNames == null)
+            regionNames = new ArrayList<String>();
+        else
+            regionNames.clear();
+
+        regionNames.add(province);
+        regionNames.add(city);
+        regionNames.add(district);
+
+        mMerchant.setRegionName(regionNames);
+
+        isModified = true;
+    }
+
+    public void setDistrictId (String districtId){
+        List<String> regionIds = mMerchant.getRegionIds();
+
+        if(regionIds == null)
+            regionIds = new ArrayList<String>();
+        else
+            regionIds.clear();
+
+        //只需保留地区id作为上传参数
+        regionIds.add("0");
+        regionIds.add("0");
+        regionIds.add(districtId);
 
         isModified = true;
     }
@@ -247,5 +269,4 @@ public class MerchantFormModel {
 
         return null;
     }
-
 }

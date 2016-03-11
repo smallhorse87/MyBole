@@ -123,6 +123,12 @@ public class MerchantInfo {
         return regionIds;
     }
 
+    public String getDistrictid() {
+        List<String> regionIds = getRegionIds();
+
+        return regionIds.get(regionIds.size() - 1);
+    }
+
     public List<String> getRegionName() {
         return regionName;
     }

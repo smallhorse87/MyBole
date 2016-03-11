@@ -38,37 +38,18 @@ import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.model.MerchantFormModel;
 
 import org.json.JSONObject;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.content.res.XmlResourceParser;
-import android.util.Xml;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 import com.bigkoo.pickerview.TimePickerView;
-import com.zhitian.mybole.ui.RegionPicker;
-
-import javax.xml.parsers.DocumentBuilderFactory;
+import com.zhitian.mybole.ui.RegionPickerBuilder;
+import com.zhitian.mybole.utils.StringUtils;
 
 public class MerchantFormActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SampleActivity";
@@ -190,12 +171,17 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
     private void pickForRegion(){
         //选项选择器：地区id，地区名称
-        OptionsPickerView regionPicker = RegionPicker.BuildRegionPicker(this, new OptionsPickerView.OnOptionsSelectListener() {
+        OptionsPickerView regionPicker = RegionPickerBuilder.getPicker(this, new RegionPickerBuilder.RegionPickerListener() {
             @Override
-            public void onOptionsSelect(int options1, int option2, int options3) {
-                //返回的分别是三个级别的选中位置
+            public void onRegionSelect(String districtId, String province, String city, String district) {
+                model.setRegionNames(province, city, district);
+                model.setDistrictId(districtId);
+
+                tvAddress.setText(info.getFullRegionName());
             }
         });
+
+        RegionPickerBuilder.setDefaulSelection(info.getDistrictid(), regionPicker);
 
         regionPicker.show();
     }
