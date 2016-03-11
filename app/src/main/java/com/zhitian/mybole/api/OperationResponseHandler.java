@@ -6,6 +6,7 @@ import android.util.Log;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.google.gson.Gson;
 import com.zhitian.mybole.AppContext;
+import com.zhitian.mybole.entity.ConfigInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 
 import org.json.JSONObject;
@@ -54,6 +55,25 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 			return info;
 
 		}	catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	public ConfigInfo retSystemConfig(JSONObject retData)
+	{
+		try {
+			Gson gson = new Gson();
+			ConfigInfo info = gson.fromJson(retData.toString(), ConfigInfo.class);
+
+			AppContext.cfgInfo = info;
+
+			//download region xml, if needed
+
+			return info;
+
+		}	catch (Exception e) {
+
 			return null;
 		}
 

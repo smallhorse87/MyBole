@@ -35,6 +35,7 @@ public class MerchantFormModel {
     private JsonHttpResponseHandler  uploadImageHandler;
     private  JsonHttpResponseHandler submitMerchantFormHandler;
 
+
     public MerchantFormModel(MerchantInfo info, BaseActivity baseActivity){
         mMerchant = info;
         mBaseActivity = baseActivity;
@@ -213,11 +214,7 @@ public class MerchantFormModel {
     }
 
     public void setWechatQr (Uri uri){
-        if(mMerchant.getWechatQrcode()==null)
-        {
-            mMerchant.setWechatQrcode(new ImageSetInfo());
-        }
-
+        mMerchant.setWechatQrcode(new ImageSetInfo());
         mMerchant.getWechatQrcode().setUri(uri);
 
         isModified = true;

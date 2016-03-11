@@ -12,6 +12,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 import com.zhitian.mybole.api.ApiHttpClient;
 import com.zhitian.mybole.base.BaseApplication;
+import com.zhitian.mybole.entity.ConfigInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.utils.PersistenceUtils;
 
@@ -29,6 +30,8 @@ public class AppContext extends BaseApplication {
     private static AppContext instance;
 
     public static MerchantInfo myInfo;
+
+    public static ConfigInfo   cfgInfo;
 
     @Override
     public void onCreate() {

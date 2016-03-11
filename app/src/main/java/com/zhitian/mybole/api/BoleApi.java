@@ -74,6 +74,10 @@ public class BoleApi {
         }
     }
 
+    public static void getSystemConfig(JsonHttpResponseHandler jsonhandler) {
+        ApiHttpClient.get("system/config", null, jsonhandler);
+    }
+
     //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
     /**
      * 获取新闻列表
