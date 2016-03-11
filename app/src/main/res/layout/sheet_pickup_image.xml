@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_picphone"
+        android:id="@+id/btn_pic_camera"
         style="@style/layout_fwc"
         android:layout_height="100px"
         android:layout_gravity="center_horizontal"
@@ -22,7 +22,7 @@
         android:textSize="32px" />
 
     <Button
-        android:id="@+id/btn_piccard"
+        android:id="@+id/btn_pic_gallery"
         style="@style/layout_fwc"
         android:layout_height="100px"
         android:layout_gravity="center_horizontal"
@@ -36,7 +36,7 @@
         android:textSize="32px" />
 
     <Button
-        android:id="@+id/btn_picexit"
+        android:id="@+id/btn_pic_exit"
         style="@style/layout_fwc"
         android:layout_height="100px"
         android:layout_gravity="center_horizontal"

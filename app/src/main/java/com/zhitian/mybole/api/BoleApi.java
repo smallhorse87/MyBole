@@ -60,11 +60,18 @@ public class BoleApi {
     }
 
     public static void updateImage(Uri uri, JsonHttpResponseHandler jsonhandler) {
-        RequestParams params = new RequestParams();
+        File file = new File(uri.getPath());
 
-        params.put("FileData", uri.toString());
+        if(file.exists() && file.length() > 0)
+        {
+            try{
+                RequestParams params = new RequestParams();
+                params.put("FileData", file);
+                ApiHttpClient.post("system/upimg", params, jsonhandler);
+            } catch (Exception e) {
 
-        ApiHttpClient.post("system/upimg", params, jsonhandler);
+            }
+        }
     }
 
     //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);

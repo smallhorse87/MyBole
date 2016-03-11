@@ -86,6 +86,13 @@ public class ImageSetInfo {
         return this.uri;
     }
 
+    public boolean pendingForUpload() {
+        if(imgId == null && uri != null)
+            return true;
+        else
+            return false;
+    }
+
     public Uri getRealUri(){
         if ( getUri() != null)
             return getUri();

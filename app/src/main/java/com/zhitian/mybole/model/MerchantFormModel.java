@@ -9,6 +9,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.api.ApiResult;
 import com.zhitian.mybole.api.BoleApi;
+import com.zhitian.mybole.base.BaseActivity;
 import com.zhitian.mybole.entity.ImageInfo;
 import com.zhitian.mybole.entity.ImageSetInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
@@ -26,6 +27,7 @@ import cz.msebera.android.httpclient.Header;
 public class MerchantFormModel {
 
     protected MerchantInfo mMerchant;
+    protected BaseActivity mBaseActivity;
     private   Boolean      isModified = false;
 
     private ImageSetInfo uploadingImage;
@@ -33,8 +35,9 @@ public class MerchantFormModel {
     private JsonHttpResponseHandler  uploadImageHandler;
     private  JsonHttpResponseHandler submitMerchantFormHandler;
 
-    public MerchantFormModel(MerchantInfo info){
+    public MerchantFormModel(MerchantInfo info, BaseActivity baseActivity){
         mMerchant = info;
+        mBaseActivity = baseActivity;
 
         uploadImageHandler = new JsonHttpResponseHandler() {
             @Override
@@ -45,26 +48,26 @@ public class MerchantFormModel {
 
                 if (result.getRet() == 0) {
                     try {
-                        JSONObject imgSetAttribData = response.getJSONObject("data").getJSONObject("imgSetAttrib");
+                        JSONObject imgSetAttribData = response.getJSONObject("data");
                         ImageSetInfo info = gson.fromJson(imgSetAttribData.toString(), ImageSetInfo.class);
 
-                        uploadingImage.setUri(null);
                         uploadingImage.setImgId(info.getImgId());
-                        uploadingImage = null;
 
                         submitForm();
 
                     } catch (Exception e) {
-
+                        mBaseActivity.hideWaitDialog();
                     }
                 } else {
                     AppContext.showToast(result.getMsg());
+                    mBaseActivity.hideWaitDialog();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 AppContext.showToast("请求失败");
+                mBaseActivity.hideWaitDialog();
             }
         };
 
@@ -80,17 +83,22 @@ public class MerchantFormModel {
                         JSONObject merchantInfoData = response.getJSONObject("data");
                         MerchantInfo info = gson.fromJson(merchantInfoData.toString(), MerchantInfo.class);
                         Log.i("stony", info.getAddress());
+
+                        mBaseActivity.hideWaitDialog();
+
                     } catch (Exception e) {
                         Log.e("err", e.toString());
                     }
                 } else {
                     AppContext.showToast(result.getMsg());
+                    mBaseActivity.hideWaitDialog();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 AppContext.showToast("请求失败");
+                mBaseActivity.hideWaitDialog();
             }
         };
     }
@@ -105,6 +113,8 @@ public class MerchantFormModel {
             return;
 
         uploadingImage = getImageForUpload();
+
+        mBaseActivity.showWaitDialog();
 
         if (uploadingImage != null)
             BoleApi.updateImage(uploadingImage.getUri(), uploadImageHandler);
@@ -158,10 +168,7 @@ public class MerchantFormModel {
     }
 
     public void setAvatar(Uri uri){
-        if(mMerchant.getAvatar()==null)
-        {
-            mMerchant.setAvatar(new ImageSetInfo());
-        }
+        mMerchant.setAvatar(new ImageSetInfo());
 
         mMerchant.getAvatar().setUri(uri);
 
@@ -233,15 +240,13 @@ public class MerchantFormModel {
     }
 
     private ImageSetInfo getImageForUpload(){
-        ImageSetInfo info = mMerchant.getAvatar();
+        //检查是否头像需要上传
+        if (mMerchant.getAvatar().pendingForUpload())
+            return mMerchant.getAvatar();
 
-        if (info !=  null && info.getUri() != null)
-            return info;
-
-        info = mMerchant.getWechatQrcode();
-
-        if (info !=  null && info.getUri() != null)
-            return info;
+        //检查是否二维码需要上传
+        if (mMerchant.getWechatQrcode().pendingForUpload())
+            return mMerchant.getWechatQrcode();
 
         return null;
     }

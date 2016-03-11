@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import com.rey.material.app.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +26,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 import com.zhitian.mybole.AppContext;
+import com.zhitian.mybole.Constants;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.base.BaseActivity;
 import com.zhitian.mybole.entity.MerchantInfo;
@@ -38,6 +41,8 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
     private static final String TAG = "SampleActivity";
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
+    private static final int REQUEST_TAKE_PHOTO     = 0x02;
+
     private static final String SAMPLE_CROPPED_IMAGE_NAME = "SampleCropImage.jpeg";
 
     private MerchantFormModel model;
@@ -75,6 +80,8 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
     MerchantInfo info;
 
+    private SimpleDraweeView selectedIV;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_merchant_form;
@@ -85,22 +92,6 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
         return "品牌信息";
     }
 
-    @Override
-    protected void leftNavBtnHandle() {
-        AppContext.showToast("点击了返回键");
-    }
-
-    protected void actionBtnHandle() {
-        AppContext.showToast("点击了右侧键");
-
-        //其他的：品牌logo，二维码图片，类别，地址（省市区），gps地址
-        model.setName(etMerchantname.getText().toString());
-        model.setAddress(etDetailedAddress.getText().toString());
-        model.setTel(etTelphone.getText().toString());
-        model.setWechat(etOfficalAccount.getText().toString());
-
-        model.submitForm();
-    }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -129,7 +120,24 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
     protected void initListeners(Bundle savedInstanceState) {
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
 
-        model = new MerchantFormModel(info);
+        model = new MerchantFormModel(info, this);
+    }
+
+    @Override
+    protected void leftNavBtnHandle() {
+        AppContext.showToast("点击了返回键");
+    }
+
+    protected void actionBtnHandle() {
+        AppContext.showToast("点击了右侧键");
+
+        //其他的：品牌logo，二维码图片，类别，地址（省市区），gps地址
+        model.setName(etMerchantname.getText().toString());
+        model.setAddress(etDetailedAddress.getText().toString());
+        model.setTel(etTelphone.getText().toString());
+        model.setWechat(etOfficalAccount.getText().toString());
+
+        model.submitForm();
     }
 
     @Override
@@ -138,6 +146,13 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
         pickupImageSheet.dismissImmediately();
 
         super.onPause();
+    }
+
+    private void pickFromCamera(){
+        Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), Constants.PHOTONAME)));
+        startActivityForResult(intentFromCapture,
+                REQUEST_TAKE_PHOTO);
     }
 
     private void pickFromGallery() {
@@ -158,18 +173,21 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_SELECT_PICTURE) {
-                final Uri selectedUri = data.getData();
-                if (selectedUri != null) {
-                    startCropActivity(data.getData());
-                } else {
-                    Toast.makeText(MerchantFormActivity.this, "获取图片失败", Toast.LENGTH_SHORT).show();
-                }
-            } else if (requestCode == UCrop.REQUEST_CROP) {
-                handleCropResult(data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_SELECT_PICTURE) {
+            final Uri selectedUri = data.getData();
+            if (selectedUri != null) {
+                startCropActivity(data.getData());
+            } else {
+                Toast.makeText(MerchantFormActivity.this, "获取图片失败", Toast.LENGTH_SHORT).show();
             }
+        } else if(resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP){
+            handleCropResult(data);
+
+        } else if(resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO){
+            final  Uri selectedUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), Constants.PHOTONAME));
+            startCropActivity(selectedUri);
         }
+
         if (resultCode == UCrop.RESULT_ERROR) {
             handleCropError(data);
         }
@@ -178,8 +196,8 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
     private void startCropActivity(@NonNull Uri uri) {
         UCrop uCrop = UCrop.of(uri, mDestinationUri);
 
-        uCrop.withAspectRatio(2, 1);
-        uCrop.withMaxResultSize(800, 800);
+        uCrop.withAspectRatio(1, 1);
+        uCrop.withMaxResultSize(1080, 1080);
 
         UCrop.Options options = new UCrop.Options();
         options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
@@ -193,8 +211,16 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
     private void handleCropResult(@NonNull Intent result) {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
-            //ResultActivity.startWithUri(SampleActivity.this, resultUri); stony
-            mIvLogo.setImageURI(resultUri);
+            selectedIV.setImageURI(resultUri);
+
+            if (selectedIV == mIvLogo) {
+                model.setAvatar(resultUri);
+
+            } else if(selectedIV == ivQrcode) {
+                model.setWechatQr(resultUri);
+
+            }
+
         } else {
             //Toast.makeText(SampleActivity.this, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show(); stony
         }
@@ -215,15 +241,17 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.ll_logo:
             {
+                selectedIV = mIvLogo;
+
                 pickupImageSheet = new BottomSheetDialog(this);
                 View sheetView = LayoutInflater.from(this).inflate(R.layout.sheet_pickup_image, null);
-                Button photoBtn = (Button)sheetView.findViewById(R.id.btn_picphone);
+                Button photoBtn = (Button)sheetView.findViewById(R.id.btn_pic_camera);
                 photoBtn.setOnClickListener(this);
 
-                Button galleryBtn = (Button)sheetView.findViewById(R.id.btn_piccard);
+                Button galleryBtn = (Button)sheetView.findViewById(R.id.btn_pic_gallery);
                 galleryBtn.setOnClickListener(this);
 
-                Button exitBtn = (Button)sheetView.findViewById(R.id.btn_picexit);
+                Button exitBtn = (Button)sheetView.findViewById(R.id.btn_pic_exit);
                 exitBtn.setOnClickListener(this);
 
                 pickupImageSheet.heightParam(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -244,18 +272,37 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
             case R.id.et_offical_account:
                 break;
             case R.id.ll_qrcode:
+            {
+                selectedIV = ivQrcode;
+
+                pickupImageSheet = new BottomSheetDialog(this);
+                View sheetView = LayoutInflater.from(this).inflate(R.layout.sheet_pickup_image, null);
+                Button photoBtn = (Button)sheetView.findViewById(R.id.btn_pic_camera);
+                photoBtn.setOnClickListener(this);
+
+                Button galleryBtn = (Button)sheetView.findViewById(R.id.btn_pic_gallery);
+                galleryBtn.setOnClickListener(this);
+
+                Button exitBtn = (Button)sheetView.findViewById(R.id.btn_pic_exit);
+                exitBtn.setOnClickListener(this);
+
+                pickupImageSheet.heightParam(ViewGroup.LayoutParams.WRAP_CONTENT);
+                pickupImageSheet.setContentView(sheetView);
+                pickupImageSheet.show();
+            }
                 break;
 
-            case R.id.btn_picphone:
+            case R.id.btn_pic_gallery:
                 pickFromGallery();
                 pickupImageSheet.dismiss();
                 break;
 
-            case R.id.btn_piccard:
+            case R.id.btn_pic_camera:
+                pickFromCamera();
                 pickupImageSheet.dismiss();
                 break;
 
-            case R.id.btn_picexit:
+            case R.id.btn_pic_exit:
                 pickupImageSheet.dismiss();
                 break;
         }
