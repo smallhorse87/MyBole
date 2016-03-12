@@ -49,6 +49,7 @@ import butterknife.OnClick;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.zhitian.mybole.ui.RegionPickerBuilder;
+import com.zhitian.mybole.utils.RegionXmlUtil;
 import com.zhitian.mybole.utils.StringUtils;
 
 public class MerchantFormActivity extends BaseActivity implements View.OnClickListener {
@@ -282,6 +283,10 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
                 public void onJsonSuccess(JSONObject retData){
                     ConfigInfo info = retSystemConfig(retData);
+
+                    if (RegionXmlUtil.doesUpdateNeeded(info.getRegions().getUpdateAt())){
+                        RegionXmlUtil.downloadRegionXml(info.getRegions().getUrl());
+                    }
                 }
                 public void onJsonFailure(int statusCode, String errMsg){
 

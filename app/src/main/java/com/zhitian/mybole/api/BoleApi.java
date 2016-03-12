@@ -1,8 +1,12 @@
 package com.zhitian.mybole.api;
 
 import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -10,9 +14,12 @@ import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.utils.TDevice;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
 
 public class BoleApi {
     public static final int DEF_PAGE_SIZE = TDevice.getPageSize();
@@ -76,6 +83,10 @@ public class BoleApi {
 
     public static void getSystemConfig(JsonHttpResponseHandler jsonhandler) {
         ApiHttpClient.get("system/config", null, jsonhandler);
+    }
+
+    public static void downloadRegionXml(String downloadUrl, BinaryHttpResponseHandler binhandler) {
+        ApiHttpClient.getWithFullUrl( downloadUrl, null, binhandler);
     }
 
     //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);

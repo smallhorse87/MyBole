@@ -43,6 +43,13 @@ public class ApiHttpClient {
 		log(new StringBuilder("DELETE ").append(partUrl).toString());
 	}
 
+	public static void getWithFullUrl(String fullUrl, RequestParams params,
+						   AsyncHttpResponseHandler handler) {
+		client.get(fullUrl, attachParams(params), handler);
+		log(new StringBuilder("GET ").append(fullUrl).append("&")
+				.append(params).toString());
+	}
+
 	public static void get(String partUrl, RequestParams params,
 			AsyncHttpResponseHandler handler) {
 		client.get(getAbsoluteApiUrl(partUrl), attachParams(params), handler);
