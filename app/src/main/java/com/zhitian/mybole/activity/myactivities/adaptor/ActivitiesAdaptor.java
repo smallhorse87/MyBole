@@ -6,15 +6,24 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.entity.ActivityInfo;
+
+import java.util.List;
 
 /**
  * Created by chenxiaosong on 16/3/14.
  */
 public class ActivitiesAdaptor extends BaseAdapter {
 
+    List<ActivityInfo> currentList;
+
+    public ActivitiesAdaptor(List<ActivityInfo> list) {
+        currentList = list;
+    }
+
     @Override
     public int getCount() {
-        return 10;
+        return currentList.size();
     }
 
     @Override

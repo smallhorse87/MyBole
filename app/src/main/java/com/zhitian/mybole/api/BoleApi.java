@@ -89,8 +89,13 @@ public class BoleApi {
         ApiHttpClient.getWithFullUrl(downloadUrl, null, binhandler);
     }
 
-    public static void getActivityList(JsonHttpResponseHandler jsonhandler) {
-        ApiHttpClient.post("merchant/myActivity", null, jsonhandler);
+    public static void getActivityList(int pagenum, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+
+        params.put("p",   Integer.valueOf(pagenum).toString());
+        params.put("sz",  "15");//stony
+
+        ApiHttpClient.post("merchant/myActivity", params, jsonhandler);
     }
     //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
     /**
