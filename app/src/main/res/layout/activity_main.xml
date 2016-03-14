@@ -43,6 +43,7 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <RelativeLayout
+                    android:id="@+id/rl_activity_creation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grid_create_activity_selector"
@@ -84,6 +85,7 @@
                     android:layout_height="0dp" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_my_activities"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grid_my_activity_selector"
@@ -134,6 +136,7 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <RelativeLayout
+                    android:id="@+id/rl_total_statistics"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grid_total_statisic_selector"
@@ -173,6 +176,7 @@
                     android:layout_width="@dimen/activity_horizontal_margin"
                     android:layout_height="0px" />
                 <RelativeLayout
+                    android:id="@+id/rl_code_verification"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grid_verify_code_selector"

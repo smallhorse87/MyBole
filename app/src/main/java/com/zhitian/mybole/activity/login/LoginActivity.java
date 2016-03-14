@@ -13,6 +13,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.voyager.countdownbutton.CountDownButtonView;
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.activity.MainActivity;
 import com.zhitian.mybole.activity.merchant.MerchantFormActivity;
 import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.ApiResult;
@@ -244,7 +245,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     void gotoMerchantForm(){
-        Intent intent = new Intent(this, MerchantFormActivity.class);
+        //Intent intent = new Intent(this, MerchantFormActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);
     }
 }

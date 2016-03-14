@@ -1,12 +1,28 @@
 package com.zhitian.mybole.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.base.BaseActivity;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends BaseActivity {
+
+    @Bind(R.id.rl_activity_creation)
+    RelativeLayout rlActivityCreation;
+    @Bind(R.id.rl_my_activities)
+    RelativeLayout rlMyActivities;
+    @Bind(R.id.rl_total_statistics)
+    RelativeLayout rlTotalStatistics;
+    @Bind(R.id.rl_code_verification)
+    RelativeLayout rlCodeVerification;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -19,13 +35,35 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected String getNavTitle(){
+    protected String getNavTitle() {
         return "主菜单";
     }
 
     @Override
-    protected void leftNavBtnHandle(){
+    protected void leftNavBtnHandle() {
         Toast.makeText(MainActivity.this, "点击了发布", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.rl_activity_creation, R.id.rl_my_activities, R.id.rl_total_statistics, R.id.rl_code_verification})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rl_activity_creation:
+                break;
+            case R.id.rl_my_activities:
+                Intent intent = new Intent(this, MyActivitesActivity.class);
+                this.startActivity(intent);
+                break;
+            case R.id.rl_total_statistics:
+                break;
+            case R.id.rl_code_verification:
+                break;
+        }
+    }
 }

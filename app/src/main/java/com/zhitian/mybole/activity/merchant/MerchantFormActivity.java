@@ -9,6 +9,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.support.annotation.NonNull;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.rey.material.app.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,8 +106,8 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
     private SimpleDraweeView selectedIV;
 
     private LocationListener llistener;
-    private LocationManager locationManager;
-    private String provider;
+    private LocationManager  locationManager;
+    private LocationProvider provider;
 
     @Override
     protected int getLayoutId() {
@@ -147,17 +149,8 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
         model = new MerchantFormModel(info, this);
 
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setCostAllowed(true);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-
         String serviceName = Context.LOCATION_SERVICE;
         locationManager = (LocationManager) getSystemService(serviceName);
-        provider = locationManager.getBestProvider(criteria, true);
-
         llistener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location)
@@ -193,7 +186,13 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
             }
         };
 
-        locationManager.requestLocationUpdates(provider, 100, (float) 10.0, llistener);
+        int accessFineLoactionGranted = ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+        int accessCoarseLoactionGranted = ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        //@TargetApi(23)
+        if ( Build.VERSION.SDK_INT >= 23 && accessFineLoactionGranted == PackageManager.PERMISSION_GRANTED && accessCoarseLoactionGranted == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, (float) 10.0, llistener);
+        }
 
     }
 
