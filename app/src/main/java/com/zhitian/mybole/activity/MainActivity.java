@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.activity.myactivities.MyActivitesActivity;
 import com.zhitian.mybole.base.BaseActivity;
 
 import butterknife.Bind;

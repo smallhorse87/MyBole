@@ -58,5 +58,4 @@ public class GalleryAdaptor extends RecyclerView.Adapter<GalleryViewHolder> {
         return ids.size();
     }
 
-
 }

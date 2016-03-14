@@ -86,9 +86,12 @@ public class BoleApi {
     }
 
     public static void downloadRegionXml(String downloadUrl, BinaryHttpResponseHandler binhandler) {
-        ApiHttpClient.getWithFullUrl( downloadUrl, null, binhandler);
+        ApiHttpClient.getWithFullUrl(downloadUrl, null, binhandler);
     }
 
+    public static void getActivityList(JsonHttpResponseHandler jsonhandler) {
+        ApiHttpClient.post("merchant/myActivity", null, jsonhandler);
+    }
     //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
     /**
      * 获取新闻列表

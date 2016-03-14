@@ -11,7 +11,8 @@
         android:layout_marginTop="9dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/item_activity_selector">
+        android:background="@drawable/item_activity_selector"
+        android:clickable="true">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -77,22 +78,26 @@
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
-        <TextView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="77dp"
-            android:id="@+id/textView18"
+            android:id="@+id/rv_prize_images"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="14dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="14dp"
-            android:background="#f2f2f2" />
+            android:background="#f2f2f2"
+            android:scrollIndicators="none"/>
 
-        <include layout="@layout/divider_h_margin"/>
+        <include layout="@layout/divider_h_no_margin"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1px"
+            android:layout_marginRight="1px"
+            android:layout_marginBottom="1px">
 
             <Button
                 android:layout_width="0dp"
@@ -100,9 +105,11 @@
                 android:text="分享"
                 android:id="@+id/btn_share"
                 android:layout_weight="1"
-                android:background="#ffffff"
                 android:textSize="14dp"
-                android:textColor="#b2b2b2" />
+                android:textColor="#b2b2b2"
+                android:background="@drawable/btn_activity_left_selector" />
+
+            <include layout="@layout/divider_v_margin"/>
 
             <Button
                 android:layout_width="0dp"
@@ -110,9 +117,11 @@
                 android:text="统计"
                 android:id="@+id/btn_statistic"
                 android:layout_weight="1"
-                android:background="#ffffff"
                 android:textSize="14dp"
-                android:textColor="#b2b2b2"/>
+                android:textColor="#b2b2b2"
+                android:background="@drawable/btn_activity_middle_selector" />
+
+            <include layout="@layout/divider_v_margin"/>
 
             <Button
                 android:layout_width="0dp"
@@ -120,9 +129,9 @@
                 android:text="排名"
                 android:id="@+id/btn_ranking"
                 android:layout_weight="1"
-                android:background="#ffffff"
                 android:textSize="14dp"
-                android:textColor="#b2b2b2"/>
+                android:textColor="#b2b2b2"
+                android:background="@drawable/btn_activity_right_selector" />
         </LinearLayout>
 
     </LinearLayout>
