@@ -1,14 +1,20 @@
 package com.zhitian.mybole.activity.merchant;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.bigkoo.pickerview.OptionsPickerView;
@@ -97,6 +103,10 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
     private SimpleDraweeView selectedIV;
 
+    private LocationListener llistener;
+    private LocationManager locationManager;
+    private String provider;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_merchant_form;
@@ -136,6 +146,55 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
 
         model = new MerchantFormModel(info, this);
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+
+        String serviceName = Context.LOCATION_SERVICE;
+        locationManager = (LocationManager) getSystemService(serviceName);
+        provider = locationManager.getBestProvider(criteria, true);
+
+        llistener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location)
+            {
+                // TODO Auto-generated method stub
+                Log.i("onLocationChanged", "come in");
+                if (location != null)
+                {
+                    Log.w("Location", "Current altitude = "
+                            + location.getAltitude());
+                    Log.w("Location", "Current latitude = "
+                            + location.getLatitude());
+                }
+            }
+            @Override
+            public void onProviderDisabled(String provider)
+            {
+                // TODO Auto-generated method stub
+                Log.i("onProviderDisabled", "come in");
+            }
+            @Override
+            public void onProviderEnabled(String provider)
+            {
+                // TODO Auto-generated method stub
+                Log.i("onProviderEnabled", "come in");
+            }
+            @Override
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras)
+            {
+                // TODO Auto-generated method stub
+                Log.i("onStatusChanged", "come in");
+            }
+        };
+
+        locationManager.requestLocationUpdates(provider, 100, (float) 10.0, llistener);
+
     }
 
     @Override
@@ -415,89 +474,3 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
         }
     }
 }
-
-////选项选择器
-//pvOptions = new OptionsPickerView(this);
-//
-//        //选项1
-//        options1Items.add(new ProvinceBean(0,"广东","广东省，以岭南东道、广南东路得名","其他数据"));
-//        options1Items.add(new ProvinceBean(1,"湖南","湖南省地处中国中部、长江中游，因大部分区域处于洞庭湖以南而得名湖南","芒果TV"));
-//        options1Items.add(new ProvinceBean(3,"广西","嗯～～",""));
-//
-//        //选项2
-//        ArrayList<String> options2Items_01=new ArrayList<String>();
-//        options2Items_01.add("广州");
-//        options2Items_01.add("佛山");
-//        options2Items_01.add("东莞");
-//        options2Items_01.add("阳江");
-//        options2Items_01.add("珠海");
-//        ArrayList<String> options2Items_02=new ArrayList<String>();
-//        options2Items_02.add("长沙");
-//        options2Items_02.add("岳阳");
-//        ArrayList<String> options2Items_03=new ArrayList<String>();
-//        options2Items_03.add("桂林");
-//        options2Items.add(options2Items_01);
-//        options2Items.add(options2Items_02);
-//        options2Items.add(options2Items_03);
-//
-//        //选项3
-//        ArrayList<ArrayList<String>> options3Items_01 = new ArrayList<ArrayList<String>>();
-//        ArrayList<ArrayList<String>> options3Items_02 = new ArrayList<ArrayList<String>>();
-//        ArrayList<ArrayList<String>> options3Items_03 = new ArrayList<ArrayList<String>>();
-//        ArrayList<String> options3Items_01_01=new ArrayList<String>();
-//        options3Items_01_01.add("白云");
-//        options3Items_01_01.add("天河");
-//        options3Items_01_01.add("海珠");
-//        options3Items_01_01.add("越秀");
-//        options3Items_01.add(options3Items_01_01);
-//        ArrayList<String> options3Items_01_02=new ArrayList<String>();
-//        options3Items_01_02.add("南海");
-//        options3Items_01_02.add("高明");
-//        options3Items_01_02.add("顺德");
-//        options3Items_01_02.add("禅城");
-//        options3Items_01.add(options3Items_01_02);
-//        ArrayList<String> options3Items_01_03=new ArrayList<String>();
-//        options3Items_01_03.add("其他");
-//        options3Items_01_03.add("常平");
-//        options3Items_01_03.add("虎门");
-//        options3Items_01.add(options3Items_01_03);
-//        ArrayList<String> options3Items_01_04=new ArrayList<String>();
-//        options3Items_01_04.add("其他1");
-//        options3Items_01_04.add("其他2");
-//        options3Items_01_04.add("其他3");
-//        options3Items_01.add(options3Items_01_04);
-//        ArrayList<String> options3Items_01_05=new ArrayList<String>();
-//        options3Items_01_05.add("其他1");
-//        options3Items_01_05.add("其他2");
-//        options3Items_01_05.add("其他3");
-//        options3Items_01.add(options3Items_01_05);
-//
-//        ArrayList<String> options3Items_02_01=new ArrayList<String>();
-//        options3Items_02_01.add("长沙长沙长沙长沙长沙长沙长沙长沙长沙1111111111");
-//        options3Items_02_01.add("长沙2");
-//        options3Items_02_01.add("长沙3");
-//        options3Items_02_01.add("长沙4");
-//        options3Items_02_01.add("长沙5");
-//        options3Items_02_01.add("长沙6");
-//        options3Items_02_01.add("长沙7");
-//        options3Items_02_01.add("长沙8");
-//        options3Items_02.add(options3Items_02_01);
-//        ArrayList<String> options3Items_02_02=new ArrayList<String>();
-//        options3Items_02_02.add("岳1");
-//        options3Items_02_02.add("岳2");
-//        options3Items_02_02.add("岳3");
-//        options3Items_02_02.add("岳4");
-//        options3Items_02_02.add("岳5");
-//        options3Items_02_02.add("岳6");
-//        options3Items_02_02.add("岳7");
-//        options3Items_02_02.add("岳8");
-//        options3Items_02_02.add("岳9");
-//        options3Items_02.add(options3Items_02_02);
-//        ArrayList<String> options3Items_03_01=new ArrayList<String>();
-//        options3Items_03_01.add("好山水");
-//        options3Items_03.add(options3Items_03_01);
-//
-//        options3Items.add(options3Items_01);
-//        options3Items.add(options3Items_02);
-//        options3Items.add(options3Items_03);
-//
