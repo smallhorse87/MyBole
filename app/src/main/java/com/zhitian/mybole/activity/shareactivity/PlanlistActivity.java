@@ -44,7 +44,6 @@ public class PlanlistActivity extends AppCompatActivity {
         View headerView = getLayoutInflater().inflate(R.layout.header_plan, null);
 
         listView.addHeaderView(headerView);
-
     }
 
     @Override
