@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhitian.mybole.activity.statistics.DetailedStatActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:divider="@drawable/dash_line_vertical_shape"
+                android:background="#feb416"
+                android:showDividers="middle"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:id="@+id/tv_left_count"
+                        android:textColor="#ffffff"
+                        android:textSize="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="今日新增玩家"
+                        android:id="@+id/tv_left_title"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#ffffff"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:id="@+id/tv_right_count"
+                        android:textColor="#ffffff"
+                        android:textSize="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="玩家总数"
+                        android:id="@+id/tv_right_title"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#ffffff"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_activity_name"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#4d4d4d"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="活动名称:大阳请你吃大餐" />
+
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_bothside_margin" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView22"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical"
+                    android:textIsSelectable="false"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="今天"
+                    android:id="@+id/textView23"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#989898"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="全部"
+                    android:id="@+id/textView24"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#989898"
+                    android:textSize="13dp"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_bothside_margin" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="浏览次数"
+                    android:id="@+id/textView25"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical"
+                    android:textIsSelectable="false"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14dp"
+                    android:textColor="#989898" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="46"
+                    android:id="@+id/tv_view_count_today"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#989898"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="28"
+                    android:id="@+id/tv_view_count_total"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#989898"
+                    android:textSize="14dp"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_bothside_margin" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="转发次数"
+                    android:id="@+id/textView26"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical"
+                    android:textIsSelectable="false"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#989898"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="17"
+                    android:id="@+id/tv_forward_count_today"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#989898"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="233"
+                    android:id="@+id/tv_forward_count_total"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#989898"
+                    android:textSize="14dp"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_bothside_margin" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

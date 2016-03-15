@@ -59,7 +59,7 @@
                     fresco:placeholderImageScaleType="centerCrop"/>
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -100,7 +100,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/ll_category"
@@ -139,7 +139,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/ll_address"
@@ -177,7 +177,7 @@
                     android:hint="请选择品牌地址" />
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -218,7 +218,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -258,7 +258,7 @@
                     android:hint="请输入服务电话" />
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
@@ -298,7 +298,7 @@
                     android:hint="请输入公众号" />
             </LinearLayout>
 
-            <include layout="@layout/divider_h_margin"/>
+            <include layout="@layout/divider_h_left_margin"/>
 
             <LinearLayout
                 android:id="@+id/ll_qrcode"

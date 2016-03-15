@@ -7,10 +7,13 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.google.gson.Gson;
 import com.zhitian.mybole.AppContext;
+import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.ConfigInfo;
+import com.zhitian.mybole.entity.DetailedStatInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.entity.PageInfo;
+import com.zhitian.mybole.entity.TotalStatInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -117,6 +120,37 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 			}
 
 			return activityInfos;
+
+		}	catch (Exception e) {
+
+			return null;
+		}
+
+	}
+
+
+	public TotalStatInfo retStatsList(JSONObject retData)
+	{
+		try {
+
+			Gson gson = new Gson();
+
+			return gson.fromJson(retData.toString(), TotalStatInfo.class);
+
+		}	catch (Exception e) {
+
+			return null;
+		}
+
+	}
+
+	public DetailedStatInfo retDetailedStat(JSONObject retData)
+	{
+		try {
+
+			Gson gson = new Gson();
+
+			return gson.fromJson(retData.toString(), DetailedStatInfo.class);
 
 		}	catch (Exception e) {
 

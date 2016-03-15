@@ -97,6 +97,19 @@ public class BoleApi {
 
         ApiHttpClient.post("merchant/myActivity", params, jsonhandler);
     }
+
+    public static void getTotalStat(JsonHttpResponseHandler jsonhandler) {
+        ApiHttpClient.get("merchant/myStatistics", null, jsonhandler);
+    }
+
+    public static void getDetailedStat(String activityId, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+        params.put("activityId",  activityId);
+
+        ApiHttpClient.get("merchant/activityStatistics", params, jsonhandler);
+    }
+
+    //merchant.myStatistics
     //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
     /**
      * 获取新闻列表

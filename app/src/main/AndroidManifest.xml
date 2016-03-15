@@ -51,6 +51,8 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity android:name=".activity.statistics.TotalStatActivity" />
+        <activity android:name=".activity.statistics.DetailedStatActivity"></activity>
     </application>
 
 </manifest>

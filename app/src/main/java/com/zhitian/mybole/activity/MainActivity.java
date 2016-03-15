@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.myactivities.MyActivitesActivity;
+import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.base.BaseActivity;
 
 import butterknife.Bind;
@@ -62,6 +63,10 @@ public class MainActivity extends BaseActivity {
                 this.startActivity(intent);
                 break;
             case R.id.rl_total_statistics:
+            {
+                Intent totalStatIntent = new Intent(this, TotalStatActivity.class);
+                this.startActivity(totalStatIntent);
+            }
                 break;
             case R.id.rl_code_verification:
                 break;

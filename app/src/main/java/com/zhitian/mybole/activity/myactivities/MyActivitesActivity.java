@@ -1,11 +1,9 @@
 package com.zhitian.mybole.activity.myactivities;
 
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ListView;
+import android.view.View;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.myactivities.adaptor.ActivitiesAdaptor;
@@ -40,6 +38,8 @@ public class MyActivitesActivity extends AppCompatActivity implements XListView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_activites);
         ButterKnife.bind(this);
+
+        lvMyActivities.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         currentList = new ArrayList<ActivityInfo>();
         adaptor = new ActivitiesAdaptor(currentList);

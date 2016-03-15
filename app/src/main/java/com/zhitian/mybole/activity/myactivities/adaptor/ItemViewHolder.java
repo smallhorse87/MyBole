@@ -48,6 +48,8 @@ public final class ItemViewHolder {
     public ItemViewHolder(View view, Context context) {
         ButterKnife.bind(this, view);
 
+        rvPrizeImages.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
         rvPrizeImages.setHasFixedSize(true);
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(context);
