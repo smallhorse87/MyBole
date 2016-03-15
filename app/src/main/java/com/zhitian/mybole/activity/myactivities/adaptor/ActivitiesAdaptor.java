@@ -28,7 +28,7 @@ public class ActivitiesAdaptor extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return "10";
+        return currentList.get(position);
     }
 
     @Override
@@ -52,6 +52,8 @@ public class ActivitiesAdaptor extends BaseAdapter {
 
             vh = (ItemViewHolder) convertView.getTag();
         }
+
+        vh.setupContent(currentList.get(position));
 
         return convertView;
     }

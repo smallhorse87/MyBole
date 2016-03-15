@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:gravity="bottom"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <FrameLayout
                 android:background="#00000000"

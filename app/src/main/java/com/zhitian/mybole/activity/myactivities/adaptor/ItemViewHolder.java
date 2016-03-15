@@ -10,8 +10,12 @@ import android.widget.TextView;
 
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.entity.ActivityInfo;
+import com.zhitian.mybole.entity.ImageSetInfo;
+import com.zhitian.mybole.entity.PrizeInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,28 +48,36 @@ public final class ItemViewHolder {
     public ItemViewHolder(View view, Context context) {
         ButterKnife.bind(this, view);
 
-        myDataset=buildMockData();
         rvPrizeImages.setHasFixedSize(true);
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(context);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-
         rvPrizeImages.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-        mAdapter = new GalleryAdaptor(myDataset);
-        mAdapter.addYourFirstItemInTheList(new Integer(R.mipmap.relativity4));
-        rvPrizeImages.setAdapter(mAdapter);
 
+        // specify an adapter (see also next example)
+        myDataset = new ArrayList();
+        mAdapter  = new GalleryAdaptor(myDataset);
+        rvPrizeImages.setAdapter(mAdapter);
     }
 
-    private ArrayList buildMockData() {
-        ArrayList myDataset = new ArrayList();
-        myDataset.add(new Integer(R.mipmap.relativity1));
-        myDataset.add(new Integer(R.mipmap.relativity2));
-        myDataset.add(new Integer(R.mipmap.relativity3));
-        myDataset.add(new Integer(R.mipmap.relativity4));
-        myDataset.add(new Integer(R.mipmap.relativity5));
-        myDataset.add(new Integer(R.mipmap.relativity6));
-        return myDataset;
+    public void setupContent(ActivityInfo info){
+        tvActivityName.setText(info.getName());
+        tvActivityState.setText(info.getTimeStatusStr());
+        tvGameName.setText(info.getGame().getName());
+        tvPlayerCount.setText(info.getPlayerCnt() + "人参与");
+
+        buildUri(info.getPrizes());
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void buildUri(List<PrizeInfo> prizes) {
+        myDataset.clear();
+
+        for (PrizeInfo prizeItem : prizes) {
+            for (ImageSetInfo imageItem : prizeItem.getImgs()) {
+                myDataset.add(imageItem.getThumbnailImg());
+            }
+        }
+
     }
 }

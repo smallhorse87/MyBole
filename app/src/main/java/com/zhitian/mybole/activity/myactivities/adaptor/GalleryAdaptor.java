@@ -1,6 +1,7 @@
 package com.zhitian.mybole.activity.myactivities.adaptor;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.entity.ImageInfo;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -33,14 +35,6 @@ public class GalleryAdaptor extends RecyclerView.Adapter<GalleryViewHolder> {
         this.ids = ids;
     }
 
-    /**
-     * @param integer
-     * Your mipmap resources id to add at the beginning of the list
-     * */
-    public void addYourFirstItemInTheList(Integer integer){
-        ids.add(0,integer);
-    }
-
     @Override
     public GalleryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_image, parent, false);
@@ -50,7 +44,10 @@ public class GalleryAdaptor extends RecyclerView.Adapter<GalleryViewHolder> {
 
     @Override
     public void onBindViewHolder(GalleryViewHolder holder, int position) {
-        holder.ivImage.setImageResource((Integer) ids.get(position));
+        ImageInfo  imageInfo= (ImageInfo)ids.get(position);
+        Uri    uri = Uri.parse(imageInfo.getUrl());
+
+        holder.ivImage.setImageURI(uri);
     }
 
     @Override

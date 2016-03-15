@@ -97,6 +97,24 @@ public class ActivityInfo {
         return status;
     }
 
+    public String getTimeStatusStr() {
+        int timeStatus = Integer.parseInt(this.timeStatus);
+
+        switch(timeStatus){
+            case 0:
+                return "未开始";
+
+            case 1:
+                return "已开始";
+
+            case 2:
+                return "已结束";
+
+            default:
+                return "未知状态";
+        }
+    }
+
     public String getTimeStatus() {
         return timeStatus;
     }

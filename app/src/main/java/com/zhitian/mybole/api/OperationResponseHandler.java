@@ -77,8 +77,6 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 
 			AppContext.cfgInfo = info;
 
-			//download region xml, if needed
-
 			return info;
 
 		}	catch (Exception e) {
@@ -109,7 +107,14 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 
 			JSONArray retArr = retData.getJSONArray("retArr");
 
-			List<ActivityInfo> activityInfos = getListFromJSON(retArr.toString(), ActivityInfo.class);
+			List<ActivityInfo> activityInfos = new ArrayList<ActivityInfo>();//getListFromJSON(retArr.toString(), ActivityInfo.class);
+
+			for (int idx = 0; idx < retArr.length(); idx ++){
+				JSONObject item = (JSONObject)retArr.get(idx);
+
+				Gson gson = new Gson();
+				activityInfos.add((ActivityInfo) gson.fromJson(item.toString(), ActivityInfo.class));
+			}
 
 			return activityInfos;
 

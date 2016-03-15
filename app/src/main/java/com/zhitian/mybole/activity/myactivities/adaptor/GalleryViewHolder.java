@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zhitian.mybole.R;
 
 import butterknife.Bind;
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
 public class GalleryViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.iv_image)
-    ImageView ivImage;
+    SimpleDraweeView ivImage;
 
     public GalleryViewHolder(View view) {
         super(view);
