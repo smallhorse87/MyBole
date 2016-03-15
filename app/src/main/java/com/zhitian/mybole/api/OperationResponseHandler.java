@@ -13,6 +13,7 @@ import com.zhitian.mybole.entity.ConfigInfo;
 import com.zhitian.mybole.entity.DetailedStatInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.entity.PageInfo;
+import com.zhitian.mybole.entity.PlanInfo;
 import com.zhitian.mybole.entity.TotalStatInfo;
 
 import org.json.JSONArray;
@@ -35,8 +36,10 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 
 		if (result.getRet() == 0) {
 			try {
-				JSONObject retData = response.getJSONObject("data");
+				Object retData = response.get("data");
+
 				onJsonSuccess(retData);
+
 			} catch (Exception e) {
 				onJsonFailure(-1, "unexcepted error");
 			}
@@ -50,7 +53,7 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 		onJsonFailure(statusCode, responseString);
 	}
 
-	public abstract void onJsonSuccess(JSONObject retData);
+	public abstract void onJsonSuccess(Object retData);
 	public abstract void onJsonFailure(int statusCode, String errMsg);
 
 	public MerchantInfo retLoginSucc(JSONObject retData)
@@ -104,6 +107,28 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 
 	}
 
+	public List<PlanInfo> retPlanInfoList(JSONArray retArr)
+	{
+		try {
+
+			List<PlanInfo> infos = new ArrayList<PlanInfo>();
+
+			for (int idx = 0; idx < retArr.length(); idx ++){
+				JSONObject item = (JSONObject)retArr.get(idx);
+
+				Gson gson = new Gson();
+				infos.add((PlanInfo) gson.fromJson(item.toString(), PlanInfo.class));
+			}
+
+			return infos;
+
+		}	catch (Exception e) {
+
+			return null;
+		}
+
+	}
+
 	public List<ActivityInfo> retActivityList(JSONObject retData)
 	{
 		try {
@@ -127,7 +152,6 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 		}
 
 	}
-
 
 	public TotalStatInfo retStatsList(JSONObject retData)
 	{

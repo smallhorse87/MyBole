@@ -58,8 +58,8 @@ public class TotalStatActivity extends AppCompatActivity {
 
         BoleApi.getTotalStat(new OperationResponseHandler() {
             @Override
-            public void onJsonSuccess(JSONObject retData) {
-                TotalStatInfo totalInfo = retStatsList(retData);
+            public void onJsonSuccess(Object retData) {
+                TotalStatInfo totalInfo = retStatsList((JSONObject)retData);
 
                 headerHolder.setContent(totalInfo);
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f2f2f2"
+    android:paddingBottom="9dp">
+
+    <include layout="@layout/divider_h_no_margin"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:id="@+id/iv_plan_image"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#e6e6e6"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="这是一个标题"
+                android:id="@+id/tv_plan_title"
+                android:textSize="15dp"
+                android:textColor="#4d4d4d"
+                android:layout_marginTop="3dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一大批冬天裙子来袭，一起玩转自拍，一起、hold住潮流时尚，24小时发货，7天无理由退回。"
+                android:id="@+id/tv_plan_subtitle"
+                android:maxLines="2"
+                android:layout_marginTop="8dp"
+                android:textColor="#989898"
+                android:textSize="13dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/divider_h_no_margin"/>
+
+</LinearLayout>

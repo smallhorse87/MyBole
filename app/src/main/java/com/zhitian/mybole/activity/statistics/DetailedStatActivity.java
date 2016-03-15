@@ -56,8 +56,8 @@ public class DetailedStatActivity extends AppCompatActivity {
 
         BoleApi.getDetailedStat(activityId, new OperationResponseHandler() {
             @Override
-            public void onJsonSuccess(JSONObject retData) {
-                DetailedStatInfo detailedInfo = retDetailedStat(retData);
+            public void onJsonSuccess(Object retData) {
+                DetailedStatInfo detailedInfo = retDetailedStat((JSONObject)retData);
 
                 setupContent(detailedInfo);
                 scrollView2.setVisibility(ScrollView.VISIBLE);

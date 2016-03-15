@@ -1,6 +1,7 @@
 package com.zhitian.mybole.activity.myactivities.adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.activity.shareactivity.PlanlistActivity;
 import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.ImageSetInfo;
 import com.zhitian.mybole.entity.PrizeInfo;
@@ -45,7 +47,9 @@ public final class ItemViewHolder {
     private GalleryAdaptor  mAdapter;
     private ArrayList       myDataset;
 
-    public ItemViewHolder(View view, Context context) {
+    private ActivityInfo    info;
+
+    public ItemViewHolder(View view, final Context context) {
         ButterKnife.bind(this, view);
 
         rvPrizeImages.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -60,9 +64,23 @@ public final class ItemViewHolder {
         myDataset = new ArrayList();
         mAdapter  = new GalleryAdaptor(myDataset);
         rvPrizeImages.setAdapter(mAdapter);
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlanlistActivity.class);
+
+                intent.putExtra("activityId", info.getActivityId());
+
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     public void setupContent(ActivityInfo info){
+        this.info = info;
+
         tvActivityName.setText(info.getName());
         tvActivityState.setText(info.getTimeStatusStr());
         tvGameName.setText(info.getGame().getName());

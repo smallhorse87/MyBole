@@ -20,6 +20,7 @@ public class ApiHttpClient {
 	public static String DEFAULT_API_URL;
 	public static final String DELETE = "DELETE";
 	public static String DEV_API_URL = "http://m.bodimall.com/api/%s";
+	//public static String DEV_API_URL = "http://www.77bole.com/api/%s";
 	public static final String GET = "GET";
 	public static final String POST = "POST";
 	public static final String PUT = "PUT";

@@ -339,8 +339,8 @@ public class MerchantFormActivity extends BaseActivity implements View.OnClickLi
 
             BoleApi.getSystemConfig(new OperationResponseHandler(){
 
-                public void onJsonSuccess(JSONObject retData){
-                    ConfigInfo info = retSystemConfig(retData);
+                public void onJsonSuccess(Object retData){
+                    ConfigInfo info = retSystemConfig((JSONObject)retData);
 
                     if (RegionXmlUtil.doesUpdateNeeded(info.getRegions().getUpdateAt())){
                         RegionXmlUtil.downloadRegionXml(info.getRegions().getUrl());

@@ -10,6 +10,7 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.utils.TDevice;
 
@@ -107,6 +108,13 @@ public class BoleApi {
         params.put("activityId",  activityId);
 
         ApiHttpClient.get("merchant/activityStatistics", params, jsonhandler);
+    }
+
+    public static void getPlanlist(String activityId, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+        params.put("activityId",  activityId);
+
+        ApiHttpClient.get("merchant/planList", params, jsonhandler);
     }
 
     //merchant.myStatistics

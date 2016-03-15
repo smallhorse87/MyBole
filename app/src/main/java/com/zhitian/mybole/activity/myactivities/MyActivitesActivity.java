@@ -58,11 +58,11 @@ public class MyActivitesActivity extends AppCompatActivity implements XListView.
     public void requestForList(){
         BoleApi.getActivityList(page, new OperationResponseHandler() {
             @Override
-            public void onJsonSuccess(JSONObject retData) {
+            public void onJsonSuccess(Object retData) {
 
-                PageInfo pageInfo = retPageInfo(retData);
+                PageInfo pageInfo = retPageInfo((JSONObject)retData);
 
-                List<ActivityInfo> list = retActivityList(retData);
+                List<ActivityInfo> list = retActivityList((JSONObject)retData);
 
                 if (page == 1) {
                     currentList.clear();

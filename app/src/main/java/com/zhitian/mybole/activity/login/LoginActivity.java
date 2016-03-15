@@ -152,8 +152,8 @@ public class LoginActivity extends BaseActivity {
 
         loginHandler = new OperationResponseHandler(){
 
-            public void onJsonSuccess(JSONObject retData){
-                MerchantInfo info = retLoginSucc(retData);
+            public void onJsonSuccess(Object retData){
+                MerchantInfo info = retLoginSucc((JSONObject)retData);
 
                 AppContext.saveLoginInfo(info.getUserId(), info.getGsid(), etTelphone.getText().toString());
                 AppContext.myInfo = info;
