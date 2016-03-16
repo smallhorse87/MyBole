@@ -53,7 +53,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.statistics.TotalStatActivity" />
         <activity android:name=".activity.statistics.DetailedStatActivity" />
-        <activity android:name=".activity.shareactivity.PlanlistActivity"></activity>
+        <activity android:name=".activity.shareactivity.PlanlistActivity" />
+        <activity android:name=".activity.shareactivity.PublishActivity"></activity>
     </application>
 
 </manifest>

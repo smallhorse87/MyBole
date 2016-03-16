@@ -1,5 +1,6 @@
 package com.zhitian.mybole.activity.shareactivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,6 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.OperationResponseHandler;
+import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.ImageSetInfo;
 import com.zhitian.mybole.entity.PlanInfo;
 
@@ -44,6 +47,20 @@ public class PlanlistActivity extends AppCompatActivity {
         View headerView = getLayoutInflater().inflate(R.layout.header_plan, null);
 
         listView.addHeaderView(headerView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(PlanlistActivity.this, PublishActivity.class);
+
+                PlanInfo info = (PlanInfo)listView.getAdapter().getItem(position);
+                ImageSetInfo imageSetInfo = info.getImgs().get(0);
+
+                intent.putExtra("imageUrl", imageSetInfo.getThumbnailImg().getUrl());
+
+                PlanlistActivity.this.startActivity(intent);
+            }
+        });
     }
 
     @Override
