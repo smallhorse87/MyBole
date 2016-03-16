@@ -54,7 +54,8 @@
         <activity android:name=".activity.statistics.TotalStatActivity" />
         <activity android:name=".activity.statistics.DetailedStatActivity" />
         <activity android:name=".activity.shareactivity.PlanlistActivity" />
-        <activity android:name=".activity.shareactivity.PublishActivity"></activity>
+        <activity android:name=".activity.shareactivity.PublishActivity" />
+        <activity android:name=".activity.Rank.RankActivity"></activity>
     </application>
 
 </manifest>

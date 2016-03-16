@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f2f2f2">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:background="#ffffff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:layout_width="46dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:id="@+id/textView10"
+            android:singleLine="true"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:textColor="#4d4d4d"
+            android:textSize="16dp"
+            android:layout_weight="0" />
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/imageView8"
+            android:background="#e6e6e6"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:layout_marginRight="14dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="周老师"
+                    android:id="@+id/textView17"
+                    android:textSize="14dp"
+                    android:textColor="#4d4d4d" />
+
+                <Space
+                    android:layout_width="20px"
+                    android:layout_height="20px"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="290"
+                    android:id="@+id/textView29"
+                    android:textColor="#4d4d4d"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:id="@+id/progressBar"
+                android:progress="80" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="79dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageView9"
+                android:background="@mipmap/icon_prize_number1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="3dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一等奖"
+                android:id="@+id/textView30"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#989898"
+                android:textSize="11dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
