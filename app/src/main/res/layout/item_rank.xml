@@ -19,7 +19,7 @@
             android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:text="1"
-            android:id="@+id/textView10"
+            android:id="@+id/tv_rank"
             android:singleLine="true"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
@@ -27,11 +27,11 @@
             android:textSize="16dp"
             android:layout_weight="0" />
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:id="@+id/imageView8"
-            android:background="#e6e6e6"
+            android:id="@+id/iv_avatar"
+            android:background="@drawable/avatar_shape"
             android:layout_gravity="center_vertical"
             android:layout_weight="0"
             android:layout_marginRight="14dp" />
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="周老师"
-                    android:id="@+id/textView17"
+                    android:id="@+id/tv_user_name"
                     android:textSize="14dp"
                     android:textColor="#4d4d4d" />
 
@@ -66,17 +66,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="290"
-                    android:id="@+id/textView29"
+                    android:id="@+id/tv_achievement"
                     android:textColor="#4d4d4d"
                     android:textSize="15dp" />
             </LinearLayout>
 
             <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                android:id="@+id/progressBar"
-                android:progress="80" />
+                android:progressDrawable="@drawable/progress_layer"
+                android:id="@+id/pb_achievement"
+                android:max="100"
+                android:progress="0" />
 
         </LinearLayout>
 
@@ -90,8 +92,8 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:id="@+id/imageView9"
-                android:background="@mipmap/icon_prize_number1"
+                android:id="@+id/iv_prize_logo"
+                android:background="@mipmap/icon_prize_number1_normal"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="3dp" />
 
@@ -99,12 +101,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="一等奖"
-                android:id="@+id/textView30"
+                android:id="@+id/tv_prize"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#989898"
                 android:textSize="11dp" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/divider_h_bothside_margin"/>
 
 </LinearLayout>

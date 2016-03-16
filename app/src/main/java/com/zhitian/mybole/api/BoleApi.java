@@ -117,8 +117,13 @@ public class BoleApi {
         ApiHttpClient.get("merchant/planList", params, jsonhandler);
     }
 
-    //merchant.myStatistics
-    //BoleApi.loginWithCaptcha(etTelphone.getText().toString(), etCaptcha.getText().toString(),LoginHandler);
+    public static void getRankList(String activityId, JsonHttpResponseHandler jsonhandler) {
+        RequestParams params = new RequestParams();
+        params.put("activityId",  activityId);
+
+        ApiHttpClient.get("merchant/activityRanking", params, jsonhandler);
+    }
+
     /**
      * 获取新闻列表
      *

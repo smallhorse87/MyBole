@@ -14,6 +14,7 @@ import com.zhitian.mybole.entity.DetailedStatInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.entity.PageInfo;
 import com.zhitian.mybole.entity.PlanInfo;
+import com.zhitian.mybole.entity.RankInfo;
 import com.zhitian.mybole.entity.TotalStatInfo;
 
 import org.json.JSONArray;
@@ -99,6 +100,30 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 			PageInfo info = gson.fromJson(retData.toString(), PageInfo.class);
 
 			return info;
+
+		}	catch (Exception e) {
+
+			return null;
+		}
+
+	}
+
+	public List<RankInfo> retRankInfoList(JSONObject retData)
+	{
+		try {
+
+			JSONArray retArr = retData.getJSONArray("retArr");
+
+			List<RankInfo> infos = new ArrayList<RankInfo>();
+
+			for (int idx = 0; idx < retArr.length(); idx ++){
+				JSONObject item = (JSONObject)retArr.get(idx);
+
+				Gson gson = new Gson();
+				infos.add((RankInfo) gson.fromJson(item.toString(), RankInfo.class));
+			}
+
+			return infos;
 
 		}	catch (Exception e) {
 

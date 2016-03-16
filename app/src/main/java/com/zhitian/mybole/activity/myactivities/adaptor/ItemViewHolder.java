@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zhitian.mybole.AppContext;
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.activity.Rank.RankActivity;
 import com.zhitian.mybole.activity.shareactivity.PlanlistActivity;
 import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.ImageSetInfo;
@@ -71,6 +72,18 @@ public final class ItemViewHolder {
                 Intent intent = new Intent(context, PlanlistActivity.class);
 
                 intent.putExtra("activityId", info.getActivityId());
+
+                context.startActivity(intent);
+            }
+        });
+
+        btnRanking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RankActivity.class);
+
+                intent.putExtra("activityId", info.getActivityId());
+                intent.putExtra("activityName", info.getName());
 
                 context.startActivity(intent);
             }

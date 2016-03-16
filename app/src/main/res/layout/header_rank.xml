@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:text="活动名称：大阳请你吃大餐"
-        android:id="@+id/textView8"
+        android:id="@+id/tv_activity_name"
         android:layout_gravity="center_horizontal|left"
         android:gravity="bottom"
         android:layout_marginBottom="8dp"

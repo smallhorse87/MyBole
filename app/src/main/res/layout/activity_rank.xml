@@ -8,5 +8,8 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:clipToPadding="false"
+        android:divider="@null"
         android:id="@+id/listView2" />
 </RelativeLayout>
