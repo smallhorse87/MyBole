@@ -58,6 +58,13 @@
         <activity android:name=".activity.Rank.RankActivity" />
         <activity android:name=".activity.code.ManualVerifyActivity" />
         <activity android:name=".activity.code.VerifyResultActivity"></activity>
+        <activity
+            android:name="com.zhitian.mybole.ui.scanner.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
     </application>
 
 </manifest>

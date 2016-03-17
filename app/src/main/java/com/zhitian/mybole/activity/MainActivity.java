@@ -11,6 +11,7 @@ import com.zhitian.mybole.activity.code.ManualVerifyActivity;
 import com.zhitian.mybole.activity.myactivities.MyActivitesActivity;
 import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.base.BaseActivity;
+import com.zhitian.mybole.ui.scanner.CaptureActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,8 +72,11 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.rl_code_verification:
             {
-                Intent codeIntent = new Intent(this, ManualVerifyActivity.class);
-                this.startActivity(codeIntent);
+                //Intent codeIntent = new Intent(this, ManualVerifyActivity.class);
+                //this.startActivity(codeIntent);
+
+                Intent scanIntent = new Intent(this, CaptureActivity.class);
+                this.startActivity(scanIntent);
             }
                 break;
         }
