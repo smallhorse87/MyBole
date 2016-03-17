@@ -55,7 +55,9 @@
         <activity android:name=".activity.statistics.DetailedStatActivity" />
         <activity android:name=".activity.shareactivity.PlanlistActivity" />
         <activity android:name=".activity.shareactivity.PublishActivity" />
-        <activity android:name=".activity.Rank.RankActivity"></activity>
+        <activity android:name=".activity.Rank.RankActivity" />
+        <activity android:name=".activity.code.ManualVerifyActivity" />
+        <activity android:name=".activity.code.VerifyResultActivity"></activity>
     </application>
 
 </manifest>

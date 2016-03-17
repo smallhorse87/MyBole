@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zhitian.mybole.R;
+import com.zhitian.mybole.activity.code.ManualVerifyActivity;
 import com.zhitian.mybole.activity.myactivities.MyActivitesActivity;
 import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.base.BaseActivity;
@@ -69,6 +70,10 @@ public class MainActivity extends BaseActivity {
             }
                 break;
             case R.id.rl_code_verification:
+            {
+                Intent codeIntent = new Intent(this, ManualVerifyActivity.class);
+                this.startActivity(codeIntent);
+            }
                 break;
         }
     }
