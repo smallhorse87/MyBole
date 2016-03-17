@@ -53,11 +53,6 @@ public final class CaptureActivity extends Activity implements
 
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 
-	private static final int REQUEST_CODE = 100;
-
-	private static final int PARSE_BARCODE_FAIL = 300;
-	private static final int PARSE_BARCODE_SUC = 200;
-
 	/**
 	 * 是否有预览
 	 */
@@ -123,40 +118,6 @@ public final class CaptureActivity extends Activity implements
 	 */
 	private String photoPath;
 
-	private Handler mHandler = new MyHandler(this);
-
-	static class MyHandler extends Handler {
-
-		private WeakReference<Activity> activityReference;
-
-		public MyHandler(Activity activity) {
-			activityReference = new WeakReference<Activity>(activity);
-		}
-
-		@Override
-		public void handleMessage(Message msg) {
-
-			switch (msg.what) {
-				case PARSE_BARCODE_SUC: // 解析图片成功
-					Toast.makeText(activityReference.get(),
-							"解析成功，结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
-					break;
-
-				case PARSE_BARCODE_FAIL:// 解析图片失败
-
-					Toast.makeText(activityReference.get(), "解析图片失败",
-							Toast.LENGTH_SHORT).show();
-					break;
-
-				default:
-					break;
-			}
-
-			super.handleMessage(msg);
-		}
-
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -169,9 +130,6 @@ public final class CaptureActivity extends Activity implements
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
 		ambientLightManager = new AmbientLightManager(this);
-
-		// 监听图片识别按钮
-		findViewById(R.id.capture_scan_photo).setOnClickListener(this);
 
 		findViewById(R.id.capture_flashlight).setOnClickListener(this);
 
@@ -285,65 +243,6 @@ public final class CaptureActivity extends Activity implements
 
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
-		if (resultCode == RESULT_OK) {
-			final ProgressDialog progressDialog;
-			switch (requestCode) {
-				case REQUEST_CODE:
-
-					// 获取选中图片的路径
-					Cursor cursor = getContentResolver().query(
-							intent.getData(), null, null, null, null);
-					if (cursor.moveToFirst()) {
-						photoPath = cursor.getString(cursor
-								.getColumnIndex(MediaStore.Images.Media.DATA));
-					}
-					cursor.close();
-
-					progressDialog = new ProgressDialog(this);
-					progressDialog.setMessage("正在扫描...");
-					progressDialog.setCancelable(false);
-					progressDialog.show();
-
-					new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-
-							Bitmap img = BitmapUtils
-									.getCompressedBitmap(photoPath);
-
-							BitmapDecoder decoder = new BitmapDecoder(
-									CaptureActivity.this);
-							Result result = decoder.getRawResult(img);
-
-							if (result != null) {
-								Message m = mHandler.obtainMessage();
-								m.what = PARSE_BARCODE_SUC;
-								m.obj = ResultParser.parseResult(result)
-										.toString();
-								mHandler.sendMessage(m);
-							}
-							else {
-								Message m = mHandler.obtainMessage();
-								m.what = PARSE_BARCODE_FAIL;
-								mHandler.sendMessage(m);
-							}
-
-							progressDialog.dismiss();
-
-						}
-					}).start();
-
-					break;
-
-			}
-		}
-
 	}
 
 	@Override
@@ -494,15 +393,6 @@ public final class CaptureActivity extends Activity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.capture_scan_photo: // 图片识别
-				// 打开手机中的相册
-				Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT); // "android.intent.action.GET_CONTENT"
-				innerIntent.setType("image/*");
-				Intent wrapperIntent = Intent.createChooser(innerIntent,
-						"选择二维码图片");
-				this.startActivityForResult(wrapperIntent, REQUEST_CODE);
-				break;
-
 			case R.id.capture_flashlight:
 				if (isFlashlightOpen) {
 					cameraManager.setTorch(false); // 关闭闪光灯

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhitian.mybole.activity.text.AboutActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView4" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src = "@mipmap/banner"
+                android:background="#ffffff"
+                android:id="@+id/imageView10"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搏乐APP商户版是由杭州织天网络科技有限公司开发的微信营销APP。"
+                android:id="@+id/textView31"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="在试运营阶段，搏乐APP将采取完全免费的政策。"
+                android:id="@+id/textView30"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您可以在搏乐APP中花三分钟创建一个基于小游戏和奖品的活动，并转发到您的微信朋友圈。通过玩游戏的乐趣和获得奖品的刺激在朋友圈中病毒传播，达到商家传播品牌和产品的目的。对于一些优秀的活动，我们还将推荐到搏乐游戏的微信公众号。"
+                android:id="@+id/textView32"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搏乐APP的优势："
+                android:id="@+id/textView33"
+                android:textColor="#4d4d4d"
+                android:textSize="16dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. 完全免费"
+                android:id="@+id/textView34"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. 零门槛创建活动，无需公众号"
+                android:id="@+id/textView35"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. 创新模式，用户不反感，病毒式传播"
+                android:id="@+id/textView36"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. 数据统计，活动效果一目了然"
+                android:id="@+id/textView37"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5. 新游戏、新玩法不断更新"
+                android:id="@+id/textView38"
+                android:textColor="#4d4d4d"
+                android:textSize="15dp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

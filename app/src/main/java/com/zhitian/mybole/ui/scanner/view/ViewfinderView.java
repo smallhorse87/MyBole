@@ -131,16 +131,16 @@ public final class ViewfinderView extends View {
 
 		// 绘制遮掩层
 		drawCover(canvas, frame);
-
+		drawFrame(canvas, frame);
 		if (resultBitmap != null) { // 绘制扫描结果的图
 			// Draw the opaque result bitmap over the scanning rectangle
-			paint.setAlpha(0xA0);
-			canvas.drawBitmap(resultBitmap, null, frame, paint);
+//			paint.setAlpha(0xA0);
+//			canvas.drawBitmap(resultBitmap, null, frame, paint);
 		}
 		else {
 
 			// 画扫描框边上的角
-			drawRectEdges(canvas, frame);
+			//drawRectEdges(canvas, frame); stony debug
 
 			// 绘制扫描线
 			drawScanningLine(canvas, frame);
@@ -205,7 +205,7 @@ public final class ViewfinderView extends View {
 		lineRect.top = slideTop;
 		lineRect.bottom = (slideTop + MIDDLE_LINE_WIDTH);
 		canvas.drawBitmap(((BitmapDrawable) (BitmapDrawable) getResources()
-				.getDrawable(R.mipmap.scan_laser)).getBitmap(), null,
+						.getDrawable(R.mipmap.scan_laser)).getBitmap(), null,
 				lineRect, paint);
 
 	}
@@ -223,7 +223,7 @@ public final class ViewfinderView extends View {
 		int height = canvas.getHeight();
 
 		// Draw the exterior (i.e. outside the framing rect) darkened
-		paint.setColor(resultBitmap != null ? resultColor : maskColor);
+		paint.setColor(resultColor);//mask Color
 
 		// 画出扫描框外面的阴影部分，共四个部分，扫描框的上面到屏幕上面，扫描框的下面到屏幕下面
 		// 扫描框的左边面到屏幕左边，扫描框的右边到屏幕右边
@@ -232,6 +232,25 @@ public final class ViewfinderView extends View {
 		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
 				paint);
 		canvas.drawRect(0, frame.bottom + 1, width, height, paint);
+	}
+
+	private void drawFrame(Canvas canvas, Rect frame){
+		paint.setColor(Color.WHITE);
+		paint.setAlpha(OPAQUE);
+
+		Resources resources = getResources();
+		/**
+		 * 这些资源可以用缓存进行管理，不需要每次刷新都新建
+		 */
+		//left, int top, int right, int bottom
+		Rect refinedFrame = new Rect(frame.left-6,frame.top-6,frame.right+6,frame.bottom+6);
+
+		Bitmap bitmapFrame = BitmapFactory.decodeResource(resources,
+				R.mipmap.scanframe);
+		canvas.drawBitmap(bitmapFrame, null, refinedFrame, paint);
+
+		bitmapFrame.recycle();
+		bitmapFrame = null;
 	}
 
 	/**
