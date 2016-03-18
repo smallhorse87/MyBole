@@ -60,4 +60,6 @@
             android:layout_marginRight="10dp" />
     </LinearLayout>
 
+    <include layout="@layout/divider_h_bothside_margin" />
+
 </LinearLayout>

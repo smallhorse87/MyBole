@@ -17,11 +17,13 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="horizontal" android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:divider="@drawable/dash_line_vertical_shape"
-                android:background="#feb416"
+                android:divider="@mipmap/line"
+                android:dividerPadding="@dimen/space_10"
                 android:showDividers="middle"
+                android:background="#feb416"
                 android:layout_marginBottom="10dp">
 
                 <LinearLayout

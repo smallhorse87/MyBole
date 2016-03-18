@@ -8,6 +8,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@drawable/dash_line_horizontal_shape"
+        android:divider="@null"
+        android:dividerHeight="0px"
         android:id="@+id/lv_total_statistics" />
 </RelativeLayout>
