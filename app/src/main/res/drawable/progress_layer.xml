@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/probardown">
-    <item android:id="@android:id/background" android:drawable="@color/gray" />
-    <item android:id="@android:id/progress" android:drawable="@color/red" />
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="2.0dip" />
+            <gradient android:startColor="#e4e4e4" android:centerColor="#e4e4e4" android:endColor="#e4e4e4" android:angle="270.0" android:centerY="2.0"  />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="2.0dip" />
+                <gradient android:startColor="#4dc64b" android:centerColor="#4dc64b" android:endColor="#4dc64b" android:angle="270.0" android:centerY="2.0"  />
+            </shape>
+        </clip>
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="2.0dip" />
+                <gradient android:startColor="#f9b14b" android:centerColor="#f9b14b" android:endColor="#f9b14b" android:angle="270.0" android:centerY="2.0"  />
+            </shape>
+        </clip>
+    </item>
 </layer-list>

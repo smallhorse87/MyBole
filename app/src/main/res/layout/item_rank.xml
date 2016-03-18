@@ -76,10 +76,10 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                android:progressDrawable="@drawable/progress_layer"
                 android:id="@+id/pb_achievement"
+                android:progressDrawable="@drawable/progress_layer"
                 android:max="100"
-                android:progress="0" />
+                android:progress="30" />
 
         </LinearLayout>
 

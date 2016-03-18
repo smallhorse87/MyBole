@@ -34,6 +34,8 @@ public class RankActivity extends AppCompatActivity {
 
     TextView tvActivityName;
 
+    int highestScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +60,14 @@ public class RankActivity extends AppCompatActivity {
 
             PageInfo pageInfo = retPageInfo((JSONObject)retData);
 
-            List<RankInfo> list = retRankInfoList((JSONObject)retData);
+            List<RankInfo> list = retRankInfoList((JSONObject) retData);
 
-            RankActivity.this.listView2.setAdapter(new RankAdaptar(list));
+            if (list.size() > 0)
+            {
+                highestScore = Integer.parseInt(((RankInfo)list.get(0)).getScore());
 
+                RankActivity.this.listView2.setAdapter(new RankAdaptar(list));
+            }
             Log.i("stony", list.toString());
         }
 
@@ -70,7 +76,7 @@ public class RankActivity extends AppCompatActivity {
         }
     }
 
-    static class RankAdaptar extends BaseAdapter {
+    class RankAdaptar extends BaseAdapter {
 
         List<RankInfo> infos;
 
@@ -118,7 +124,7 @@ public class RankActivity extends AppCompatActivity {
         }
     }
 
-    static class ViewHolder {
+    class ViewHolder {
         @Bind(R.id.tv_rank)
         TextView tvRank;
         @Bind(R.id.iv_avatar)
@@ -155,8 +161,25 @@ public class RankActivity extends AppCompatActivity {
                 ivPrizeLogo.setImageResource(info.getPrizeLevelLogoResId());
             }
 
-            pbAchievement.setProgress(30);
+            calProgress(info.getScore());
+        }
 
+        void calProgress(String score){
+            int progress;
+
+            if(RankActivity.this.highestScore == 0)
+                progress = 0;
+            else
+                progress = Integer.parseInt(score) * 100 / RankActivity.this.highestScore;
+
+            pbAchievement.setProgress(0);
+            pbAchievement.setSecondaryProgress(0);
+
+            if (progress >= 50) {
+                pbAchievement.setProgress(progress);
+            } else {
+                pbAchievement.setSecondaryProgress(progress);
+            }
         }
     }
 }
