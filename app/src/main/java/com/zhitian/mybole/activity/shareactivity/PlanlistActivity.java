@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.OperationResponseHandler;
@@ -47,6 +48,8 @@ public class PlanlistActivity extends AppCompatActivity {
         View headerView = getLayoutInflater().inflate(R.layout.header_plan, null);
 
         listView.addHeaderView(headerView);
+
+        ImageRequest.fromUri(Uri.parse("http://www.baidu.com"));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

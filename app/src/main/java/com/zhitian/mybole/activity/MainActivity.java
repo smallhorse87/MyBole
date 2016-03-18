@@ -72,11 +72,11 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.rl_code_verification:
             {
-                //Intent codeIntent = new Intent(this, ManualVerifyActivity.class);
-                //this.startActivity(codeIntent);
+                Intent codeIntent = new Intent(this, ManualVerifyActivity.class);
+                this.startActivity(codeIntent);
 
-                Intent scanIntent = new Intent(this, CaptureActivity.class);
-                this.startActivity(scanIntent);
+//                Intent scanIntent = new Intent(this, CaptureActivity.class);
+//                this.startActivity(scanIntent);
             }
                 break;
         }

@@ -3,7 +3,6 @@ package com.zhitian.mybole.activity.Rank;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.OperationResponseHandler;
-import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.PageInfo;
 import com.zhitian.mybole.entity.RankInfo;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;

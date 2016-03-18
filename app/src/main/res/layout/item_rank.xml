@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="36dp"
             android:layout_height="36dp"
+            fresco:roundedCornerRadius="18dp"
             android:id="@+id/iv_avatar"
             android:background="@drawable/avatar_shape"
             android:layout_gravity="center_vertical"

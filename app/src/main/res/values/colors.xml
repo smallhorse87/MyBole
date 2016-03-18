@@ -79,4 +79,9 @@
     <color name="capture_text_cover_bg">#99535353</color>
     <color name="seek_bar_text">#fff6f6f6</color>
 
+    <!--字体颜色-->
+    <!--<drawable name="red">#f00</drawable>-->
+    <!--<drawable name="green">#0f0</drawable>-->
+    <!--<drawable name="gray">#ccc</drawable>-->
+
 </resources>
