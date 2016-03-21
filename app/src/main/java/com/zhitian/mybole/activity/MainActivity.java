@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.code.ManualVerifyActivity;
+import com.zhitian.mybole.activity.myactivities.ActivityCreation;
 import com.zhitian.mybole.activity.myactivities.MyActivitesActivity;
 import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.base.BaseActivity;
@@ -59,6 +60,8 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_activity_creation:
+                Intent createIntent = new Intent(this, ActivityCreation.class);
+                this.startActivity(createIntent);
                 break;
             case R.id.rl_my_activities:
                 Intent intent = new Intent(this, MyActivitesActivity.class);

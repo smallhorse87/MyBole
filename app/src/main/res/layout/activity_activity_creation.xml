@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhitian.mybole.activity.myactivities.ActivityCreation"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView5" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/imageView11"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom"
+                    android:src="@mipmap/icon_gameselection"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="游戏选择"
+                    android:id="@+id/textView39"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="14dp"
+                    android:textColor="#989898" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="162dp"
+                android:background="#ffffff"></LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="8dp" >
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/imageView13"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom"
+                    android:src="@mipmap/icon_activityname"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动名称"
+                    android:id="@+id/textView46"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="14dp"
+                    android:textColor="#989898" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:id="@+id/et_activity_name"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="#ffffff"
+                android:hint="请填写活动的重要信息或宣传口号"
+                android:textSize="15dp"
+                android:textColorHint="#cccccc"
+                android:textColor="#4d4d4d" />
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="8dp" >
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/imageView14"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom"
+                    android:src="@mipmap/icon_activitytime"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动时间"
+                    android:id="@+id/textView47"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="14dp"
+                    android:textColor="#989898" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/cell_selector"
+                android:id="@+id/ll_start_time"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始时间"
+                    android:id="@+id/textView40"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015-11-23 22:08"
+                    android:id="@+id/tv_start_time"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#4d4d4d" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_left_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/cell_selector"
+                android:id="@+id/ll_end_time"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结束时间"
+                    android:id="@+id/textView42"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15dp"
+                    android:textColor="#4d4d4d" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015-11-23 22:08"
+                    android:id="@+id/tv_end_time"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#4d4d4d" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="8dp" >
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/imageView15"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom"
+                    android:src="@mipmap/icon_activityrule"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动规则"
+                    android:id="@+id/textView48"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="14dp"
+                    android:textColor="#989898" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
+                android:background="#ffffff" >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/et_rule"
+                    android:gravity="left|top"
+                    android:hint="请填写必要的商户介绍，玩家须知，奖品使用说明等信息。"
+                    android:textColor="#4d4d4d"
+                    android:textSize="15dp"
+                    android:background="@null"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="#cccccc"
+                    android:maxLength="200" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="138"
+                    android:id="@+id/tv_remaining_count"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#cccccc"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="8dp" >
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/imageView16"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom"
+                    android:src="@mipmap/icon_prize"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动奖品"
+                    android:id="@+id/textView49"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="14dp"
+                    android:textColor="#989898" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/cell_selector"
+                android:id="@+id/ll_add_prize"
+                android:clickable="true">
+
+                <Space
+                    android:layout_width="10px"
+                    android:layout_height="20px"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:id="@+id/iv_add"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/icon_add"
+                    android:layout_marginRight="7dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="添加奖品"
+                    android:id="@+id/tv_add"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#f4603d"
+                    android:textSize="15dp" />
+
+                <Space
+                    android:layout_width="10px"
+                    android:layout_height="20px"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lv_prizes" />
+
+            <include layout="@layout/divider_h_no_margin"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp" >
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:text="预览"
+                    android:id="@+id/btn_preview"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_round_orange_outline_selector"
+                    android:textSize="18dp"
+                    android:textColor="#fe603d"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="27dp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:text="创建"
+                    android:id="@+id/btn_submit"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/btn_selector"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="27dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

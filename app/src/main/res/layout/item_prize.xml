@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="#ffffff">
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/imageView12"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/icon_prize_number1_normal"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="一等奖"
+        android:id="@+id/textView41"
+        android:textColor="#4d4d4d"
+        android:textSize="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="6dp" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="10人"
+        android:id="@+id/textView44"
+        android:textColor="#4d4d4d"
+        android:textSize="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:gravity="right" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="茵曼2015棉袄一件"
+        android:id="@+id/textView43"
+        android:textColor="#4d4d4d"
+        android:textSize="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="30dp" />
+
+    <Space
+        android:layout_width="10px"
+        android:layout_height="20px"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/imageView17"
+        android:src="@mipmap/image_choice_delete"
+        android:scaleType="center"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>
