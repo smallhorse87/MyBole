@@ -39,18 +39,18 @@ public class ActivitiesAdaptor extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ItemViewHolder vh = null;
+        ActivitiesHolder vh = null;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_activity, null, false);
 
-            vh = new ItemViewHolder(convertView, parent.getContext());
+            vh = new ActivitiesHolder(convertView, parent.getContext());
 
             convertView.setTag(vh);
 
         } else {
 
-            vh = (ItemViewHolder) convertView.getTag();
+            vh = (ActivitiesHolder) convertView.getTag();
         }
 
         vh.setupContent(currentList.get(position));

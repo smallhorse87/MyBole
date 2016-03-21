@@ -13,12 +13,12 @@ import butterknife.ButterKnife;
 /**
  * Created by chenxiaosong on 16/3/14.
  */
-public class GalleryViewHolder extends RecyclerView.ViewHolder {
+public class GalleryHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.iv_image)
     SimpleDraweeView ivImage;
 
-    public GalleryViewHolder(View view) {
+    public GalleryHolder(View view) {
         super(view);
         ButterKnife.bind(this, view);
 

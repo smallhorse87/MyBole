@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:id="@+id/imageView12"
+        android:id="@+id/iv_level"
         android:layout_gravity="center_vertical"
         android:src="@mipmap/icon_prize_number1_normal"
         android:layout_marginLeft="10dp" />
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="一等奖"
-        android:id="@+id/textView41"
+        android:id="@+id/tv_level"
         android:textColor="#4d4d4d"
         android:textSize="15dp"
         android:layout_gravity="center_vertical"
@@ -29,7 +29,7 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="10人"
-        android:id="@+id/textView44"
+        android:id="@+id/tv_count"
         android:textColor="#4d4d4d"
         android:textSize="15dp"
         android:layout_gravity="center_vertical"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="茵曼2015棉袄一件"
-        android:id="@+id/textView43"
+        android:id="@+id/tv_prize_name"
         android:textColor="#4d4d4d"
         android:textSize="15dp"
         android:layout_gravity="center_vertical"
@@ -54,7 +54,7 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/imageView17"
+        android:id="@+id/iv_delete"
         android:src="@mipmap/image_choice_delete"
         android:scaleType="center"
         android:layout_gravity="center_vertical" />

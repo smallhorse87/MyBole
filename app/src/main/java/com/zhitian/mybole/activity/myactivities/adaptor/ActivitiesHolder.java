@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 /**
  * Created by chenxiaosong on 16/3/14.
  */
-public final class ItemViewHolder {
+public final class ActivitiesHolder {
     @Bind(R.id.tv_activity_name)
     TextView tvActivityName;
     @Bind(R.id.tv_activity_state)
@@ -50,7 +50,7 @@ public final class ItemViewHolder {
 
     private ActivityInfo    info;
 
-    public ItemViewHolder(View view, final Context context) {
+    public ActivitiesHolder(View view, final Context context) {
         ButterKnife.bind(this, view);
 
         rvPrizeImages.setOverScrollMode(View.OVER_SCROLL_NEVER);

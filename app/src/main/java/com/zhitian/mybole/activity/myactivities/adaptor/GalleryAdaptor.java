@@ -1,28 +1,21 @@
 package com.zhitian.mybole.activity.myactivities.adaptor;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.entity.ImageInfo;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by chenxiaosong on 16/3/14.
  */
-public class GalleryAdaptor extends RecyclerView.Adapter<GalleryViewHolder> {
+public class GalleryAdaptor extends RecyclerView.Adapter<GalleryHolder> {
 
     private List ids;
 
@@ -36,14 +29,14 @@ public class GalleryAdaptor extends RecyclerView.Adapter<GalleryViewHolder> {
     }
 
     @Override
-    public GalleryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GalleryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_image, parent, false);
-        GalleryViewHolder viewHolder = new GalleryViewHolder(view);
+        GalleryHolder viewHolder = new GalleryHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(GalleryViewHolder holder, int position) {
+    public void onBindViewHolder(GalleryHolder holder, int position) {
         ImageInfo  imageInfo= (ImageInfo)ids.get(position);
         Uri    uri = Uri.parse(imageInfo.getUrl());
 

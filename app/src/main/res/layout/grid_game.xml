@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="85dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_game_image"
+        android:scaleType="centerCrop"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="#e6e6e6"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大炮弹"
+        android:id="@+id/tv_game_name"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#4d4d4d"
+        android:textSize="15dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="24dp"
+        android:text="选择"
+        android:id="@+id/btn_select_game"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffffff"
+        android:layout_marginBottom="20dp" />
+
+</LinearLayout>
