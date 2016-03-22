@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.zhitian.mybole.Constants;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.myactivities.adaptor.GameAdaptor;
 import com.zhitian.mybole.activity.myactivities.adaptor.PrizesAdaptor;
@@ -87,7 +89,10 @@ public class ActivityCreation extends AppCompatActivity {
 
         //视图相关
         ButterKnife.bind(this);
+
         lvPrizes.setAdapter(new PrizesAdaptor(model.getPrizes()));
+        etActivityName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(Constants.APPCFG_ACTIVIT_NAME_CHAR_COUNT)});
+
         setupGameCheckBox();
         setupPeriod();
         setupRules();
@@ -111,6 +116,7 @@ public class ActivityCreation extends AppCompatActivity {
     }
 
     void setupRules(){
+        etRule.setFilters(new InputFilter[]{new InputFilter.LengthFilter(Constants.APPCFG_ACTIVIT_RULE_CHAR_COUNT)});
         showLeftCount(etRule.getText());
 
         etRule.addTextChangedListener(new TextWatcher() {
@@ -136,14 +142,13 @@ public class ActivityCreation extends AppCompatActivity {
 
         setStartTime(now);
 
-        setEndTime(TimeUtil.AddDaysSince(now, 3));
+        setEndTime(TimeUtil.addDaysSince(now, Constants.APPCFG_ACTIVIT_DEFAULT_PEORID));
     }
 
     void configHandlers(){
         getGameListHandler = new OperationResponseHandler() {
             @Override
             public void onJsonSuccess(Object retData) {
-
                 gameList.clear();
                 gameList.addAll(retGameInfoList((JSONArray) retData));
 
@@ -182,7 +187,7 @@ public class ActivityCreation extends AppCompatActivity {
     }
 
     private void pickStartTime(){
-        createDatePicker( TimeUtil.TimestampStrToDate(model.getStartTime()), new TimePickerView.OnTimeSelectListener() {
+        TimeUtil.createDatePicker(this, TimeUtil.TimestampStrToDate(model.getStartTime()), new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date) {
                 //设置并显示
@@ -192,7 +197,7 @@ public class ActivityCreation extends AppCompatActivity {
     }
 
     private void pickEndTime(){
-        createDatePicker(TimeUtil.TimestampStrToDate(model.getEndTime()), new TimePickerView.OnTimeSelectListener() {
+        TimeUtil.createDatePicker(this, TimeUtil.TimestampStrToDate(model.getEndTime()), new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date) {
                 //设置并显示
@@ -225,17 +230,15 @@ public class ActivityCreation extends AppCompatActivity {
         long timestamp = date.getTime();
         model.setStartTime(Long.valueOf(timestamp).toString());
 
-        tvStartTime.setText(TimeUtil.DateToYYYYMMDDHHMM(date));
+        tvStartTime.setText(TimeUtil.dateToYYYYMMDDHHMM(date));
     }
 
     private void setEndTime(Date date){
         long timestamp = date.getTime();
         model.setEndTime(Long.valueOf(timestamp).toString());
 
-        tvEndTime.setText(TimeUtil.DateToYYYYMMDDHHMM(date));
+        tvEndTime.setText(TimeUtil.dateToYYYYMMDDHHMM(date));
     }
-
-    //字数限制
 
     private String checkAndSetBeforeRequest(){
         if(model.getGame() == null)
@@ -244,10 +247,10 @@ public class ActivityCreation extends AppCompatActivity {
         if (etActivityName.getText().toString().length() == 0)
             return "请输入活动名称";
 
-        if (TimeUtil.DiffDaysBetweenTimestamps(model.getStartTime(), model.getEndTime()) < 0)
+        if (TimeUtil.diffDaysBetweenTimestamps(model.getStartTime(), model.getEndTime()) < 0)
             return "开始时间不能晚于结束时间";
 
-        if (TimeUtil.DiffDaysBetweenTimestamps(model.getStartTime(), model.getEndTime()) > 7)
+        if (TimeUtil.diffDaysBetweenTimestamps(model.getStartTime(), model.getEndTime()) > Constants.APPCFG_ACTIVIT_MAX_PEORID)
             return "活动时间不能超过7天";
 
         if (model.getPrizes() == null || model.getPrizes().size() == 0)
@@ -259,26 +262,8 @@ public class ActivityCreation extends AppCompatActivity {
         return null;
     }
 
-    private void createDatePicker(Date date, TimePickerView.OnTimeSelectListener listener){
-        TimePickerView pvTime = new TimePickerView(this, TimePickerView.Type.ALL);
-
-        //控制时间范围
-        if (date == null)
-            pvTime.setTime(new Date());
-        else
-            pvTime.setTime(date);
-
-        pvTime.setCyclic(false);
-        pvTime.setCancelable(true);
-
-        //时间选择后回调
-        pvTime.setOnTimeSelectListener(listener);
-
-        pvTime.show();
-    }
-
     private void showLeftCount(Editable s){
-        int leftCount = 1000 - s.length();
+        int leftCount = Constants.APPCFG_ACTIVIT_RULE_CHAR_COUNT - s.length();
         tvRemainingCount.setText(Integer.valueOf(leftCount).toString());
     }
 }

@@ -17,4 +17,9 @@ public class Constants {
 
     public static final int PICK_PHOTO = 2;
     public static final int CROP_BEAUTY = 3;
+
+    public static final int APPCFG_ACTIVIT_RULE_CHAR_COUNT = 1000;
+    public static final int APPCFG_ACTIVIT_NAME_CHAR_COUNT = 40;
+    public static final int APPCFG_ACTIVIT_MAX_PEORID = 7;
+    public static final int APPCFG_ACTIVIT_DEFAULT_PEORID = 3;
 }

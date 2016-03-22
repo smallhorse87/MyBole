@@ -12,16 +12,26 @@ import java.util.List;
  */
 public class ActivityFormModel {
 
+    static private ActivityFormModel modelUnderEdit = null;
+
     private ActivityInfo activityInfo;
 
     private boolean isModified = false;
 
     public ActivityFormModel(){
         activityInfo = new ActivityInfo();
+
+        modelUnderEdit = this;
     }
 
     public ActivityFormModel(ActivityInfo info){
         activityInfo = info;
+
+        modelUnderEdit = this;
+    }
+
+    static public ActivityFormModel getModelUnderEdit(){
+        return modelUnderEdit;
     }
 
     public void setName(String name) {
