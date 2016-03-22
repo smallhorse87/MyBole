@@ -53,8 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/rv_games"
-                    android:scrollIndicators="none"
-                    android:background="#e8c0c0" />
+                    android:scrollIndicators="none"/>
             </LinearLayout>
 
             <include layout="@layout/divider_h_no_margin"/>
@@ -97,7 +96,9 @@
                 android:hint="请填写活动的重要信息或宣传口号"
                 android:textSize="15dp"
                 android:textColorHint="#cccccc"
-                android:textColor="#4d4d4d" />
+                android:textColor="#4d4d4d"
+                android:singleLine="true"
+                android:maxLength="40" />
 
             <include layout="@layout/divider_h_no_margin"/>
 
@@ -238,12 +239,12 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:textColorHint="#cccccc"
-                    android:maxLength="200" />
+                    android:maxLength="1000" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="138"
+                    android:text="1000"
                     android:id="@+id/tv_remaining_count"
                     android:layout_gravity="bottom|right"
                     android:layout_marginBottom="10dp"

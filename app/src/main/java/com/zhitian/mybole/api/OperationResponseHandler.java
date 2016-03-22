@@ -11,6 +11,7 @@ import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.ConfigInfo;
 import com.zhitian.mybole.entity.DetailedStatInfo;
+import com.zhitian.mybole.entity.GameInfo;
 import com.zhitian.mybole.entity.MerchantInfo;
 import com.zhitian.mybole.entity.PageInfo;
 import com.zhitian.mybole.entity.PlanInfo;
@@ -121,6 +122,28 @@ public abstract class OperationResponseHandler extends JsonHttpResponseHandler {
 
 				Gson gson = new Gson();
 				infos.add((RankInfo) gson.fromJson(item.toString(), RankInfo.class));
+			}
+
+			return infos;
+
+		}	catch (Exception e) {
+
+			return null;
+		}
+
+	}
+
+	public List<GameInfo> retGameInfoList(JSONArray retArr)
+	{
+		try {
+
+			List<GameInfo> infos = new ArrayList<GameInfo>();
+
+			for (int idx = 0; idx < retArr.length(); idx ++){
+				JSONObject item = (JSONObject)retArr.get(idx);
+
+				Gson gson = new Gson();
+				infos.add((GameInfo) gson.fromJson(item.toString(), GameInfo.class));
 			}
 
 			return infos;

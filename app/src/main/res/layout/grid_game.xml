@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="85dp"
     android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_game_image"
         android:scaleType="centerCrop"
+        fresco:roundedCornerRadius="10dp"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="#e6e6e6"
+        android:background="@drawable/game_logo_shape"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp" />
 
@@ -24,13 +26,32 @@
         android:layout_marginTop="11dp"
         android:layout_marginBottom="11dp" />
 
-    <Button
+    <RelativeLayout
+        android:id="@+id/rl_radio"
         android:layout_width="50dp"
         android:layout_height="24dp"
-        android:text="选择"
-        android:id="@+id/btn_select_game"
         android:layout_gravity="center_horizontal"
-        android:background="#ffffff"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="选择"
+            android:id="@+id/tv_radio_unselected"
+            android:textSize="14dp"
+            android:textColor="#feb416"
+            android:background="@drawable/game_radio_unselected"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/game_radio_selected"
+            android:src="@mipmap/icon_pitchon"
+            android:id="@+id/iv_radio_selected"
+            android:scaleType="center" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

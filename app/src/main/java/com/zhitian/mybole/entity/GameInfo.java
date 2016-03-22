@@ -9,6 +9,8 @@ public class GameInfo {
     private String gameId;
     private String name;
     private String previewLink;
+    private boolean selected = false;
+
     /**
      * imgId : 593
      * thumbnailImg : {"width":"174","height":"180","url":"http://m.bodimall.com/Uploads/Picture/2015-12-11/thumbnail_566a281d92a74.jpg"}
@@ -21,6 +23,10 @@ public class GameInfo {
 
     public void setGameId(String gameId) {
         this.gameId = gameId;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public void setName(String name) {
@@ -51,4 +57,7 @@ public class GameInfo {
         return imgs;
     }
 
+    public boolean getSelected() {
+        return this.selected;
+    }
 }

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhitian.mybole.activity.myactivities.PrizeActivity"
+    android:orientation="vertical"
+    android:background="#f2f2f2">
+
+    <include layout="@layout/divider_h_no_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/cell_selector"
+        android:id="@+id/ll_prize_level"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="奖品等级"
+            android:id="@+id/textView40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:textColor="#4d4d4d" />
+
+        <Space
+            android:layout_width="10px"
+            android:layout_height="20px"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="鼓励奖"
+            android:id="@+id/tv_prize_level"
+            android:layout_gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_weight="0"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+
+    <include layout="@layout/divider_h_left_margin"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:id="@+id/linearLayout5"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="奖品名称"
+            android:id="@+id/textView41"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:textColor="#4d4d4d" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/et_prize_name"
+            android:text="茵曼品牌裙子一条"
+            android:layout_gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|right" />
+    </LinearLayout>
+
+    <include layout="@layout/divider_h_left_margin"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:id="@+id/linearLayout6"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="奖励人数"
+            android:id="@+id/textView44"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:textColor="#4d4d4d" />
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_weight="0" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/et_count"
+            android:text="11"
+            android:layout_gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|right" />
+
+    </LinearLayout>
+
+    <include layout="@layout/divider_h_left_margin" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/cell_selector"
+        android:id="@+id/ll_prize_expried_time"
+        android:clickable="true" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="奖品有效期"
+            android:id="@+id/textView50"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textSize="15dp"
+            android:textColor="#4d4d4d" />
+
+        <Space
+            android:layout_width="10px"
+            android:layout_height="20px"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-11-30 23:59"
+            android:id="@+id/tv_prize_expried_time"
+            android:layout_gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_weight="0"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+
+    <include layout="@layout/divider_h_no_margin" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingBottom="8dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="活动名称"
+            android:id="@+id/textView46"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:textSize="14dp"
+            android:textColor="#989898" />
+    </LinearLayout>
+
+    <include layout="@layout/divider_h_no_margin"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:id="@+id/rv_prize_images"
+        android:scrollIndicators="none"
+        android:background="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="奖品图片模板"
+        android:id="@+id/tv_template"
+        android:layout_marginTop="12dp"
+        android:textColor="#f4603d"
+        android:layout_marginLeft="10dp"
+        android:textSize="15dp" />
+
+</LinearLayout>

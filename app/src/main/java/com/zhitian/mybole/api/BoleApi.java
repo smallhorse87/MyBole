@@ -124,6 +124,10 @@ public class BoleApi {
         ApiHttpClient.get("merchant/activityRanking", params, jsonhandler);
     }
 
+    public static void getGameList(JsonHttpResponseHandler jsonhandler) {
+        ApiHttpClient.get("merchant/gameList", null, jsonhandler);
+    }
+
     /**
      * 获取新闻列表
      *
