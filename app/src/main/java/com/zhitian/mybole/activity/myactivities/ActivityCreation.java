@@ -1,5 +1,6 @@
 package com.zhitian.mybole.activity.myactivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,6 +83,8 @@ public class ActivityCreation extends AppCompatActivity {
             case R.id.ll_end_time:
                 break;
             case R.id.ll_add_prize:
+                Intent intent = new Intent(this, PrizeActivity.class);
+                this.startActivity(intent);
                 break;
             case R.id.btn_preview:
                 break;
