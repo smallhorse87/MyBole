@@ -86,6 +86,25 @@ public class ImageSetInfo {
         return this.uri;
     }
 
+    public boolean equals(ImageSetInfo p){
+        if (!imgId.equals(p.getImgId()))
+            return false;
+
+        if (!this.thumbnailImg.equals(p.thumbnailImg))
+            return false;
+
+        if (!this.middleImg.equals(p.middleImg))
+            return false;
+
+        if (!this.largeImg.equals(p.largeImg))
+            return false;
+
+        if (!this.originalImg.equals(p.originalImg))
+            return false;
+
+        return true;
+    }
+
     public boolean pendingForUpload() {
         if(imgId == null && uri != null)
             return true;

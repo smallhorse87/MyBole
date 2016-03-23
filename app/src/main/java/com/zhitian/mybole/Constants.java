@@ -22,4 +22,5 @@ public class Constants {
     public static final int APPCFG_ACTIVIT_NAME_CHAR_COUNT = 40;
     public static final int APPCFG_ACTIVIT_MAX_PEORID = 7;
     public static final int APPCFG_ACTIVIT_DEFAULT_PEORID = 3;
+    public static final int APPCFG_MAX_PICTURE_PER_PRIZE = 3;
 }

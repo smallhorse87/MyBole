@@ -31,4 +31,18 @@ public class ImageInfo {
     public String getUrl() {
         return url;
     }
+
+    public boolean equals(ImageInfo p){
+
+        if (!width.equals(p.getWidth()))
+            return false;
+
+        if (!height.equals(p.getHeight()))
+            return false;
+
+        if (!url.equals(p.getUrl()))
+            return false;
+
+        return true;
+    }
 }

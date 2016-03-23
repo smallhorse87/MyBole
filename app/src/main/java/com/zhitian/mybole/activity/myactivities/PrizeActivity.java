@@ -55,11 +55,15 @@ public class PrizeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //初始化值
-        model = ActivityFormModel.getModelUnderEdit();
+        model = ActivityFormModel.getModelForEdit();
         initPrizeLevelNameList();
 
         //视图
         tvTemplate.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+    }
+
+    void setupImagesSelection(){
+
     }
 
     @OnClick({R.id.ll_prize_level, R.id.ll_prize_expried_time, R.id.tv_template})

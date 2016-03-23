@@ -1,5 +1,7 @@
 package com.zhitian.mybole.entity;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -124,6 +126,9 @@ public class ActivityInfo {
     }
 
     public List<PrizeInfo> getPrizes() {
+
+        Collections.sort(prizes);
+
         return prizes;
     }
 
