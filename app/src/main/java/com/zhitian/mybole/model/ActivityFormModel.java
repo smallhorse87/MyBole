@@ -1,9 +1,11 @@
 package com.zhitian.mybole.model;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.zhitian.mybole.entity.ActivityInfo;
 import com.zhitian.mybole.entity.GameInfo;
+import com.zhitian.mybole.entity.ImageSetInfo;
 import com.zhitian.mybole.entity.PrizeInfo;
 
 import java.util.ArrayList;
@@ -77,9 +79,32 @@ public class ActivityFormModel {
     }
 
     //---------------------------------------
+    //operation on prize
+    //---------------------------------------
+    public List<ImageSetInfo> getImages(){
+        if(prizeForEdit.getImgs() == null)
+            prizeForEdit.setImgs(new ArrayList<ImageSetInfo>());
+
+        return prizeForEdit.getImgs();
+    }
+
+    public void deleteImageInfo(ImageSetInfo info){
+        prizeForEdit.getImgs().remove(info);
+    }
+
+    public void addImageByUriForPrize(Uri uri) {
+        ImageSetInfo info = new ImageSetInfo();
+        info.setUri(uri);
+
+        if(prizeForEdit.getImgs() == null)
+            prizeForEdit.setImgs(new ArrayList<ImageSetInfo>());
+
+        prizeForEdit.getImgs().add(info);
+    }
+
+    //---------------------------------------
     //following are simple bean setter/getter
     //---------------------------------------
-
     public void setName(String name) {
         isModified = true;
         activityInfo.setName(name);

@@ -8,6 +8,7 @@ import android.net.Uri;
 public class ImageSetInfo {
     private String imgId;
 
+    //存放选择的本地图片
     private Uri uri;
     /**
      * width : 180

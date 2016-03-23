@@ -174,6 +174,7 @@ public class ActivityCreation extends AppCompatActivity {
                 pickEndTime();
                 break;
             case R.id.ll_add_prize:
+                model.prepareForEdit(null);
                 Intent intent = new Intent(this, PrizeActivity.class);
                 this.startActivity(intent);
                 break;

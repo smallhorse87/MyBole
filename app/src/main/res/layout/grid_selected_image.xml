@@ -16,7 +16,7 @@
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:id="@+id/imageView12"
+        android:id="@+id/iv_delete_image"
         android:src="@mipmap/image_choice_delete"
         android:layout_alignParentRight="false"
         android:layout_alignTop="@+id/iv_image"

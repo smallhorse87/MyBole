@@ -127,7 +127,8 @@ public class ActivityInfo {
 
     public List<PrizeInfo> getPrizes() {
 
-        Collections.sort(prizes);
+        if (prizes != null)
+            Collections.sort(prizes);
 
         return prizes;
     }
