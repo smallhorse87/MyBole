@@ -244,7 +244,7 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:src="@drawable/homepage_setting_btn_selector"
-                android:id="@+id/imageView6"
+                android:id="@+id/iv_settings"
                 android:scaleType="center"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="40dp"

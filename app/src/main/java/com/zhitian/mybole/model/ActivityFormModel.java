@@ -41,7 +41,7 @@ public class ActivityFormModel {
         return modelUnderEdit;
     }
 
-    public void save(){
+    public void savePrizeUnderEditting(){
         if (prizeForEdit != null){
             addPrize(prizeForEdit);
         }
@@ -78,21 +78,18 @@ public class ActivityFormModel {
         }
     }
 
+    public String checkSanityOfPrize(){
+        return prizeForEdit.checkSanity();
+    }
+
     //---------------------------------------
     //operation on prize
     //---------------------------------------
-    public List<ImageSetInfo> getImages(){
-        if(prizeForEdit.getImgs() == null)
-            prizeForEdit.setImgs(new ArrayList<ImageSetInfo>());
-
-        return prizeForEdit.getImgs();
-    }
-
     public void deleteImageInfo(ImageSetInfo info){
         prizeForEdit.getImgs().remove(info);
     }
 
-    public void addImageByUriForPrize(Uri uri) {
+    public void addPirzeImageByUriForPrize(Uri uri) {
         ImageSetInfo info = new ImageSetInfo();
         info.setUri(uri);
 
@@ -102,6 +99,44 @@ public class ActivityFormModel {
         prizeForEdit.getImgs().add(info);
     }
 
+    public void setPrizeLevel(String prizeLevel) {
+        prizeForEdit.setPrizeLevel(prizeLevel);
+    }
+
+    public void setPrizeName(String prizeName) {
+        prizeForEdit.setName(prizeName);
+    }
+
+    public void setPrizeCount(String prizeCount) {
+        prizeForEdit.setNumber(prizeCount);
+    }
+
+    public void setPrizeExpiredTime(String prizeExpiredTime) {
+        prizeForEdit.setEndTime(prizeExpiredTime);
+    }
+
+    public List<ImageSetInfo> getPrizeImages(){
+        if(prizeForEdit.getImgs() == null)
+            prizeForEdit.setImgs(new ArrayList<ImageSetInfo>());
+
+        return prizeForEdit.getImgs();
+    }
+
+    public String getPrizeLevel(){
+        return prizeForEdit.getPrizeLevel();
+    }
+
+    public String getPrizeName() {
+        return prizeForEdit.getName();
+    }
+
+    public String getPrizeCount() {
+        return prizeForEdit.getNumber();
+    }
+
+    public String getPrizeExpiredTime() {
+        return prizeForEdit.getEndTime();
+    }
     //---------------------------------------
     //following are simple bean setter/getter
     //---------------------------------------

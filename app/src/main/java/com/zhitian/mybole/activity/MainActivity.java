@@ -3,16 +3,17 @@ package com.zhitian.mybole.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.code.ManualVerifyActivity;
+import com.zhitian.mybole.activity.merchant.MerchantFormActivity;
 import com.zhitian.mybole.activity.myactivities.ActivityCreation;
 import com.zhitian.mybole.activity.myactivities.MyActivitesActivity;
 import com.zhitian.mybole.activity.statistics.TotalStatActivity;
 import com.zhitian.mybole.base.BaseActivity;
-import com.zhitian.mybole.ui.scanner.CaptureActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,6 +29,10 @@ public class MainActivity extends BaseActivity {
     RelativeLayout rlTotalStatistics;
     @Bind(R.id.rl_code_verification)
     RelativeLayout rlCodeVerification;
+    @Bind(R.id.imageView4)
+    ImageView imageView4;
+    @Bind(R.id.iv_settings)
+    ImageView ivSettings;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -56,7 +61,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.rl_activity_creation, R.id.rl_my_activities, R.id.rl_total_statistics, R.id.rl_code_verification})
+    @OnClick({R.id.rl_activity_creation, R.id.rl_my_activities, R.id.rl_total_statistics, R.id.rl_code_verification, R.id.iv_settings})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_activity_creation:
@@ -67,21 +72,26 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent(this, MyActivitesActivity.class);
                 this.startActivity(intent);
                 break;
-            case R.id.rl_total_statistics:
-            {
+            case R.id.rl_total_statistics: {
                 Intent totalStatIntent = new Intent(this, TotalStatActivity.class);
                 this.startActivity(totalStatIntent);
             }
-                break;
-            case R.id.rl_code_verification:
-            {
+            break;
+
+            case R.id.rl_code_verification: {
                 Intent codeIntent = new Intent(this, ManualVerifyActivity.class);
                 this.startActivity(codeIntent);
 
 //                Intent scanIntent = new Intent(this, CaptureActivity.class);
 //                this.startActivity(scanIntent);
             }
-                break;
+            break;
+
+            case R.id.iv_settings: {
+                Intent merchantFormIntent = new Intent(this, MerchantFormActivity.class);
+                this.startActivity(merchantFormIntent);
+            }
+            break;
         }
     }
 }

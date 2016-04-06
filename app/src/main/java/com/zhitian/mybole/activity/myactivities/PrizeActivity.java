@@ -1,6 +1,7 @@
 package com.zhitian.mybole.activity.myactivities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,9 +36,12 @@ import com.zhitian.mybole.base.BaseActivity;
 import com.zhitian.mybole.entity.ImageSetInfo;
 import com.zhitian.mybole.entity.PrizeInfo;
 import com.zhitian.mybole.model.ActivityFormModel;
+import com.zhitian.mybole.ui.scanner.common.*;
+import com.zhitian.mybole.utils.PrizeLevelUtil;
 import com.zhitian.mybole.utils.TimeUtil;
 
 import java.io.File;
+import java.lang.Runnable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -67,13 +72,14 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     TextView tvCountNegative;
 
     ActivityFormModel model;
-    ArrayList<String> prizeLevelNameList = new ArrayList<String>();
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private static final int REQUEST_TAKE_PHOTO     = 0x02;
     private static final String SAMPLE_CROPPED_IMAGE_NAME = "SampleCropImage.jpeg";
 
     private Uri mDestinationUri;
+
+    private View.OnFocusChangeListener locateToLastPostion;
 
     @Override
     protected int getLayoutId() {
@@ -86,14 +92,56 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     }
 
     @Override
-    protected void initViews(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_prize);
-        ButterKnife.bind(this);
+    protected void leftNavBtnHandle() {
+        AppContext.showToast("点击了返回键");
+    }
 
+    protected void actionBtnHandle()
+    {
+        //读取
+        model.setPrizeName(etPrizeName.getText().toString());
+        model.setPrizeCount(etCount.getText().toString());
+
+        //检查合法性
+        String errPrompt = model.checkSanityOfPrize();
+        if(model.checkSanityOfPrize() != null)
+            AppContext.showToast(errPrompt);
+
+        //保存并退出
+        model.savePrizeUnderEditting();
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         //初始化值
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
         model = ActivityFormModel.getModelForEdit();
-        initPrizeLevelNameList();
+
+        tvPrizeLevel.setText(model.getPrizeLevel());
+        etPrizeName.setText(model.getPrizeName());
+        etCount.setText(model.getPrizeCount());
+        tvPrizeExpriedTime.setText(model.getPrizeExpiredTime());
+
+        locateToLastPostion = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                    return;
+
+                final EditText et = (EditText)v;
+                et.setCursorVisible(false);
+
+                et.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        et.setSelection(et.getText().length());
+                        et.setCursorVisible(true);
+                    }
+                });
+            }
+        };
+        etCount.setOnFocusChangeListener(locateToLastPostion);
+        etPrizeName.setOnFocusChangeListener(locateToLastPostion);
 
         //视图
         tvTemplate.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -108,7 +156,7 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvPrizeImages.setLayoutManager(mLayoutManager);
 
-        rvPrizeImages.setAdapter(new ImageSelectionAdaptor(model.getImages(), this));
+        rvPrizeImages.setAdapter(new ImageSelectionAdaptor(model.getPrizeImages(), this));
     }
 
     @OnClick({R.id.ll_prize_level, R.id.ll_prize_expried_time, R.id.tv_template})
@@ -129,6 +177,8 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     }
 
     void pickForDate(){
+        cancelFocus();
+
         TimeUtil.createDatePicker(this, TimeUtil.TimestampStrToDate(model.getEndTime()), new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date) {
@@ -145,22 +195,27 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     }
 
     void pickForPrizeLevel(){
+        cancelFocus();
+
         //选项选择器
         OptionsPickerView pvOptions = new OptionsPickerView(this);
 
-        pvOptions.setPicker(prizeLevelNameList);
+        pvOptions.setPicker(PrizeLevelUtil.getPrizeNameList());
 
         pvOptions.setCyclic(false);
 
-        pvOptions.setSelectOptions(1);
+        int defaultIdx = PrizeLevelUtil.prizeLevelToPrizeIndex(model.getPrizeLevel());
+        defaultIdx = defaultIdx < 0 ? 0: defaultIdx;
+
+        pvOptions.setSelectOptions(defaultIdx);
+
         pvOptions.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3) {
-                String levelName = prizeLevelNameList.get(options1);
-                tvPrizeLevel.setText(levelName);
+                tvPrizeLevel.setText(PrizeLevelUtil.getPrizeLevelNameByIndex(options1));
+                model.setPrizeLevel(PrizeLevelUtil.prizeLevelIndexToPrizelevel(options1));
 
-                enablePrizeCount(!(options1 == prizeLevelNameList.size() - 1));
-
+                enablePrizeCount(PrizeLevelUtil.prizeCountNeeded(options1));
             }
         });
         pvOptions.show();
@@ -206,10 +261,10 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     private void handleCropResult(@NonNull Intent result) {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
-            model.addImageByUriForPrize(resultUri);
+            model.addPirzeImageByUriForPrize(resultUri);
             rvPrizeImages.getAdapter().notifyDataSetChanged();
         } else {
-            //Toast.makeText(SampleActivity.this, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show(); stony
+
         }
     }
 
@@ -225,6 +280,8 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
 
     @Override
     public void addImage(){
+        cancelFocus();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -262,11 +319,10 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
         }
     }
 
-    void initPrizeLevelNameList(){
-        prizeLevelNameList.add("一等奖");
-        prizeLevelNameList.add("二等奖");
-        prizeLevelNameList.add("三等奖");
-        prizeLevelNameList.add("优秀奖");
-        prizeLevelNameList.add("鼓励奖");
+    private void cancelFocus(){
+        etPrizeName.clearFocus();
+        etCount.clearFocus();
+
+        tvPrizeLevel.requestFocus();
     }
 }

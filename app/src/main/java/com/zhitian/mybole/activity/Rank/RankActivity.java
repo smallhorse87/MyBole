@@ -19,6 +19,7 @@ import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.api.OperationResponseHandler;
 import com.zhitian.mybole.entity.PageInfo;
 import com.zhitian.mybole.entity.RankInfo;
+import com.zhitian.mybole.utils.PrizeLevelUtil;
 
 import org.json.JSONObject;
 
@@ -151,14 +152,14 @@ public class RankActivity extends AppCompatActivity {
             tvUserName.setText(info.getPlayer());
             tvAchievement.setText(info.getScore());
 
-            tvPrize.setText(info.getPrizeLevelStr());
+            tvPrize.setText(PrizeLevelUtil.getPrizeLevelNameByLevel(info.getPrizeLevel()));
 
-            if (info.getPrizeLevelLogoResId() == 0)
+            if (PrizeLevelUtil.getPrizeLevelLogoResId(info.getPrizeLevel(), info.getStatus()) == 0)
             {
                 ivPrizeLogo.setVisibility(View.GONE);
             } else {
                 ivPrizeLogo.setVisibility(View.VISIBLE);
-                ivPrizeLogo.setImageResource(info.getPrizeLevelLogoResId());
+                ivPrizeLogo.setImageResource(PrizeLevelUtil.getPrizeLevelLogoResId(info.getPrizeLevel(), info.getStatus()));
             }
 
             calProgress(info.getScore());
