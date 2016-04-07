@@ -11,7 +11,7 @@ public class ImageSetInfo implements Parcelable {
     private String imgId;
 
     //存放选择的本地图片
-    private Uri uri;
+    private String uri;
     /**
      * width : 180
      * height : 180
@@ -61,7 +61,7 @@ public class ImageSetInfo implements Parcelable {
         this.originalImg = originalImg;
     }
 
-    public void setUri(Uri uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
@@ -85,7 +85,7 @@ public class ImageSetInfo implements Parcelable {
         return originalImg;
     }
 
-    public Uri getUri() {
+    public String getUri() {
         return this.uri;
     }
 
@@ -117,7 +117,7 @@ public class ImageSetInfo implements Parcelable {
 
     public Uri getRealThumbnailUri(){
         if ( getUri() != null)
-            return getUri();
+            return Uri.parse(getUri());
         else if (getThumbnailImg().getUrl() != null)
             return Uri.parse(getThumbnailImg().getUrl());
         else
@@ -126,7 +126,7 @@ public class ImageSetInfo implements Parcelable {
 
     public Uri getRealLargeUri(){
         if ( getUri() != null)
-            return getUri();
+            return Uri.parse(getUri());
         else if (getThumbnailImg().getUrl() != null)
             return Uri.parse(getThumbnailImg().getUrl());
         else
@@ -141,7 +141,7 @@ public class ImageSetInfo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.imgId);
-        dest.writeParcelable(this.uri, flags);
+        dest.writeString(this.uri);
         dest.writeParcelable(this.thumbnailImg, flags);
         dest.writeParcelable(this.middleImg, flags);
         dest.writeParcelable(this.largeImg, flags);
@@ -153,7 +153,7 @@ public class ImageSetInfo implements Parcelable {
 
     protected ImageSetInfo(Parcel in) {
         this.imgId = in.readString();
-        this.uri = in.readParcelable(Uri.class.getClassLoader());
+        this.uri = in.readString();
         this.thumbnailImg = in.readParcelable(ImageInfo.class.getClassLoader());
         this.middleImg = in.readParcelable(ImageInfo.class.getClassLoader());
         this.largeImg = in.readParcelable(ImageInfo.class.getClassLoader());

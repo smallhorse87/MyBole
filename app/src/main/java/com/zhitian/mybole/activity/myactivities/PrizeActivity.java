@@ -1,6 +1,7 @@
 package com.zhitian.mybole.activity.myactivities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 import com.zhitian.mybole.AppContext;
@@ -33,6 +36,8 @@ import com.zhitian.mybole.Constants;
 import com.zhitian.mybole.R;
 import com.zhitian.mybole.activity.myactivities.adaptor.ImageSelectionAdaptor;
 import com.zhitian.mybole.activity.myactivities.adaptor.ImageSelectionHolder;
+import com.zhitian.mybole.api.ApiResult;
+import com.zhitian.mybole.api.BoleApi;
 import com.zhitian.mybole.base.BaseActivity;
 import com.zhitian.mybole.entity.ImageSetInfo;
 import com.zhitian.mybole.entity.PrizeInfo;
@@ -49,9 +54,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.brucetoo.activityanimation.widget.ViewPagerFragment;
+
+import org.json.JSONObject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.ImageSelectionListener{
     private static final String TAG = "PrizeActivity";
@@ -76,6 +85,7 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     TextView tvCountNegative;
 
     ActivityFormModel model;
+    private JsonHttpResponseHandler uploadImageHandler;
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private static final int REQUEST_TAKE_PHOTO     = 0x02;
@@ -94,7 +104,8 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
 
     @Override
     protected void leftNavBtnHandle() {
-        AppContext.showToast("点击了返回键");
+        model.rollback();
+        finish();
     }
 
     protected void actionBtnHandle()
@@ -107,12 +118,67 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
         String errPrompt = model.checkSanityOfPrize();
         if(errPrompt != null){
             AppContext.showToast(errPrompt);
+            return;
         }
-        else{
-            //保存并退出
-            model.savePrizeUnderEditting();
-            this.finish();
+
+        //回调函数
+        uploadImageHandler = new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Gson gson = new Gson();
+                ApiResult result = gson.fromJson(response.toString(), ApiResult.class);
+
+                if (result.getRet() == 0) {
+                    try {
+                        JSONObject imgSetAttribData = response.getJSONObject("data");
+                        ImageSetInfo info = gson.fromJson(imgSetAttribData.toString(), ImageSetInfo.class);
+
+                        model.getImageForUploading().setImgId(info.getImgId());
+
+                        //上传选择的图片
+                        if (model.hasImageForUploading()){
+                            uploadImage();
+                        } else {
+                            hideWaitDialog();
+                            savePrize();
+                        }
+
+                    } catch (Exception e) {
+                        hideWaitDialog();
+                    }
+                } else {
+                    AppContext.showToast(result.getMsg());
+                    hideWaitDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                AppContext.showToast("请求失败");
+                hideWaitDialog();
+            }
+        };
+
+        //上传选择的图片
+        if (model.hasImageForUploading()){
+            showWaitDialog("上传图片中...");
+            uploadImage();
+        } else {
+            savePrize();
         }
+    }
+
+    private void uploadImage(){
+        BoleApi.updateImage(Uri.parse(model.getImageForUploading().getUri()), uploadImageHandler);
+    }
+
+    private void savePrize(){
+        //保存并退出
+        model.savePrizeUnderEditting();
+
+        setResult(Activity.RESULT_OK, null);
+        finish();
     }
 
     @Override
@@ -123,8 +189,8 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
         tvPrizeLevel.setText(model.getPrizeLevel());
         etPrizeName.setText(model.getPrizeName());
         etCount.setText(model.getPrizeCount());
-        tvPrizeExpriedTime.setText(model.getPrizeExpiredTime());
-        enablePrizeCount(PrizeLevelUtil.prizeCountNeededByLevel(model.getPrizeLevel()));
+        tvPrizeExpriedTime.setText(TimeUtil.timeIntervalToYYYYMMDDHHMM(model.getPrizeExpiredTime()));
+        enablePrizeCount(PrizeLevelUtil.prizeCountNeededWithLevel(model.getPrizeLevel()));
 
         locateToLastPostion = new View.OnFocusChangeListener() {
             @Override
@@ -167,7 +233,8 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_prize_level:
-                pickForPrizeLevel();
+                if (model.hasImageForUploading())
+                    pickForPrizeLevel();
                 break;
 
             case R.id.ll_prize_expried_time:
@@ -216,7 +283,7 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
                 tvPrizeLevel.setText(PrizeLevelUtil.getPrizeLevelNameByIndex(options1));
                 model.setPrizeLevel(PrizeLevelUtil.prizeLevelIndexToPrizelevel(options1));
 
-                enablePrizeCount(PrizeLevelUtil.prizeCountNeededByLevelIndex(options1));
+                enablePrizeCount(PrizeLevelUtil.prizeCountNeededWithLevelIndex(options1));
             }
         });
         pvOptions.show();

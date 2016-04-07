@@ -73,7 +73,7 @@ public class ActivityFormModel {
             try{
                 prizeForEdit = (PrizeInfo)selectedPrize.clone();
             } catch (Exception e){
-
+                Log.e("stony", e.toString());
             }
         }
     }
@@ -91,7 +91,7 @@ public class ActivityFormModel {
 
     public void addPirzeImageByUriForPrize(Uri uri) {
         ImageSetInfo info = new ImageSetInfo();
-        info.setUri(uri);
+        info.setUri(uri.toString());
 
         if(prizeForEdit.getImgs() == null)
             prizeForEdit.setImgs(new ArrayList<ImageSetInfo>());
@@ -137,6 +137,31 @@ public class ActivityFormModel {
     public String getPrizeExpiredTime() {
         return prizeForEdit.getEndTime();
     }
+
+    public ImageSetInfo getImageForUploading(){
+        ArrayList<ImageSetInfo> imageSetInfos = prizeForEdit.getImgs();
+
+        for (ImageSetInfo item: imageSetInfos) {
+            if (item.getUri()!= null && item.getImgId() == null)
+                return item;
+        }
+
+        return null;
+    }
+
+    public boolean hasPrizesNotSetYet() {
+        if(getPrizes() != null && getPrizes().size() >= 5)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean hasImageForUploading(){
+        if (getImageForUploading()!= null)
+            return true;
+        else
+            return false;
+    }
     //---------------------------------------
     //following are simple bean setter/getter
     //---------------------------------------
@@ -170,6 +195,7 @@ public class ActivityFormModel {
             activityInfo.setPrizes(new ArrayList<PrizeInfo>());
 
         activityInfo.getPrizes().add(prize);
+        activityInfo.getPrizes();
     }
 
     public void removePrize(PrizeInfo prizeForRemove) {
@@ -178,7 +204,6 @@ public class ActivityFormModel {
 
         boolean rlt = activityInfo.getPrizes().remove(prizeForRemove);
 
-        Log.i("stony", rlt?"remove succ":"remove failed");
     }
 
     public String getName() {

@@ -1,5 +1,7 @@
 package com.zhitian.mybole.entity;
 
+import android.util.Log;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -127,8 +129,10 @@ public class ActivityInfo {
 
     public List<PrizeInfo> getPrizes() {
 
-        if (prizes != null)
+        if (prizes != null){
             Collections.sort(prizes);
+            Log.i("stony", Integer.valueOf(prizes.size()).toString());
+        }
 
         return prizes;
     }

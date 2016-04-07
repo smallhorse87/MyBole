@@ -2,6 +2,7 @@ package com.zhitian.mybole.entity;
 
 import com.google.gson.Gson;
 import com.zhitian.mybole.activity.myactivities.PrizeActivity;
+import com.zhitian.mybole.utils.PrizeLevelUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,10 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
     }
 
     public String getNumber() {
-        return number;
+        if (prizeLevel == "5")
+            return "参与即有奖";
+        else
+            return number;
     }
 
     public String getEndTime() {
@@ -76,10 +80,10 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
     }
 
     public int compareTo(PrizeInfo arg0) {
-        int curLevel = Integer.parseInt(this.getPrizeLevel());
-        int objLevel = Integer.parseInt(arg0.getPrizeLevel());
+        int curLevelIdx = PrizeLevelUtil.prizeLevelToPrizeIndex(prizeLevel);
+        int objLevelIdx = PrizeLevelUtil.prizeLevelToPrizeIndex(arg0.getPrizeLevel());
 
-        return curLevel - objLevel;
+        return curLevelIdx - objLevelIdx;
     }
 
     public String checkSanity(){
@@ -89,7 +93,7 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
         if(name == null || name.length() == 0)
             return "请填写奖品名称";
 
-        if(number == null || number.length() == 0)
+        if((PrizeLevelUtil.prizeCountNeededWithLevel(prizeLevel)) && (number == null || number.length() == 0))
             return "请填写奖励人数";
 
         if(endTime == null || endTime.length() == 0)
@@ -121,5 +125,4 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
         return true;
     }
 
-    //stony hasContent
 }

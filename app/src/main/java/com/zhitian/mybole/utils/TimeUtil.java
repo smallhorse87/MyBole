@@ -22,6 +22,15 @@ public class TimeUtil {
         return dateFormat.format(date);
     }
 
+    static  public String timeIntervalToYYYYMMDDHHMM(String timeInterval){
+        if (timeInterval == null)
+            return "";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MM-dd HH:mm");
+
+        return dateFormat.format(TimestampStrToDate(timeInterval));
+    }
+
     static public Date TimestampStrToDate(String timestampStr){
         long timestamp = Long.parseLong(timestampStr);
 

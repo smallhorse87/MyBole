@@ -1,5 +1,6 @@
 package com.zhitian.mybole.activity.myactivities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -90,18 +92,40 @@ public class ActivityCreation extends AppCompatActivity {
         //视图相关
         ButterKnife.bind(this);
 
-        lvPrizes.setAdapter(new PrizesAdaptor(model.getPrizes()));
+        lvPrizes.setAdapter(new PrizesAdaptor(model.getPrizes(), model, this));
+        lvPrizes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                List<PrizeInfo> prizeInfos = model.getPrizes();
+
+                model.prepareForEdit(prizeInfos.get(position));
+                Intent intent = new Intent(ActivityCreation.this, PrizeActivity.class);
+                ActivityCreation.this.startActivityForResult(intent, 0x01);
+            }
+        });
         etActivityName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(Constants.APPCFG_ACTIVIT_NAME_CHAR_COUNT)});
 
         setupGameCheckBox();
         setupPeriod();
         setupRules();
+        setupAddCell();
 
         //回调相关
         configHandlers();
 
         //kick off api request
         BoleApi.getGameList(getGameListHandler);
+    }
+
+    public void setupAddCell(){
+        if (model.hasPrizesNotSetYet())
+        {
+            ivAdd.setImageResource(R.mipmap.icon_add);
+            tvAdd.setTextColor(getBaseContext().getResources().getColor(R.color.major_orange));
+        } else {
+            ivAdd.setImageResource(R.mipmap.icon_add_disabled);
+            tvAdd.setTextColor(getBaseContext().getResources().getColor(R.color.graylightslate));
+        }
     }
 
     void setupGameCheckBox(){
@@ -137,7 +161,7 @@ public class ActivityCreation extends AppCompatActivity {
         });
     }
 
-    void setupPeriod(){
+    public void setupPeriod(){
         Date now = new Date();
 
         setStartTime(now);
@@ -153,7 +177,6 @@ public class ActivityCreation extends AppCompatActivity {
                 gameList.addAll(retGameInfoList((JSONArray) retData));
 
                 rvGames.getAdapter().notifyDataSetChanged();
-
             }
 
             @Override
@@ -176,7 +199,7 @@ public class ActivityCreation extends AppCompatActivity {
             case R.id.ll_add_prize:
                 model.prepareForEdit(null);
                 Intent intent = new Intent(this, PrizeActivity.class);
-                this.startActivity(intent);
+                this.startActivityForResult(intent, 0x01);
                 break;
             case R.id.btn_preview:
                 preview();
@@ -185,6 +208,15 @@ public class ActivityCreation extends AppCompatActivity {
                 submit();
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0x01 && resultCode == Activity.RESULT_OK) {
+            ((PrizesAdaptor)lvPrizes.getAdapter()).notifyDataSetChanged();
+            setupAddCell();
+        }
+
     }
 
     private void pickStartTime(){

@@ -52,14 +52,14 @@ public class PrizeLevelUtil {
 
     }
 
-    static public boolean prizeCountNeededByLevel(String level){
+    static public boolean prizeCountNeededWithLevel(String level){
 
         int levelIndex = prizeLevelToPrizeIndex(level);
 
-        return prizeCountNeededByLevelIndex(levelIndex);
+        return prizeCountNeededWithLevelIndex(levelIndex);
     }
 
-    static public boolean prizeCountNeededByLevelIndex(int levelIndex){
+    static public boolean prizeCountNeededWithLevelIndex(int levelIndex){
 
         ArrayList nameList = getPrizeNameList();
         if (levelIndex == nameList.size()-1)

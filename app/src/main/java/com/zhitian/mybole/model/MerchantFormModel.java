@@ -118,7 +118,7 @@ public class MerchantFormModel {
         mBaseActivity.showWaitDialog();
 
         if (uploadingImage != null)
-            BoleApi.updateImage(uploadingImage.getUri(), uploadImageHandler);
+            BoleApi.updateImage(Uri.parse(uploadingImage.getUri()), uploadImageHandler);
         else
             BoleApi.submitMerchantInfo(mMerchant, submitMerchantFormHandler);
     }
@@ -171,7 +171,7 @@ public class MerchantFormModel {
     public void setAvatar(Uri uri){
         mMerchant.setAvatar(new ImageSetInfo());
 
-        mMerchant.getAvatar().setUri(uri);
+        mMerchant.getAvatar().setUri(uri.toString());
 
         isModified = true;
     }
@@ -203,7 +203,7 @@ public class MerchantFormModel {
 
     public void setWechatQr (Uri uri){
         mMerchant.setWechatQrcode(new ImageSetInfo());
-        mMerchant.getWechatQrcode().setUri(uri);
+        mMerchant.getWechatQrcode().setUri(uri.toString());
 
         isModified = true;
     }
