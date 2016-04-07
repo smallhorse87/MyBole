@@ -1,5 +1,7 @@
 package com.zhitian.mybole.utils;
 
+import android.support.v4.app.NotificationCompatSideChannelService;
+
 import com.zhitian.mybole.R;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class PrizeLevelUtil {
     static public String prizeLevelIndexToPrizelevel(int levelIndex){
         ArrayList nameList = getPrizeNameList();
 
-        if(levelIndex < 0 || levelIndex >= nameList.size()-1)
+        if(levelIndex < 0 || levelIndex >= nameList.size())
         {
             return "";
         } else {
@@ -25,7 +27,6 @@ public class PrizeLevelUtil {
 
         if(level == null || level.length() == 0)
         {
-
             return -1;
         } else {
 
@@ -51,7 +52,14 @@ public class PrizeLevelUtil {
 
     }
 
-    static public boolean prizeCountNeeded(int levelIndex){
+    static public boolean prizeCountNeededByLevel(String level){
+
+        int levelIndex = prizeLevelToPrizeIndex(level);
+
+        return prizeCountNeededByLevelIndex(levelIndex);
+    }
+
+    static public boolean prizeCountNeededByLevelIndex(int levelIndex){
 
         ArrayList nameList = getPrizeNameList();
         if (levelIndex == nameList.size()-1)

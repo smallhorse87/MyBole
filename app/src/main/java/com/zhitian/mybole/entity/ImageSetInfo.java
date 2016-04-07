@@ -1,11 +1,13 @@
 package com.zhitian.mybole.entity;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by chenxiaosong on 16/3/5.
  */
-public class ImageSetInfo {
+public class ImageSetInfo implements Parcelable {
     private String imgId;
 
     //存放选择的本地图片
@@ -113,7 +115,7 @@ public class ImageSetInfo {
             return false;
     }
 
-    public Uri getRealUri(){
+    public Uri getRealThumbnailUri(){
         if ( getUri() != null)
             return getUri();
         else if (getThumbnailImg().getUrl() != null)
@@ -122,4 +124,51 @@ public class ImageSetInfo {
             return null;
     }
 
+    public Uri getRealLargeUri(){
+        if ( getUri() != null)
+            return getUri();
+        else if (getThumbnailImg().getUrl() != null)
+            return Uri.parse(getThumbnailImg().getUrl());
+        else
+            return null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.imgId);
+        dest.writeParcelable(this.uri, flags);
+        dest.writeParcelable(this.thumbnailImg, flags);
+        dest.writeParcelable(this.middleImg, flags);
+        dest.writeParcelable(this.largeImg, flags);
+        dest.writeParcelable(this.originalImg, flags);
+    }
+
+    public ImageSetInfo() {
+    }
+
+    protected ImageSetInfo(Parcel in) {
+        this.imgId = in.readString();
+        this.uri = in.readParcelable(Uri.class.getClassLoader());
+        this.thumbnailImg = in.readParcelable(ImageInfo.class.getClassLoader());
+        this.middleImg = in.readParcelable(ImageInfo.class.getClassLoader());
+        this.largeImg = in.readParcelable(ImageInfo.class.getClassLoader());
+        this.originalImg = in.readParcelable(ImageInfo.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<ImageSetInfo> CREATOR = new Parcelable.Creator<ImageSetInfo>() {
+        @Override
+        public ImageSetInfo createFromParcel(Parcel source) {
+            return new ImageSetInfo(source);
+        }
+
+        @Override
+        public ImageSetInfo[] newArray(int size) {
+            return new ImageSetInfo[size];
+        }
+    };
 }

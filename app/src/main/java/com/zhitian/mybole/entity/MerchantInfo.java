@@ -144,10 +144,10 @@ public class MerchantInfo {
     }
 
     public Uri getReaLogoUri(){
-        return getAvatar().getRealUri();
+        return getAvatar().getRealThumbnailUri();
     }
 
     public Uri getRealWechatQrcodeUri(){
-        return getWechatQrcode().getRealUri();
+        return getWechatQrcode().getRealThumbnailUri();
     }
 }

@@ -10,6 +10,9 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.zhitian.mybole.api.ApiHttpClient;
 import com.zhitian.mybole.base.BaseApplication;
 import com.zhitian.mybole.entity.ConfigInfo;
@@ -45,6 +48,13 @@ public class AppContext extends BaseApplication {
         ApiHttpClient.setHttpClient(client);
 
         Fresco.initialize(getApplicationContext());
+
+        ImageLoaderConfiguration.Builder configBuilder = new ImageLoaderConfiguration.Builder(this)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory();
+        configBuilder.tasksProcessingOrder(QueueProcessingType.LIFO);
+        ImageLoaderConfiguration config = configBuilder.build();
+        ImageLoader.getInstance().init(config);
     }
 
     public static AppContext instance() {

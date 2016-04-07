@@ -115,7 +115,7 @@ public class ActivityFormModel {
         prizeForEdit.setEndTime(prizeExpiredTime);
     }
 
-    public List<ImageSetInfo> getPrizeImages(){
+    public ArrayList<ImageSetInfo> getPrizeImages(){
         if(prizeForEdit.getImgs() == null)
             prizeForEdit.setImgs(new ArrayList<ImageSetInfo>());
 

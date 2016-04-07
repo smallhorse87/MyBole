@@ -38,4 +38,5 @@ dependencies {
     compile 'com.bigkoo:pickerview:2.0.8'
     compile files('libs/android-core-3.1.1-SNAPSHOT.jar')
     compile files('libs/core-3.1.1-SNAPSHOT.jar')
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 }

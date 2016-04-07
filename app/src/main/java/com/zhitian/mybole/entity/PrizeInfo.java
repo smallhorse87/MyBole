@@ -3,6 +3,7 @@ package com.zhitian.mybole.entity;
 import com.google.gson.Gson;
 import com.zhitian.mybole.activity.myactivities.PrizeActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
      * originalImg : {"width":"800","height":"800","url":"http://m.bodimall.com/Uploads/Picture/2016-02-16/56c2bbd3d9669.png"}
      */
 
-    private List<ImageSetInfo> imgs;
+    private ArrayList<ImageSetInfo> imgs;
 
     public void setPrizeLevel(String prizeLevel) {
         this.prizeLevel = prizeLevel;
@@ -39,7 +40,7 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
         this.endTime = endTime;
     }
 
-    public void setImgs(List<ImageSetInfo> imgs) {
+    public void setImgs(ArrayList<ImageSetInfo> imgs) {
         this.imgs = imgs;
     }
 
@@ -59,7 +60,7 @@ public class PrizeInfo implements Cloneable, Comparable<PrizeInfo>{
         return endTime;
     }
 
-    public List<ImageSetInfo> getImgs() {
+    public ArrayList<ImageSetInfo> getImgs() {
         return imgs;
     }
 

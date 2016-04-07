@@ -43,7 +43,7 @@ public class ImageSelectionHolder extends RecyclerView.ViewHolder implements Vie
         this.info = info;
 
         if(ivImage != null)
-            ivImage.setImageURI(info.getRealUri());
+            ivImage.setImageURI(info.getRealThumbnailUri());
     }
 
     public void onClick(View view) {

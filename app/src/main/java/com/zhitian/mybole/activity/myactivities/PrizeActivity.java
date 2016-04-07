@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,13 +39,16 @@ import com.zhitian.mybole.entity.PrizeInfo;
 import com.zhitian.mybole.model.ActivityFormModel;
 import com.zhitian.mybole.ui.scanner.common.*;
 import com.zhitian.mybole.utils.PrizeLevelUtil;
+import com.zhitian.mybole.utils.StringUtils;
 import com.zhitian.mybole.utils.TimeUtil;
 
 import java.io.File;
 import java.lang.Runnable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.brucetoo.activityanimation.widget.ViewPagerFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -75,9 +79,6 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private static final int REQUEST_TAKE_PHOTO     = 0x02;
-    private static final String SAMPLE_CROPPED_IMAGE_NAME = "SampleCropImage.jpeg";
-
-    private Uri mDestinationUri;
 
     private View.OnFocusChangeListener locateToLastPostion;
 
@@ -104,23 +105,26 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
 
         //检查合法性
         String errPrompt = model.checkSanityOfPrize();
-        if(model.checkSanityOfPrize() != null)
+        if(errPrompt != null){
             AppContext.showToast(errPrompt);
-
-        //保存并退出
-        model.savePrizeUnderEditting();
+        }
+        else{
+            //保存并退出
+            model.savePrizeUnderEditting();
+            this.finish();
+        }
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         //初始化值
-        mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
         model = ActivityFormModel.getModelForEdit();
 
         tvPrizeLevel.setText(model.getPrizeLevel());
         etPrizeName.setText(model.getPrizeName());
         etCount.setText(model.getPrizeCount());
         tvPrizeExpriedTime.setText(model.getPrizeExpiredTime());
+        enablePrizeCount(PrizeLevelUtil.prizeCountNeededByLevel(model.getPrizeLevel()));
 
         locateToLastPostion = new View.OnFocusChangeListener() {
             @Override
@@ -182,17 +186,14 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
         TimeUtil.createDatePicker(this, TimeUtil.TimestampStrToDate(model.getEndTime()), new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date) {
-                setEndTime(date);
+                long timestamp = date.getTime();
+                model.setPrizeExpiredTime(Long.valueOf(timestamp).toString());
+
+                tvPrizeExpriedTime.setText(TimeUtil.dateToYYYYMMDDHHMM(date));
             }
         });
     }
 
-    private void setEndTime(Date date){
-        long timestamp = date.getTime();
-        model.setEndTime(Long.valueOf(timestamp).toString());
-
-        tvPrizeExpriedTime.setText(TimeUtil.dateToYYYYMMDDHHMM(date));
-    }
 
     void pickForPrizeLevel(){
         cancelFocus();
@@ -215,7 +216,7 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
                 tvPrizeLevel.setText(PrizeLevelUtil.getPrizeLevelNameByIndex(options1));
                 model.setPrizeLevel(PrizeLevelUtil.prizeLevelIndexToPrizelevel(options1));
 
-                enablePrizeCount(PrizeLevelUtil.prizeCountNeeded(options1));
+                enablePrizeCount(PrizeLevelUtil.prizeCountNeededByLevelIndex(options1));
             }
         });
         pvOptions.show();
@@ -244,6 +245,7 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
     }
 
     private void startCropActivity(@NonNull Uri uri) {
+        Uri mDestinationUri = Uri.fromFile(new File(getCacheDir(), StringUtils.randomFileName()));
         UCrop uCrop = UCrop.of(uri, mDestinationUri);
 
         uCrop.withAspectRatio(1, 1);
@@ -305,7 +307,14 @@ public class PrizeActivity extends BaseActivity implements ImageSelectionHolder.
 
     @Override
     public void navImage(ImageSetInfo info){
+        ArrayList<ImageSetInfo> imageSetInfos = model.getPrizeImages();
+        int position = imageSetInfos.indexOf(info);
 
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("imageSetInfos", imageSetInfos);
+        bundle.putInt("position", position);
+        getSupportFragmentManager().beginTransaction().replace(Window.ID_ANDROID_CONTENT, ViewPagerFragment.getInstance(bundle), "ViewPagerFragment")
+                .addToBackStack(null).commit();
     }
 
     private void enablePrizeCount(boolean enabled){
